@@ -1,6 +1,6 @@
 /*
   **********************************************************************************************************
-  * RTSAssist version 0.2.04exp
+  * RTSAssist version 0.2.10exp
   * Copyright (C) 2025-2026, Raatle
 
   * This program is free software: you can redistribute it and/or modify
@@ -337,6 +337,17 @@ public class RTS_LunaIntegration {
                 ((Float)this.confPointer.get("UICommandVolume")).intValue(),
                 0,
                 10,
+                this.UITabName
+        );
+        /* Minimap refresh interval */
+        LunaSettings.SettingsCreator.addInt(
+                this.modID,
+                "RTSA_SettingsUI_miniMapRefreshMs",
+                "小地图刷新间隔",
+                "调整小地图画面数据的刷新间隔（毫秒）。数值越低地图越流畅、开销越大；200（0.2 秒）是一个流畅与性能的平衡点。",
+                ((Float)this.confPointer.get("miniMapRefreshMs")).intValue(),
+                16,
+                2000,
                 this.UITabName
         );
         /* Show minimap */

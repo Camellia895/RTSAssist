@@ -1,6 +1,6 @@
 /*
   **********************************************************************************************************
-  * RTSAssist version 0.2.04exp
+  * RTSAssist version 0.2.10exp
   * Copyright (C) 2025-2026, Raatle
 
   * This program is free software: you can redistribute it and/or modify
@@ -22,8 +22,6 @@ package data.scripts.plugins.Render.Components.RTS_miniMap;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
-import com.fs.starfarer.api.graphics.SpriteAPI;
-import data.scripts.plugins.Render.Components.RTS_miniMap.RTS_fighterSquares.RTS_FighterSquares;
 import data.scripts.plugins.Render.RTS_drawManager.*;
 import data.scripts.plugins.Render.RTS_drawManager.RTS_animator.RTS_AnimationController;
 import data.scripts.plugins.Render.RTS_drawManager.RTS_animator.RTS_Animator;
@@ -34,7 +32,6 @@ import data.scripts.plugins.Render.RTS_drawManager.RTS_FBO.RTS_PaintJob;
 import data.scripts.plugins.Render.JXDOM.Props.*;
 import data.scripts.plugins.Render.RTS_RenderManager;
 import data.scripts.plugins.Render.RTS_Root;
-import org.lazywizard.lazylib.MathUtils;
 import org.lwjgl.util.vector.Vector2f;
 
 import java.awt.*;
@@ -56,62 +53,45 @@ public class RTS_MiniMapRenderer {
     }
 
     public static final class palette {
-        public static Color enemyOutline = new Color(161, 0, 0, 150);
-        public static Color friendlyOutline = new Color(47, 255, 0, 150);
-        public static Color allyOutline = new Color(186, 155, 31, 255);
-        public static Color fadedCircleCon = new Color(0, 0, 0, 255);
-        public static Color fadedCircleFren = new Color(58, 108, 25, 255);
-        public static Color fadedCircleAlli = new Color(186, 155, 31, 255);
-        public static Color fadedCircleEne = new Color(131, 21, 21, 255);
-        public static Color circleLineFren = new Color(25, 250, 0, 255);
-        public static Color circleLineAlli = new Color(243, 235, 0, 255);
-        public static Color circleLineEnemy = new Color(213, 6, 6, 255);
-        public static Color friendlyFighterQuad = new Color(194, 239, 158, 255);
-        public static Color aliiedFighterQuad = new Color(243, 203, 38, 255);
-        public static Color enemyFighterQuad = new Color(250, 158, 158, 255);
-        public static Color fighterQuadOutline = new Color(0, 0, 0, 255);
+        /* Vanilla command-page colours, from starsector-core/data/config/settings.json:
+         *   iconFriendColor [0,255,0]  iconEnemyColor [255,0,0]  iconNeutralShipColor [75,75,75].
+         * Allies have no vanilla key; the gold matches the vanilla ally look. */
+        public static Color friendly = new Color(0, 255, 0, 235);
+        public static Color enemy = new Color(255, 0, 0, 235);
+        public static Color allied = new Color(226, 196, 70, 235);
+        public static Color neutral = new Color(75, 75, 75, 255);
         public static Color viewPortLine = new Color(255, 255, 255, 255);
-        public static Color objectiveAlly = new Color(108, 108, 154, 255);
-        public static Color objectiveEnemy = new Color(191, 108, 108, 255);
-        public static Color objectiveNeutral = new Color(186, 186, 186, 255);
-        public static Color fogOfWarBaseColor = new Color(0, 0, 0, 255);
         public static Color RCMCore = new Color(113, 234, 14, 255);
         public static Color RCMBorder = new Color(2, 255, 255, 132);
     }
     public static final class layers {
         public static int miniMap = RTS_RenderManager.ziNames.UIBase;
-        public static int iconBackground = miniMap + 1;
-        public static int fighterFar = miniMap + 2;
-        public static int shipIcons = miniMap + 3;
-        public static int fighterClose = miniMap + 4;
-        public static int POIMarkers = miniMap + 5;
-        public static int fogOfWar = miniMap + 6;
         public static int viewPortBox = miniMap + 7;
         public static int rightClick = miniMap + 8;
     }
-    private static final float iconMod = 1f;
     private static final HashMap<String, Float> iconSizes = new HashMap<>() {{
-        put("FRIGATE", 15f * iconMod);
-        put("DESTROYER", 20f * iconMod);
-        put("CRUISER", 30f * iconMod);
-        put("CAPITAL_SHIP", 50f * iconMod);
+        put("FRIGATE", 14f);
+        put("DESTROYER", 19f);
+        put("CRUISER", 27f);
+        put("CAPITAL_SHIP", 42f);
     }};
-    private static final HashMap<String, SpriteAPI> objectiveIcons = new HashMap<>() {{
-        put("comm_relay", Global.getSettings().getSprite("RTS_ui", "comm_relay"));
-        put("nav_buoy", Global.getSettings().getSprite("ui", "icon_tactical_coordinated_maneuvers"));
-        put("sensor_array", Global.getSettings().getSprite("ui", "icon_tactical_electronic_warfare"));
-        put("nullObjective", Global.getSettings().getSprite("RTS_ui", "objIconNull"));
-    }};
-    private static final SpriteAPI nullObjective = Global.getSettings().getSprite("RTS_ui", "objIconNull");
-    private static final float fighterBlockSizediv2 = 4f;
-    private static final float fighterOpacity = 0.6f;
+    private static final float fighterIconSize = 7f;
+    /* Velocity lines: pixels of length per (su/s), relative to the minimap width. Fighters fly
+     * much faster, so their scale is cut down to keep the map readable. */
+    private static final float shipSpeedLineScale = 0.10f / 250f;
+    private static final float fighterSpeedLineScale = shipSpeedLineScale * 0.45f;
+    private static final float speedLineMaxLenMod = 0.16f;
+    private static final float shipLineThickness = 2f;
+    private static final float fighterLineThickness = 1.2f;
     private static final float rightClickMarkerDuration = 0.4f;
     public static RTS_FBO miniMapFBO;
 
     private RTS_DrawManager drawManager;
-    private RTS_FighterSquares fighterManager = null;
-    public RTS_Root.camera camera;
     public RTS_Animator animator;
+    /* Map geometry refresh interval in ms. Heavy layers render into an FBO at this cadence;
+     * between refreshes only the finished texture is blitted (one quad per frame). */
+    public float refreshMs = 200f;
+    private long lastRefresh = 0;
 
     private boolean init;
     private Vector2f pos = new Vector2f();
@@ -131,13 +111,10 @@ public class RTS_MiniMapRenderer {
         RTS_AnimationController aniCont = new RTS_AnimationController(rightClickMarkerDuration);
     }
     private HashMap<Integer, markerStore> aniStore;
-    private HashMap<Integer, RTS_BoundTexture> marginedShipSprites;
 
-    private List<ShipAPI> allShips;
     private List<ShipAPI> friendlyShips;
     private List<ShipAPI> alliedShips;
     private List<ShipAPI> enemyShips;
-    private List<ShipAPI> hulks;
     private List<ShipAPI> friendlyFighters;
     private List<ShipAPI> enemyFighters;
     private List<ShipAPI> alliedFighters;
@@ -151,18 +128,10 @@ public class RTS_MiniMapRenderer {
     ) {
         if (disabled || !this.init)
             return;
-        this.marginedShipSprites = marginedShipSprites;
-        this.buildShipLists(listOfShips);
-        this.updateAnimationControllers();
         this.camera = camera;
-        this.drawManager.registerDrawCall(this.backGroundCall);
-        this.drawManager.registerDrawCall(this.outlinedShipIconsCall);
-        this.drawManager.registerDrawCall(this.ShipIconBackground);
-        this.drawManager.registerDrawCall(this.fighterSquaresFar);
-        this.drawManager.registerDrawCall(this.fighterSquaresClose);
+        this.buildShipLists(listOfShips);
+        this.drawManager.registerDrawCall(this.mapLayerCall);
         this.drawManager.registerDrawCall(this.viewPortBox);
-        this.drawManager.registerDrawCall(this.fogOfwar);
-        this.drawManager.registerDrawCall(this.POImarkers);
         this.drawManager.registerDrawCall(this.rightClickMarker);
     }
 
@@ -174,152 +143,31 @@ public class RTS_MiniMapRenderer {
         this.posRef.set(this.pos.getX(), this.pos.getY() - this.dim.getY());
         if (!this.init)
             this.init();
-        this.backGroundCall.modify();
         this.rightClickMarker.modify();
-        this.fogOfwar.modify();
     }
 
     private void init () {
         RTS_MiniMapRenderer.miniMapFBO = RTS_FBOManager.buildFBO(this.dim);
-        this.fighterManager = new RTS_FighterSquares();
         this.init = true;
     }
 
     //------------------------------------------------------------------------------------------------------------------
 
-    private RTS_DrawCall backGroundCall = new RTS_DrawCall() {
-        final SpriteAPI mapBackground = Global.getSettings().getSprite("RTS_miniMap", "background");
-        RTS_DrawQuad.quadCall quadBuilder = new RTS_DrawQuad.quadCall();
-        boolean init = false;
-
+    /* The whole map (triangles, velocity lines, objectives) renders into an FBO every refreshMs;
+     * every frame only the finished texture is painted, so the per-frame cost is a single quad. */
+    private RTS_DrawCall mapLayerCall = new RTS_DrawCall() {
         @Override
         public Integer zIndex() {
             return (layers.miniMap);
         }
 
         @Override
-        public void modify () {
-            float spriteW = this.mapBackground.getWidth();
-            float spriteH = this.mapBackground.getHeight();
-            float sizeMod = dim.getX() / spriteW;
-            Vector2f posHold = new Vector2f(
-                    pos.getX() + (spriteW * sizeMod / 2f),
-                    pos.getY() - (spriteH * sizeMod / 2f)
-            );
-            this.quadBuilder
-                    .sprite(this.mapBackground)
-                    .size(sizeMod)
-                    .pos(posHold)
-                    .facing(-90f)
-                    .alpha(opacity);
-        }
-
-        @Override
         public void call() {
-            if (!this.init) {
-                this.init = true;
-                this.modify();
+            long now = System.nanoTime();
+            if (lastRefresh == 0 || (now - lastRefresh) / 1000000L >= refreshMs) {
+                lastRefresh = now;
+                rebuildMapFBO();
             }
-            quadBuilder.render(true, false);
-        }
-    };
-
-    private RTS_DrawCall outlinedShipIconsCall = new RTS_DrawCall() {
-        RTS_DrawQuad.quadCall quadBuilder = new RTS_DrawQuad.quadCall();
-        RTS_GenericDrawMeth.addOutLineToQuad outlineShader = new RTS_GenericDrawMeth.addOutLineToQuad();
-        float outLineThickness = 30f / 1000f;
-
-        @Override
-        public Integer zIndex() {
-            return (layers.shipIcons);
-        }
-
-        @Override
-        public void call() {
-//            int originalMinFilter = GL11.glGetTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER);
-//            int originalMagFilter = GL11.glGetTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER);
-//            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
-//            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
-            RTS_FBOManager.bindFBO(RTS_MiniMapRenderer.miniMapFBO, posRef);
-
-            Integer sprPoi;
-            Float thickPoi;
-            for (ShipAPI ship : friendlyShips) {
-                sprPoi = ship.getSpriteAPI().getTextureId();
-                thickPoi = 1f + MathUtils.clamp(
-                        (1f - ((Math.max(ship.getSpriteAPI().getWidth(), ship.getSpriteAPI().getHeight()) / 100f) / 5f))
-                        ,0f,
-                        1f
-                );
-                thickPoi = outLineThickness * thickPoi;
-                if (marginedShipSprites.containsKey(sprPoi)) {
-                    quadBuilder
-                            .sprite(marginedShipSprites.get(sprPoi).newSprite())
-                            .size(getShipIconSizeMod(ship))
-                            .facing(ship.getFacing() - 90f)
-                            .filter(outlineShader)
-                                .thickness(thickPoi)
-                                .color(palette.friendlyOutline)
-                            .set()
-                            .pos(getShipLocation(ship))
-                            .push();
-                }
-            }
-            if (!friendlyShips.isEmpty())
-                quadBuilder.render();
-
-            for (ShipAPI ship : alliedShips) {
-                sprPoi = ship.getSpriteAPI().getTextureId();
-                thickPoi = 1f + MathUtils.clamp(
-                        (1f - ((Math.max(ship.getSpriteAPI().getWidth(), ship.getSpriteAPI().getHeight()) / 50f) / 10f))
-                        ,0f,
-                        1f
-                );
-                thickPoi = outLineThickness * thickPoi;
-                if (marginedShipSprites.containsKey(sprPoi)) {
-                    quadBuilder
-                            .sprite(marginedShipSprites.get(sprPoi).newSprite())
-                            .size(getShipIconSizeMod(ship))
-                            .facing(ship.getFacing() - 90f)
-                            .filter(outlineShader)
-                                .thickness(thickPoi)
-                                .color(palette.allyOutline)
-                            .set()
-                            .pos(getShipLocation(ship))
-                            .push();
-                }
-            }
-            if (!alliedShips.isEmpty())
-                quadBuilder.render();
-
-            for (ShipAPI ship : enemyShips) {
-                sprPoi = ship.getSpriteAPI().getTextureId();
-                thickPoi = 1f + MathUtils.clamp(
-                        (1f - ((Math.max(ship.getSpriteAPI().getWidth(), ship.getSpriteAPI().getHeight()) / 50f) / 10f)),
-                        0f,
-                        1f
-                );
-                thickPoi = outLineThickness * thickPoi;
-                if (marginedShipSprites.containsKey(sprPoi)) {
-                    quadBuilder
-                            .sprite(marginedShipSprites.get(sprPoi).newSprite())
-                            .size(getShipIconSizeMod(ship))
-                            .facing(ship.getFacing() - 90f)
-                            .filter(outlineShader)
-                                .thickness(thickPoi)
-                                .color(palette.enemyOutline)
-                            .set()
-                            .pos(getShipLocation(ship))
-                            .push();
-                }
-            }
-            if (!enemyShips.isEmpty())
-                quadBuilder.render();
-
-            RTS_FBOManager.unbindFBO();
-//            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, originalMinFilter);
-//            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, originalMagFilter);
-
             RTS_FBOManager.paintFBO(new RTS_PaintJob(
                     RTS_MiniMapRenderer.miniMapFBO,
                     posRef,
@@ -328,180 +176,138 @@ public class RTS_MiniMapRenderer {
         }
     };
 
-    private RTS_DrawCall ShipIconBackground = new RTS_DrawCall() {
-        RTS_DrawQuad.quadCall quadBuilder = new RTS_DrawQuad.quadCall();
-        RTS_GenericDrawMeth.quadToCircleLineShader circleLineShader = new RTS_GenericDrawMeth.quadToCircleLineShader();
-        RTS_GenericDrawMeth.circularizeAndFadeQuad fadedCircleShader = new RTS_GenericDrawMeth.circularizeAndFadeQuad();
-        Vector2f posHold = new Vector2f();
-        float sizeHold;
-        float thickness = 5f;
-        float fadeThickness = 5f;
-        float fadeStrength = 0.6f;
-        float innerStrength = 0.4f;
+    private void rebuildMapFBO () {
+        RTS_FBOManager.bindFBO(RTS_MiniMapRenderer.miniMapFBO, posRef);
 
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
 
-        @Override
-        public Integer zIndex() {
-            return (layers.iconBackground);
+        drawShipGroup(friendlyShips, palette.friendly, false);
+        drawShipGroup(enemyShips, palette.enemy, false);
+        drawShipGroup(alliedShips, palette.allied, false);
+        drawShipGroup(friendlyFighters, palette.friendly, true);
+        drawShipGroup(enemyFighters, palette.enemy, true);
+        drawShipGroup(alliedFighters, palette.allied, true);
+
+        drawObjectives();
+
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        RTS_FBOManager.unbindFBO();
+    }
+
+    private void drawShipGroup (List<ShipAPI> ships, Color color, boolean fighters) {
+        if (ships == null || ships.isEmpty())
+            return;
+        Color c = new Color(
+                color.getRed(),
+                color.getGreen(),
+                color.getBlue(),
+                ((Float)(color.getAlpha() * opacity)).intValue()
+        );
+        float thickness = fighters ? fighterLineThickness : shipLineThickness;
+        float lineScale = fighters ? fighterSpeedLineScale : shipSpeedLineScale;
+        for (ShipAPI ship : ships) {
+            float iconSize = fighters ? fighterIconSize : getShipIconSize(ship);
+            Vector2f loc = getShipLocation(ship);
+            drawTriangle(loc, ship.getFacing(), iconSize, thickness, c);
+            drawVelocityLine(ship, loc, lineScale, thickness, c);
         }
+    }
 
-        @Override
-        public void call() {
-            RTS_FBOManager.bindFBO(RTS_MiniMapRenderer.miniMapFBO, posRef);
+    /* Hollow, direction-pointing triangle built from three line segments. */
+    private void drawTriangle (Vector2f centre, float facingDeg, float size, float thickness, Color color) {
+        double rad = Math.toRadians(facingDeg);
+        double nose = size * 0.62;
+        double tail = size * 0.38;
+        double halfW = size * 0.48;
+        float nx = centre.getX() + ((float)(Math.cos(rad) * nose));
+        float ny = centre.getY() + ((float)(Math.sin(rad) * nose));
+        float tx = centre.getX() - ((float)(Math.cos(rad) * tail));
+        float ty = centre.getY() - ((float)(Math.sin(rad) * tail));
+        float px = -((float)Math.sin(rad));
+        float py = ((float)Math.cos(rad));
+        drawSegment(
+                new Vector2f(nx, ny),
+                new Vector2f(tx + px * (float)halfW, ty + py * (float)halfW),
+                thickness, color
+        );
+        drawSegment(
+                new Vector2f(tx + px * (float)halfW, ty + py * (float)halfW),
+                new Vector2f(tx - px * (float)halfW, ty - py * (float)halfW),
+                thickness, color
+        );
+        drawSegment(
+                new Vector2f(tx - px * (float)halfW, ty - py * (float)halfW),
+                new Vector2f(nx, ny),
+                thickness, color
+        );
+    }
 
-            float radialmod = iconMod * 0.5f;
+    private void drawVelocityLine (ShipAPI ship, Vector2f mapLoc, float scale, float thickness, Color color) {
+        Vector2f vel = ship.getVelocity();
+        float speed = (float)Math.sqrt(vel.getX() * vel.getX() + vel.getY() * vel.getY());
+        if (speed < 1f)
+            return;
+        float len = Math.min(speed * scale * dim.getX(), dim.getX() * speedLineMaxLenMod);
+        if (len < 1.5f)
+            return;
+        drawSegment(
+                mapLoc,
+                new Vector2f(
+                        mapLoc.getX() + (vel.getX() / speed) * len,
+                        mapLoc.getY() + (vel.getY() / speed) * len
+                ),
+                thickness, color
+        );
+    }
 
-            for (ShipAPI ship : enemyShips) {
-                posHold = getShipLocation(ship);
-                sizeHold = (iconSizes.get(ship.getHullSize().name()) * radialmod) - 3f;
-                quadBuilder
-                        .color(palette.circleLineEnemy)
-                        .pos(posHold)
-                        .size(sizeHold * 6f)
-                        .filter(circleLineShader)
-                            .thickness(thickness)
-                            .fadeThickness(fadeThickness)
-                        .set()
-                        .push();
-            }
-            if (!enemyShips.isEmpty())
-                quadBuilder.render();
-
-            for (ShipAPI ship : alliedShips) {
-                posHold = getShipLocation(ship);
-                sizeHold = (iconSizes.get(ship.getHullSize().name()) * radialmod) - 3f;
-                quadBuilder
-                        .color(palette.circleLineAlli)
-                        .pos(posHold)
-                        .size(sizeHold * 6f)
-                        .filter(circleLineShader)
-                            .thickness(thickness)
-                            .fadeThickness(fadeThickness)
-                        .set()
-                        .push();
-            }
-            if (!alliedShips.isEmpty())
-                quadBuilder.render();
-
-            for (ShipAPI ship : friendlyShips) {
-                posHold = getShipLocation(ship);
-                sizeHold = (iconSizes.get(ship.getHullSize().name()) * radialmod) - 3f;
-                quadBuilder
-                        .color(palette.circleLineFren)
-                        .pos(posHold)
-                        .size(sizeHold * 6f)
-                        .filter(circleLineShader)
-                            .thickness(thickness)
-                            .fadeThickness(fadeThickness)
-                        .set()
-                        .push();
-            }
-            if (!friendlyShips.isEmpty())
-                quadBuilder.render();
-
-            for (ShipAPI ship : enemyShips) {
-                posHold = getShipLocation(ship);
-                sizeHold = iconSizes.get(ship.getHullSize().name()) * radialmod;
-                quadBuilder
-                        .pos(posHold)
-                        .size(sizeHold * 6f)
-                        .filter(fadedCircleShader)
-                            .color(palette.fadedCircleCon)
-                            .color1(palette.fadedCircleEne)
-                            .fadeStrength(fadeStrength)
-                            .innerStrength(innerStrength)
-                        .set()
-                        .push();
-            }
-            if (!enemyShips.isEmpty())
-                quadBuilder.render();
-
-            for (ShipAPI ship : alliedShips) {
-                posHold = getShipLocation(ship);
-                sizeHold = iconSizes.get(ship.getHullSize().name()) * radialmod;
-                quadBuilder
-                        .pos(posHold)
-                        .size(sizeHold * 6f)
-                        .filter(fadedCircleShader)
-                            .color(palette.fadedCircleCon)
-                            .color1(palette.fadedCircleAlli)
-                            .fadeStrength(fadeStrength)
-                            .innerStrength(innerStrength)
-                        .set()
-                        .push();
-            }
-            if (!alliedShips.isEmpty())
-                quadBuilder.render();
-
-            for (ShipAPI ship : friendlyShips) {
-                posHold = getShipLocation(ship);
-                sizeHold = iconSizes.get(ship.getHullSize().name()) * radialmod;
-                quadBuilder
-                        .pos(posHold)
-                        .size(sizeHold * 6f)
-                        .filter(fadedCircleShader)
-                            .color(palette.fadedCircleCon)
-                            .color1(palette.fadedCircleFren)
-                            .fadeStrength(fadeStrength)
-                            .innerStrength(innerStrength)
-                        .set()
-                        .push();
-            }
-            if (!friendlyShips.isEmpty())
-                quadBuilder.render();
-
-            RTS_FBOManager.unbindFBO();
-            RTS_FBOManager.paintFBO(new RTS_PaintJob(
-                    RTS_MiniMapRenderer.miniMapFBO,
-                    posRef,
-                    0
-            ));
-        }
-    };
-
-    private RTS_DrawCall fighterSquaresFar = new RTS_DrawCall() {
-        @Override
-        public Integer zIndex() {
-            return (layers.fighterFar);
-        }
-
-        @Override
-        public void call() {
-            fighterManager.set(
-                    pos,
-                    dim,
-                    opacity,
-                    fighterOpacity,
-                    fighterBlockSizediv2,
-                    friendlyFighters,
-                    enemyFighters,
-                    alliedFighters
+    /* Objectives as small hollow diamonds, tinted by owner like the vanilla command page. */
+    private void drawObjectives () {
+        float size = 9f;
+        float thickness = 1.4f;
+        for (BattleObjectiveAPI obj : Global.getCombatEngine().getObjectives()) {
+            Color color = obj.getOwner() == 100
+                    ? palette.neutral
+                    : obj.getOwner() == 1
+                    ? palette.enemy
+                    : palette.friendly;
+            color = new Color(
+                    color.getRed(),
+                    color.getGreen(),
+                    color.getBlue(),
+                    ((Float)(color.getAlpha() * opacity)).intValue()
             );
-            fighterManager.drawFighterSquaresFar();
+            Vector2f loc = getVectorLoc(obj.getLocation());
+            drawSegment(new Vector2f(loc.getX(), loc.getY() + size), new Vector2f(loc.getX() + size, loc.getY()), thickness, color);
+            drawSegment(new Vector2f(loc.getX() + size, loc.getY()), new Vector2f(loc.getX(), loc.getY() - size), thickness, color);
+            drawSegment(new Vector2f(loc.getX(), loc.getY() - size), new Vector2f(loc.getX() - size, loc.getY()), thickness, color);
+            drawSegment(new Vector2f(loc.getX() - size, loc.getY()), new Vector2f(loc.getX(), loc.getY() + size), thickness, color);
         }
-    };
+    }
 
-    private RTS_DrawCall fighterSquaresClose = new RTS_DrawCall() {
-        @Override
-        public Integer zIndex() {
-            return (layers.fighterClose);
-        }
-
-        @Override
-        public void call() {
-            fighterManager.set(
-                    pos,
-                    dim,
-                    opacity,
-                    fighterOpacity,
-                    fighterBlockSizediv2,
-                    friendlyFighters,
-                    enemyFighters,
-                    alliedFighters
-            );
-            fighterManager.drawFighterSquaresClose();
-        }
-    };
+    /* Thin quad between two points; quad-based so the width is not capped by glLineWidth. */
+    private void drawSegment (Vector2f from, Vector2f to, float thickness, Color color) {
+        float dx = to.getX() - from.getX();
+        float dy = to.getY() - from.getY();
+        float len = (float)Math.sqrt(dx * dx + dy * dy);
+        if (len < 0.01f)
+            return;
+        float nx = (-dy / len) * (thickness / 2f);
+        float ny = (dx / len) * (thickness / 2f);
+        GL11.glBegin(GL11.GL_QUADS);
+        GL11.glColor4ub(
+                (byte)color.getRed(),
+                (byte)color.getGreen(),
+                (byte)color.getBlue(),
+                (byte)color.getAlpha()
+        );
+        GL11.glVertex2f(from.getX() + nx, from.getY() + ny);
+        GL11.glVertex2f(to.getX() + nx, to.getY() + ny);
+        GL11.glVertex2f(to.getX() - nx, to.getY() - ny);
+        GL11.glVertex2f(from.getX() - nx, from.getY() - ny);
+        GL11.glEnd();
+    }
 
     private RTS_DrawCall viewPortBox = new RTS_DrawCall() {
 
@@ -512,11 +318,11 @@ public class RTS_MiniMapRenderer {
 
         @Override
         public void call() {
-            if (!camera.init)
+            if (!RTS_MiniMapRenderer.this.camera.init)
                 return;
             RTS_GenericDrawMeth.viewPortBoxOutline_LEGACY(
                     new RTS_GenericDrawMeth.quadRec(
-                            this.getCameraLocation(camera.pos, camera.visableDim),
+                            this.getCameraLocation(RTS_MiniMapRenderer.this.camera.pos, RTS_MiniMapRenderer.this.camera.visableDim),
                             this.getViewPortSize(),
                             palette.viewPortLine
                     ),
@@ -566,104 +372,6 @@ public class RTS_MiniMapRenderer {
         }
     };
 
-    private RTS_DrawCall fogOfwar = new RTS_DrawCall() {
-        RTS_DrawQuad.quadCall quadBuilder = new RTS_DrawQuad.quadCall();
-        RTS_GenericDrawMeth.quadToCircleArrayUnion unionShader = new RTS_GenericDrawMeth.quadToCircleArrayUnion();
-
-        @Override
-        public void modify () {
-            float radRat = dim.getX() / Global.getCombatEngine().getMapWidth();
-            radRat = radRat * radRat;
-            unionShader
-                    .blend(45000f * radRat)
-                    .aliasing(10000f * radRat)
-                    .size(miniMapFBO.dimensions())
-                    .color(palette.fogOfWarBaseColor);
-        }
-
-        @Override
-        public Integer zIndex() {
-            return (layers.fogOfWar);
-        }
-
-        @Override
-        public void call() {
-            List<ShipAPI> shipWithVision = new ArrayList<>();
-            shipWithVision.addAll(friendlyShips);
-            shipWithVision.addAll(alliedShips);
-            float rMod = dim.getX() / Global.getCombatEngine().getMapWidth();
-            unionShader.clearCircles();
-            Vector2f locPointer;
-            float radius;
-            for (ShipAPI ship : shipWithVision) {
-                locPointer = getShipLocation(ship);
-                radius = ship.getMutableStats().getSightRadiusMod().computeEffective(3000f) * rMod;
-                unionShader.addCircle(locPointer.getX(), locPointer.getY(), radius);
-            }
-
-            RTS_FBOManager.bindFBO(miniMapFBO, posRef);
-            quadBuilder
-                    .size(miniMapFBO.dimensions())
-                    .pos(posRef.getX() + (dim.getX() / 2f), posRef.getY() + (dim.getY() / 2f))
-                    .color(palette.fogOfWarBaseColor)
-                    .filter(unionShader)
-                        .pos(posRef)
-                    .set()
-                    .render();
-
-            GL11.glColorMask(true, true, true, false);
-            for (BattleObjectiveAPI obj: Global.getCombatEngine().getObjectives()) {
-                quadBuilder
-                        .sprite(objectiveIcons.getOrDefault(obj.getType(), nullObjective))
-                        .pos(getVectorLoc(obj.getLocation()))
-                        .size(0.6f)
-                        .color(obj.getOwner() == 100
-                                ? palette.objectiveNeutral
-                                : obj.getOwner() == 1
-                                ? palette.objectiveEnemy
-                                : palette.objectiveAlly)
-                        .push();
-            }
-            quadBuilder.render();
-            GL11.glColorMask(true, true, true, true);
-
-            RTS_FBOManager.unbindFBO();
-            RTS_FBOManager.paintFBO(new RTS_PaintJob(
-                    RTS_MiniMapRenderer.miniMapFBO,
-                    posRef,
-                    0
-            ));
-        }
-    };
-
-    private RTS_DrawCall POImarkers = new RTS_DrawCall() {
-        RTS_DrawQuad.quadCall quadBuilder = new RTS_DrawQuad.quadCall();
-
-        @Override
-        public Integer zIndex() {
-            return (layers.POIMarkers);
-        }
-
-        @Override
-        public void call() {
-            for (BattleObjectiveAPI obj: Global.getCombatEngine().getObjectives()) {
-//                System.out.println(((BattleObjective)obj).getIconName());
-                quadBuilder
-                        .sprite(objectiveIcons.getOrDefault(obj.getType(), nullObjective))
-                        .pos(getVectorLoc(obj.getLocation()))
-                        .size(0.6f)
-                        .alpha(0.5f)
-                        .color(obj.getOwner() == 100
-                                ? palette.objectiveNeutral
-                                : obj.getOwner() == 1
-                                ? palette.objectiveEnemy
-                                : palette.objectiveAlly)
-                        .push();
-            }
-            quadBuilder.render();
-        }
-    };
-
     private RTS_DrawCall rightClickMarker = new RTS_DrawCall() {
         RTS_DrawQuad.quadCall quadBuilder = new RTS_DrawQuad.quadCall();
         RTS_GenericDrawMeth.quadToCircleLineShader circleShader = new RTS_GenericDrawMeth.quadToCircleLineShader();
@@ -691,9 +399,9 @@ public class RTS_MiniMapRenderer {
                 alpha = delta / 20f;
             else if (delta > 80f)
                 alpha = (100f - delta) / 20f;
-            alpha = MathUtils.clamp(alpha, 0f, 1f);
+            alpha = clamp(alpha, 0f, 1f);
             alpha = alpha - (0.7f * (delta / 100f));
-            alpha = MathUtils.clamp(alpha, 0f, 1f);
+            alpha = clamp(alpha, 0f, 1f);
             Color main = new Color(
                     coreColor.getRed(),
                     coreColor.getGreen(),
@@ -720,6 +428,10 @@ public class RTS_MiniMapRenderer {
         }
     };
 
+    private static float clamp (float value, float min, float max) {
+        return (value < min ? min : value > max ? max : value);
+    }
+
     //------------------------------------------------------------------------------------------------------------------
 
     public void updateAnimationControllers () {
@@ -738,6 +450,7 @@ public class RTS_MiniMapRenderer {
         }
     }
 
+    public RTS_Root.camera camera;
     private Vector2f getShipLocation(ShipAPI ship) {
         Vector2f location = new Vector2f();
         float battleW = Global.getCombatEngine().getMapWidth();
@@ -772,24 +485,14 @@ public class RTS_MiniMapRenderer {
         return (location);
     }
 
-    private Float getShipIconSizeMod (ShipAPI ship) {
-        float spriteW = ship.getSpriteAPI().getWidth();
-        float spriteH = ship.getSpriteAPI().getHeight();
-        float shipSize = this.iconSizes.get(ship.getHullSize().name());
-        // prevents squarish ships from appearing too large
-        float dimRat = Math.max(spriteW, spriteH) / Math.min(spriteW, spriteH);
-        float dimRatMod = dimRat >= 1.2f ? 1f : 1f / (2.2f - dimRat);
-        // ------------------------------------------------
-        float largestFace = Math.max(spriteW, spriteH);
-        return ((shipSize / (largestFace)) * dimRatMod * this.iconMod);
+    private Float getShipIconSize (ShipAPI ship) {
+        return (this.iconSizes.get(ship.getHullSize().name()));
     }
 
     private void buildShipLists (RTS_Root.shipList listOfShips) {
-        this.allShips = listOfShips.allShips;
         this.friendlyShips = listOfShips.friendlyShips;
         this.alliedShips = listOfShips.alliedShips;
         this.enemyShips = listOfShips.enemyShips;
-        this.hulks = listOfShips.hulks;
         this.friendlyFighters = listOfShips.friendlyFighters;
         this.enemyFighters = listOfShips.enemyFighters;
         this.alliedFighters = listOfShips.alliedFighters;
