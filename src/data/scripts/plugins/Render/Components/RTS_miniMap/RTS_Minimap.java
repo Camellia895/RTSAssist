@@ -1,6 +1,6 @@
 /*
   **********************************************************************************************************
-  * RTSAssist version 0.2.10exp
+  * RTSAssist version 0.2.12exp
   * Copyright (C) 2025-2026, Raatle
 
   * This program is free software: you can redistribute it and/or modify
@@ -204,6 +204,8 @@ public interface RTS_Minimap extends RTS_BaseInterface {
         public void everyFrame(HashMap<String, Object> props, Map<String, Object> rawProps) {
             if (rawProps != null && rawProps.get(RTS_Root.roNames.miniMapRefresh) instanceof Float)
                 CAU_muStatState_CAU.renderer.refreshMs = (Float)rawProps.get(RTS_Root.roNames.miniMapRefresh);
+            if (rawProps != null && rawProps.get(RTS_Root.roNames.miniMapSweep) instanceof Float)
+                CAU_muStatState_CAU.renderer.sweepMs = (Float)rawProps.get(RTS_Root.roNames.miniMapSweep);
             CAU_muStatState_CAU.renderer.render(
                     (RTS_Root.camera)rawProps.get(RTS_Root.roNames.camera),
                     (RTS_Root.shipList)rawProps.get(RTS_Root.roNames.shipList),

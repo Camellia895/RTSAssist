@@ -1,6 +1,6 @@
 /*
   **********************************************************************************************************
-  * RTSAssist version 0.2.10exp
+  * RTSAssist version 0.2.12exp
   * Copyright (C) 2025-2026, Raatle
 
   * This program is free software: you can redistribute it and/or modify
@@ -344,10 +344,21 @@ public class RTS_LunaIntegration {
                 this.modID,
                 "RTSA_SettingsUI_miniMapRefreshMs",
                 "小地图刷新间隔",
-                "调整小地图画面数据的刷新间隔（毫秒）。数值越低地图越流畅、开销越大；200（0.2 秒）是一个流畅与性能的平衡点。",
+                "调整小地图画面数据的刷新周期（毫秒），也是一个完整扫描循环的时长。数值越低地图数据越新鲜。",
                 ((Float)this.confPointer.get("miniMapRefreshMs")).intValue(),
                 16,
                 2000,
+                this.UITabName
+        );
+        /* Minimap sweep duration */
+        LunaSettings.SettingsCreator.addInt(
+                this.modID,
+                "RTSA_SettingsUI_miniMapSweepMs",
+                "扫描时长",
+                "调整小地图每个扫描相位（舰船/战机）扫完全部单位所用的时间（毫秒）。每个周期内：扫描舰船，保持，扫描战机，保持。",
+                ((Float)this.confPointer.get("miniMapSweepMs")).intValue(),
+                16,
+                1000,
                 this.UITabName
         );
         /* Show minimap */

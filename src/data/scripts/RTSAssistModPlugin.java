@@ -1,6 +1,6 @@
 /*
   **********************************************************************************************************
-  * RTSAssist version 0.2.10exp
+  * RTSAssist version 0.2.12exp
   * Copyright (C) 2025-2026, Raatle
 
   * This program is free software: you can redistribute it and/or modify
@@ -80,12 +80,19 @@ public class RTSAssistModPlugin extends BaseModPlugin {
             }
             put("showMiniMap", showMiniMap);
             /* Falls back to 200 ms for config files predating this option. */
-            float miniMapRefreshMs = 200f;
+            float miniMapRefreshMs = 1000f;
             try {
                 miniMapRefreshMs = (float)configFile.getDouble("miniMapRefreshMs");
             } catch (JSONException ignored) {
             }
             put("miniMapRefreshMs", miniMapRefreshMs);
+            /* Falls back to 300 ms for config files predating this option. */
+            float miniMapSweepMs = 300f;
+            try {
+                miniMapSweepMs = (float)configFile.getDouble("miniMapSweepMs");
+            } catch (JSONException ignored) {
+            }
+            put("miniMapSweepMs", miniMapSweepMs);
             if (configFile.getString("modID").isEmpty())
                 put("modID", "");
             else

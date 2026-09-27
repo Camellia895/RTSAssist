@@ -1,6 +1,6 @@
 /*
   **********************************************************************************************************
-  * RTSAssist version 0.2.11exp
+  * RTSAssist version 0.2.12exp
   * Copyright (C) 2025-2026, Raatle
 
   * This program is free software: you can redistribute it and/or modify
@@ -63,6 +63,7 @@ public class RTS_Root extends RTS_StatefulClasses implements RTS_Div, RTS_Minima
         public static String shipList = RTS_StatefulClasses.getUniqueIdentifier();
         public static String marginalisedShipSprites = RTS_StatefulClasses.getUniqueIdentifier();
         public static String miniMapRefresh = RTS_StatefulClasses.getUniqueIdentifier();
+        public static String miniMapSweep = RTS_StatefulClasses.getUniqueIdentifier();
     }
 
     public RTS_Root (Object state) {
@@ -227,6 +228,7 @@ public class RTS_Root extends RTS_StatefulClasses implements RTS_Div, RTS_Minima
                                                 roNames.shipList, listOfShips,
                                                 roNames.marginalisedShipSprites, this.marginedShipTextures,
                                                 roNames.miniMapRefresh, this.getMiniMapRefreshMs(),
+                                                roNames.miniMapSweep, this.getMiniMapSweepMs(),
                                                 "inert", !miniMapOn
                                         ),
                                         this
@@ -252,7 +254,14 @@ public class RTS_Root extends RTS_StatefulClasses implements RTS_Div, RTS_Minima
         Object value = this.getDeepState(Arrays.asList(RTSAssist.stNames.config, RTSAssist.coNames.miniMapRefreshMs));
         if (value instanceof Float && (Float)value >= 16f)
             return ((Float)value);
-        return (200f);
+        return (1000f);
+    }
+
+    private Float getMiniMapSweepMs () {
+        Object value = this.getDeepState(Arrays.asList(RTSAssist.stNames.config, RTSAssist.coNames.miniMapSweepMs));
+        if (value instanceof Float && (Float)value >= 16f)
+            return ((Float)value);
+        return (300f);
     }
 
     private void loadMiniMapPosition () {

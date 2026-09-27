@@ -1,6 +1,6 @@
 /*
   **********************************************************************************************************
-  * RTSAssist version 0.2.11exp
+  * RTSAssist version 0.2.12exp
   * Copyright (C) 2025-2026, Raatle
 
   * This program is free software: you can redistribute it and/or modify
@@ -82,22 +82,21 @@ public class RTS_MiniMapRenderer {
     private static final float fighterLineThickness = 1.2f;
     private static final float rightClickMarkerDuration = 0.4f;
 
-    /* Radar sweep presentation. Each refresh cycle is split in two phases: ships are re-swept
-     * during the first half, fighters during the second. Units are swept one by one in a fresh
-     * random order every cycle; a sweep hit flashes (brighten + ring), then the unit decays
-     * towards a dim floor until its next sweep. */
+    /* Radar sweep presentation, CRT style: each cycle splits into two phases - ships are
+     * swept during the first phase (sweepMs), fighters during the second, each phase followed
+     * by a hold. Units are hit one by one in a fresh random order every cycle; a sweep hit
+     * excites the blip to full brightness, which then decays slowly like CRT phosphor and
+     * never fades out completely before the next sweep re-excites it. */
     private static final float sweepPhaseSplit = 0.5f;      // ships [0,split), fighters [split,1)
-    private static final float sweepFloor = 0.25f;          // dimmest state between sweeps
-    private static final float sweepTauFactor = 0.55f;      // decay constant, x cycle duration
-    private static final float sweepFlashDurFactor = 0.8f;  // flash duration, x phase duration
-    private static final float sweepFlashWhiteness = 0.75f; // how far the flash pushes towards white
-    private static final float sweepRingGrow = 1.9f;        // ring end radius, x unit icon size
-    private static final float sweepRingAlpha = 0.55f;
+    private static final float sweepFloor = 0.30f;          // dimmest state between sweeps
+    private static final float sweepTauFactor = 1.0f;       // phosphor decay, x cycle duration
 
     private RTS_DrawManager drawManager;
     public RTS_Animator animator;
     /* Data refresh cadence in ms; one sweep cycle equals one refresh. Set from RTS_Root. */
-    public float refreshMs = 200f;
+    public float refreshMs = 1000f;
+    /* Duration of each phase's sweep pass; clamped to half the cycle. Set from RTS_Root. */
+    public float sweepMs = 300f;
     private long cycleStart = 0;
     private boolean cycleValid = false;
     private boolean firstCycle = true;
@@ -249,12 +248,12 @@ public class RTS_MiniMapRenderer {
     private void drawSweepGroup (ArrayList<Blip> blips, long now, long cycleMs, float phaseStart) {
         if (blips.isEmpty())
             return;
-        long phaseMs = (long)(cycleMs * sweepPhaseSplit);
-        long flashDur = (long)(phaseMs * sweepFlashDurFactor);
+        long phaseStartMs = (long)(phaseStart * cycleMs);
+        long sweep = Math.min((long)this.sweepMs, cycleMs / 2);
         float tau = cycleMs * sweepTauFactor;
         for (Blip blip : blips) {
-            long sweptAt = cycleStart
-                    + (long)((phaseStart + blip.sweepOffset * sweepPhaseSplit) * cycleMs);
+            long sweptAt = cycleStart + phaseStartMs
+                    + (long)(blip.sweepOffset * sweep);
             long sinceSweep = now - sweptAt;
             boolean notYetSwept = sinceSweep < 0;
             /* Not hit yet this cycle: still showing last cycle's pass, further decayed. */
@@ -263,29 +262,20 @@ public class RTS_MiniMapRenderer {
             /* First cycle: units that have not been swept yet have never existed. */
             if (this.firstCycle && notYetSwept)
                 continue;
+            /* CRT phosphor: excited to full brightness by the sweep, then decays slowly
+             * towards the floor and is always still visible when re-excited. */
             float bright = sweepFloor
                     + (1f - sweepFloor) * (float)Math.exp(-sinceSweep / tau);
-            float glowK = notYetSwept ? 0f : 1f - (float)sinceSweep / (float)flashDur;
-            if (glowK < 0f)
-                glowK = 0f;
-
-            Color c = sweepColor(blip.color, bright, glowK);
-            float thickness = blip.thickness * (1f + 0.8f * glowK);
-            drawTriangle(blip.loc, blip.facing, blip.size, thickness, c);
+            Color c = sweepColor(blip.color, bright);
+            drawTriangle(blip.loc, blip.facing, blip.size, blip.thickness, c);
             drawVelocityLine(blip, c);
-            if (glowK > 0f)
-                drawFlashRing(blip, glowK, c);
         }
     }
 
-    /* Blend the base colour towards white and scale alpha by the sweep brightness. */
-    private Color sweepColor (Color base, float bright, float glowK) {
-        float whiten = sweepFlashWhiteness * glowK;
-        int r = base.getRed() + ((int)((255 - base.getRed()) * whiten));
-        int g = base.getGreen() + ((int)((255 - base.getGreen()) * whiten));
-        int b = base.getBlue() + ((int)((255 - base.getBlue()) * whiten));
+    /* Scale the alpha by the phosphor brightness. */
+    private Color sweepColor (Color base, float bright) {
         int a = (int)(base.getAlpha() * this.opacity * bright);
-        return (new Color(r, g, b, Math.min(a, 255)));
+        return (new Color(base.getRed(), base.getGreen(), base.getBlue(), Math.min(a, 255)));
     }
 
     private void drawTriangle (Vector2f centre, float facingDeg, float size, float thickness, Color color) {
@@ -332,29 +322,6 @@ public class RTS_MiniMapRenderer {
                 ),
                 blip.thickness, color
         );
-    }
-
-    private final RTS_DrawQuad.quadCall ringQuad = new RTS_DrawQuad.quadCall();
-    private final RTS_GenericDrawMeth.quadToCircleLineShader ringShader = new RTS_GenericDrawMeth.quadToCircleLineShader();
-
-    /* Expanding fading ring on the unit that has just been swept. */
-    private void drawFlashRing (Blip blip, float glowK, Color color) {
-        float k = 1f - glowK; // 0 at flash start -> 1 at end
-        float ringSize = blip.size * (0.8f + sweepRingGrow * k);
-        int alpha = (int)(255 * sweepRingAlpha * glowK * this.opacity);
-        Color ring = new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha);
-        Color ringFade = new Color(ring.getRed(), ring.getGreen(), ring.getBlue(), alpha / 3);
-        ringQuad
-                .pos(blip.loc)
-                .size(ringSize)
-                .color(ring)
-                .filter(ringShader)
-                    .thickness(Math.max(1.5f, ringSize * 0.18f))
-                    .fadeThickness(3f)
-                    .colorFade(ringFade)
-                    .fitVsEncircle(true)
-                .set()
-                .render();
     }
 
     /* Objectives as small hollow diamonds, tinted by owner like the vanilla command page.
