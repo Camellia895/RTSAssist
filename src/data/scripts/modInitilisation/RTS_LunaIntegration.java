@@ -1,3 +1,23 @@
+/*
+  **********************************************************************************************************
+  * RTSAssist version 0.2.04exp
+  * Copyright (C) 2025-2026, Raatle
+
+  * This program is free software: you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation, either version 3 of the License, or
+  * (at your option) any later version.
+
+  * This program is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  * GNU General Public License for more details.
+
+  * You should have received a copy of the GNU General Public License
+  * along with this program.  If not, see https://www.gnu.org/licenses/gpl-3.0.en.html.
+  **********************************************************************************************************
+ */
+
 package data.scripts.modInitilisation;
 
 import com.fs.starfarer.api.Global;
@@ -15,10 +35,10 @@ import static data.scripts.RTSAssistModPlugin.RTS_Global;
 public class RTS_LunaIntegration {
 
     String modID = "RTSAssist";
-    String hotKeyTabName = "HotKeys";
-    String configTabName = "Settings";
-    String UITabName = "UI Settings";
-    String DevToolsTabName = "Dev Tools";
+    String hotKeyTabName = "热键";
+    String configTabName = "设置";
+    String UITabName = "渲染设置";
+    String DevToolsTabName = "开发者工具";
     HashMap<String, String> hotPointer = (HashMap<String, String>)RTSAssistModPlugin.RTS_Global.get("hotKeys");
     HashMap<String, Object> confPointer = (HashMap<String, Object>)RTSAssistModPlugin.RTS_Global.get("config");
 
@@ -35,8 +55,8 @@ public class RTS_LunaIntegration {
         LunaSettings.SettingsCreator.addKeybind(
                 this.modID,
                 "RTSA_SettingsKeybind_enable_RTSMode",
-                "Toggle RTS mode",
-                "Switch between vanilla and RTS control schemes.",
+                "切换 RTS 模式",
+                "在原版操作方式与 RTS 控制模式之间切换。",
                 hotPointer.get("enable_RTSMode") == null
                         ? 58
                         : Keyboard.getKeyIndex(this.hotPointer.get("enable_RTSMode")),
@@ -46,8 +66,8 @@ public class RTS_LunaIntegration {
         LunaSettings.SettingsCreator.addKeybind(
                 this.modID,
                 "RTSA_SettingsKeybind_saveLayout",
-                "Save Formations",
-                "Save all assignments, control groups and vanilla escort assignments to memory.",
+                "保存阵型",
+                "将所有命令、控制组以及原版护航指派保存至内存。",
                 Keyboard.getKeyIndex(this.hotPointer.get("saveLayout")),
                 this.hotKeyTabName
         );
@@ -55,8 +75,8 @@ public class RTS_LunaIntegration {
         LunaSettings.SettingsCreator.addKeybind(
                 this.modID,
                 "RTSA_SettingsKeybind_loadLayout",
-                "Load Formations",
-                "Load all assignments, control groups and vanilla escort assignments from memory, positioned at the cursor location.",
+                "加载阵型",
+                "从内存中读取所有命令、控制组及原版护航指派，并在光标所在位置部署。",
                 Keyboard.getKeyIndex(this.hotPointer.get("loadLayout")),
                 this.hotKeyTabName
         );
@@ -64,8 +84,8 @@ public class RTS_LunaIntegration {
         LunaSettings.SettingsCreator.addKeybind(
                 this.modID,
                 "RTSA_SettingsKeybind_deleteAssignments",
-                "Remove Assignment",
-                "Selected ships return to vanilla AI control.",
+                "移除命令",
+                "所选舰船将重新交由原版 AI 接管。",
                 Keyboard.getKeyIndex(this.hotPointer.get("deleteAssignments")),
                 this.hotKeyTabName
         );
@@ -73,8 +93,8 @@ public class RTS_LunaIntegration {
         LunaSettings.SettingsCreator.addKeybind(
                 this.modID,
                 "RTSA_SettingsKeybind_vent",
-                "Vent Ships",
-                "Selected ships will attempt to vent flux.",
+                "舰船排幅",
+                "所选舰船将尝试进行主动排幅。",
                 Keyboard.getKeyIndex(this.hotPointer.get("vent")),
                 this.hotKeyTabName
         );
@@ -82,8 +102,8 @@ public class RTS_LunaIntegration {
         LunaSettings.SettingsCreator.addKeybind(
                 this.modID,
                 "RTSA_SettingsKeybind_useSystem",
-                "Use Systems",
-                "Selected ships will attempt to use their systems",
+                "启动战术系统",
+                "所选舰船将尝试使用其战术系统。",
                 Keyboard.getKeyIndex(this.hotPointer.get("useSystem")),
                 this.hotKeyTabName
         );
@@ -91,8 +111,8 @@ public class RTS_LunaIntegration {
         LunaSettings.SettingsCreator.addKeybind(
                 this.modID,
                 "RTSA_SettingsKeybind_moveTogether",
-                "Move Together",
-                "Selected ships with assigments will maintain formation.",
+                "协同移动",
+                "带有命令的所选舰船将保持阵型协同移动。",
                 Keyboard.getKeyIndex(this.hotPointer.get("moveTogether")),
                 this.hotKeyTabName
         );
@@ -100,8 +120,8 @@ public class RTS_LunaIntegration {
         LunaSettings.SettingsCreator.addKeybind(
                 this.modID,
                 "RTSA_SettingsKeybind_attackMove",
-                "Attack Move",
-                "Selected ships attack move to the designated position. Will convert any move assignments before creating a new assignment.",
+                "攻击移动",
+                "所选舰船向指定位置执行攻击移动。若已有移动命令，将在创建新命令前将其转换为攻击移动。",
                 Keyboard.getKeyIndex(this.hotPointer.get("attackMove")),
                 this.hotKeyTabName
         );
@@ -109,8 +129,8 @@ public class RTS_LunaIntegration {
         LunaSettings.SettingsCreator.addKeybind(
                 this.modID,
                 "RTSA_SettingsKeybind_strafeLeft",
-                "Strafe Camera Left",
-                "Strafe the Camera left using the keyboard",
+                "镜头向左平移",
+                "使用键盘向左平移镜头。",
                 Keyboard.getKeyIndex(this.hotPointer.get("strafeCameraLeft")),
                 this.hotKeyTabName
         );
@@ -118,8 +138,8 @@ public class RTS_LunaIntegration {
         LunaSettings.SettingsCreator.addKeybind(
                 this.modID,
                 "RTSA_SettingsKeybind_strafeRight",
-                "Strafe Camera Right",
-                "Strafe the Camera right using the keyboard",
+                "镜头向右平移",
+                "使用键盘向右平移镜头。",
                 Keyboard.getKeyIndex(this.hotPointer.get("strafeCameraRight")),
                 this.hotKeyTabName
         );
@@ -127,8 +147,8 @@ public class RTS_LunaIntegration {
         LunaSettings.SettingsCreator.addKeybind(
                 this.modID,
                 "RTSA_SettingsKeybind_strafeUp",
-                "Strafe Camera Up",
-                "Strafe the Camera up using the keyboard",
+                "镜头向上平移",
+                "使用键盘向上平移镜头。",
                 Keyboard.getKeyIndex(this.hotPointer.get("strafeCameraUp")),
                 this.hotKeyTabName
         );
@@ -136,8 +156,8 @@ public class RTS_LunaIntegration {
         LunaSettings.SettingsCreator.addKeybind(
                 this.modID,
                 "RTSA_SettingsKeybind_strafeDown",
-                "Strafe Camera Down",
-                "Strafe the Camera down using the keyboard",
+                "镜头向下平移",
+                "使用键盘向下平移镜头。",
                 Keyboard.getKeyIndex(this.hotPointer.get("strafeCameraDown")),
                 this.hotKeyTabName
         );
@@ -145,8 +165,8 @@ public class RTS_LunaIntegration {
         LunaSettings.SettingsCreator.addKeybind(
                 this.modID,
                 "RTSA_SettingsKeybind_broadsideSelection",
-                "Adjust broadside modifier",
-                "Adjust broadside modifiers for a selected ship. Persistant between battles and saves",
+                "调整舷侧射击修正",
+                "调整所选舰船的舷侧射击修正。该设置在战斗与存档之间永久保留。",
                 Keyboard.getKeyIndex(this.hotPointer.get("broadsideSelection")),
                 this.hotKeyTabName
         );
@@ -157,8 +177,8 @@ public class RTS_LunaIntegration {
         LunaSettings.SettingsCreator.addBoolean(
                 this.modID,
                 "RTSA_SettingsConfig_defaultModeIsRTS",
-                "Default Mode",
-                "True / False : RTS mode is enabled/disabled at the beginning of combat. This does not disable the mod, but selects the default mode at the beginning of combat.",
+                "默认模式",
+                "开启/关闭：战斗开始时是否默认启用 RTS 模式。此选项不会禁用模组，仅决定入战时的初始模式。",
                 (boolean)this.confPointer.get("defaultModeIsRTS"),
                 this.configTabName
         );
@@ -166,8 +186,8 @@ public class RTS_LunaIntegration {
         LunaSettings.SettingsCreator.addBoolean(
                 this.modID,
                 "RTSA_SettingsConfig_pauseUnpause",
-                "Pause on RTSMode",
-                "Pause when changing to RTS mode, unpause on changing to vanilla.",
+                "切换至 RTS 模式时暂停",
+                "切换至 RTS 模式时自动暂停游戏，切回原版模式时解除暂停。",
                 (boolean)this.confPointer.get("pauseUnpause"),
                 this.configTabName
         );
@@ -175,8 +195,8 @@ public class RTS_LunaIntegration {
         LunaSettings.SettingsCreator.addBoolean(
                 this.modID,
                 "RTSA_SettingsConfig_switchRightClick",
-                "Switch Right Mouse Button",
-                "Switch single and double right click functionality. Temporarily disabled.",
+                "翻转鼠标右键功能",
+                "互换鼠标右键单击与双击的功能。当前暂时停用。",
                 (boolean)this.confPointer.get("switchRightClick"),
                 this.configTabName
         );
@@ -184,8 +204,8 @@ public class RTS_LunaIntegration {
         LunaSettings.SettingsCreator.addInt(
                 this.modID,
                 "RTSA_SettingsConfig_scrollSpeed",
-                "Mouse Scroll Speed",
-                "Change the speed at which the screen pans, when using the Mouse.",
+                "鼠标滚屏速度",
+                "调整使用鼠标移动视野时镜头的平移速度。",
                 ((Float)this.confPointer.get("scrollSpeed")).intValue(),
                 5,
                 100,
@@ -195,8 +215,8 @@ public class RTS_LunaIntegration {
         LunaSettings.SettingsCreator.addInt(
                 this.modID,
                 "RTSA_SettingsConfig_scrollSmoothing",
-                "Mouse Scroll Smoothing",
-                "Change the acceleration at which the screen pans, when using the Mouse.",
+                "鼠标滚屏平滑度",
+                "调整使用鼠标移动视野时镜头平移的平滑度与加速度。",
                 ((Float)this.confPointer.get("scrollSmoothing")).intValue(),
                 2,
                 50,
@@ -206,8 +226,8 @@ public class RTS_LunaIntegration {
         LunaSettings.SettingsCreator.addInt(
                 this.modID,
                 "RTSA_SettingsConfig_scrollSpeedKeyboard",
-                "Keyboard Scroll Speed",
-                "Change the speed at which the screen pans, when using the Keyboard.",
+                "键盘滚屏速度",
+                "调整使用键盘平移镜头时的移动速度。",
                 ((Float)this.confPointer.get("scrollSpeedKeyboard")).intValue(),
                 5,
                 100,
@@ -217,19 +237,41 @@ public class RTS_LunaIntegration {
         LunaSettings.SettingsCreator.addInt(
                 this.modID,
                 "RTSA_SettingsConfig_scrollSmoothingKeyboard",
-                "Keyboard Scroll Smoothing",
-                "Change the acceleration at which the screen pans, when using the Keyboard.",
+                "键盘滚屏平滑度",
+                "调整使用键盘平移镜头时的平滑度与加速度。",
                 ((Float)this.confPointer.get("scrollSmoothingKeyboard")).intValue(),
                 2,
                 50,
+                this.configTabName
+        );
+        /* Zoom Sensitivity */
+        LunaSettings.SettingsCreator.addDouble(
+                this.modID,
+                "RTSA_SettingsConfig_zoomSensi",
+                "缩放灵敏度",
+                "滚轮缩放的灵敏度。",
+                (float)this.confPointer.get("zoomSensi"),
+                0.1d,
+                10d,
+                this.configTabName
+        );
+        /* Minimum Zoom */
+        LunaSettings.SettingsCreator.addDouble(
+                this.modID,
+                "RTSA_SettingsConfig_minZoom",
+                "最小缩放级别",
+                "视角可向内拉近的最大视野距离。",
+                (float)this.confPointer.get("minZoom"),
+                0.1d,
+                10d,
                 this.configTabName
         );
         /* Maximum Zoom */
         LunaSettings.SettingsCreator.addDouble(
                 this.modID,
                 "RTSA_SettingsConfig_maxZoom",
-                "Maximum Zoom",
-                "How far the player can zoom out.",
+                "最大缩放级别",
+                "视角可向外拉远的最大视野距离。",
                 (float)this.confPointer.get("maxZoom"),
                 1d,
                 50d,
@@ -239,8 +281,8 @@ public class RTS_LunaIntegration {
         LunaSettings.SettingsCreator.addInt(
                 this.modID,
                 "RTSA_SettingsConfig_screenScaling",
-                "UI Scaling",
-                "Manually adjust UI scaling. If using in game UI scaling this should not be necessary. If you are using nvidia upscaling for example, you will likely need to adjust this setting. Match the value with your scaling setting.",
+                "渲染缩放",
+                "手动调整渲染缩放比例。若已在游戏本体内启用了画面缩放，则通常无需调整此项。若使用了 NVIDIA 超分辨率等缩放功能，可能需要调整此项以匹配对应的缩放比例数值。",
                 ((Float)this.confPointer.get("screenScaling")).intValue(),
                 1,
                 500,
@@ -250,8 +292,8 @@ public class RTS_LunaIntegration {
         LunaSettings.SettingsCreator.addInt(
                 this.modID,
                 "RTSA_SettingsConfig_selectionTolerance",
-                "Selection Tolerance",
-                "Adjusts the error tolerance for selecting ships. If you are constantly missing clicks on ships, raising this value will help. Settings to 1 removes this feature.",
+                "选框容差",
+                "调整点击选中舰船时的判定容差范围。若经常点空，提高此数值会有所改善；设为 1 则关闭该容差特性。",
                 ((Float)this.confPointer.get("selectionTolerance")).intValue(),
                 1,
                 10,
@@ -261,8 +303,8 @@ public class RTS_LunaIntegration {
         LunaSettings.SettingsCreator.addBoolean(
                 this.modID,
                 "RTSA_SettingsConfig_rememberZoom",
-                "Remember Zoom when switching between Modes",
-                "The zoom for either RTSmode or Vanilla is stored and reset upon switching to that mode.",
+                "切换模式时保留缩放级别",
+                "分别记录 RTS 模式与原版模式下的缩放级别，并在切换模式时自动复原。",
                 (boolean)this.confPointer.get("rememberZoom"),
                 this.configTabName
         );
@@ -270,17 +312,17 @@ public class RTS_LunaIntegration {
         LunaSettings.SettingsCreator.addBoolean(
                 this.modID,
                 "RTSA_SettingsConfig_alternativeRotation",
-                "Alternative Rotation",
-                "An alternative method for rotating formations that requires less mouse movement.",
+                "备选旋转控制",
+                "一种对鼠标移动幅度要求更小的阵型旋转操控方式。",
                 (boolean)this.confPointer.get("alternativeRotation"),
                 this.configTabName
         );
-        /* UI Command Volume */
+        /* Render Command Volume */
         LunaSettings.SettingsCreator.addInt(
                 this.modID,
                 "RTSA_SettingsUI_CommandVolume",
-                "UI Command Volume",
-                "Adjust the volume assosciated with the audio feedback for issuing commands.",
+                "指令音量",
+                "调整下达指令时界面音频反馈的音量大小。",
                 ((Float)this.confPointer.get("UICommandVolume")).intValue(),
                 0,
                 10,
@@ -290,8 +332,8 @@ public class RTS_LunaIntegration {
         LunaSettings.SettingsCreator.addBoolean(
                 this.modID,
                 "RTSA_SettingsDevTools_enableShipTestSuite",
-                "Enable RTSAssist ship testing tools",
-                "See the modding README for details. Requires Starsector Devmode to be true.",
+                "启用 RTSAssist 舰船测试工具",
+                "详情请参阅模组开发说明文档（modding README）。需要将《远行星号》的开发者模式（Devmode）设为 true。",
                 (boolean)this.confPointer.get("enableShipTestSuite"),
                 this.DevToolsTabName
         );
@@ -300,7 +342,7 @@ public class RTS_LunaIntegration {
                 this.modID,
                 "RTSA_SettingsDevTools_modID",
                 "modID",
-                "See the modding README for details. Entering strings in Luna is currently very buggy. It may be better to set this in the RTSAssist config.",
+                "详情请参阅模组开发说明文档。目前在 Luna 菜单中输入文本可能存在异常，建议直接在 RTSAssist 配置文件中修改此项。",
                 (String)this.confPointer.get("modID"),
                 this.DevToolsTabName
         );
@@ -308,8 +350,8 @@ public class RTS_LunaIntegration {
         LunaSettings.SettingsCreator.addBoolean(
                 this.modID,
                 "RTSA_SettingsDevTools_findAllShips",
-                "Search for ALL ships",
-                "See the modding README for details.",
+                "搜索所有舰船",
+                "详情请参阅模组开发说明文档。",
                 (boolean)this.confPointer.get("findAllShips"),
                 this.DevToolsTabName
         );

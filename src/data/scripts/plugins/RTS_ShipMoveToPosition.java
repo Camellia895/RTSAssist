@@ -1,23 +1,26 @@
-/****************************************************************************************
- * RTSAssist version 0.1.5
- * Copyright (C) 2025, Raatle
+/*
+  **********************************************************************************************************
+  * RTSAssist version 0.2.04exp
+  * Copyright (C) 2025-2026, Raatle
 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+  * This program is free software: you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation, either version 3 of the License, or
+  * (at your option) any later version.
 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+  * This program is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see https://www.gnu.org/licenses/gpl-3.0.en.html.
- ****************************************************************************************/
+  * You should have received a copy of the GNU General Public License
+  * along with this program.  If not, see https://www.gnu.org/licenses/gpl-3.0.en.html.
+  **********************************************************************************************************
+ */
 
 package data.scripts.plugins;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -66,6 +69,18 @@ public class RTS_ShipMoveToPosition extends RTS_StatefulClasses {
         public String y = RTS_StatefulClasses.getUniqueIdentifier();
     }
     public thrustIdentifiers thNames = new thrustIdentifiers();
+
+    private class valCommandString {
+        String TURN_LEFT = "TURN_LEFT";
+        String TURN_RIGHT = "TURN_RIGHT";
+        String STRAFE_LEFT = "STRAFE_LEFT";
+        String STRAFE_RIGHT = "STRAFE_RIGHT";
+        String ACCELERATE = "ACCELERATE";
+        String ACCELERATE_BACKWARDS = "ACCELERATE_BACKWARDS";
+        String DECELERATE = "DECELERATE";
+        String TOGGLE_SHIELD = "TOGGLE_SHIELD";
+    }
+    private valCommandString vanillaCommandStrings = new valCommandString();
 
     public RTS_ShipMoveToPosition (final ShipAPI shipInstance, Object state) {
         super(state, true);
@@ -198,7 +213,7 @@ public class RTS_ShipMoveToPosition extends RTS_StatefulClasses {
                 injection.run();
                 String hookHold = ((RTS_AIInjector)this.getState(RTSAssist.stNames.AIInjector, true)).registerInjection(
                         (ShipAPI)this.getState(this.stNames.ship),
-                        RTS_AIInjector.eventType.PREADVANCE,
+                        RTS_AIInjector.eventType.POSTADVANCE,
                         injection
                 );
                 this.setState(this.stNames.AIHookHold, hookHold);
@@ -604,6 +619,34 @@ public class RTS_ShipMoveToPosition extends RTS_StatefulClasses {
             thrust.put(this.thNames.y, (Integer)((int)override.getY()));
             thrust.put(this.thNames.x, (Integer)((int)override.getX()));
         }
+
+        if (ship.getVelocity().length() <= ship.getMaxSpeed()) {
+            List<Ship.Oo> vanCommands = new ArrayList<>();
+            Ship.oo vanCommand;
+            for (Ship.Oo command : ((Ship)ship).getCommands()) {
+                vanCommand = command.Ò00000;
+                if (vanCommand.name().equals(vanillaCommandStrings.DECELERATE))
+                    vanCommands.add(command);
+            }
+            ((Ship)ship).getCommands().removeAll(vanCommands);
+            vanCommands.clear();
+        }
+        // This breaks ship systems. Keep it here as a reminder.
+//        List<Ship.Oo> vanCommands = new ArrayList<>();
+//        Ship.oo vanCommand;
+//        for (Ship.Oo command : ((Ship)ship).getCommands()) {
+//            vanCommand = command.Ò00000;
+//            if (
+//                    vanCommand.name().equals(vanillaCommandStrings.ACCELERATE)
+//                    || vanCommand.name().equals(vanillaCommandStrings.DECELERATE)
+//                    || vanCommand.name().equals(vanillaCommandStrings.ACCELERATE_BACKWARDS)
+//                    || vanCommand.name().equals(vanillaCommandStrings.STRAFE_LEFT)
+//                    || vanCommand.name().equals(vanillaCommandStrings.STRAFE_RIGHT)
+//            )
+//                vanCommands.add(command);
+//        }
+//        ((Ship)ship).getCommands().removeAll(vanCommands);
+//        vanCommands.clear();
         if (thrust.get(this.thNames.y) == 1) {
             ship.giveCommand(ShipCommand.ACCELERATE, null, 0);
             ship.blockCommandForOneFrame(ShipCommand.ACCELERATE_BACKWARDS);
@@ -700,6 +743,19 @@ public class RTS_ShipMoveToPosition extends RTS_StatefulClasses {
         }
         else if (!hasEnemy && (MathUtils.getDistanceSquared(ship, coOrd) < Math.pow(200f, 2f) ||
                 ship.areAnyEnemiesInRange())) return;
+        // This breaks ship systems. Keep it here as a reminder.
+//        List<Ship.Oo> vanCommands = new ArrayList<>();
+//        Ship.oo vanCommand;
+//        for (Ship.Oo command : ((Ship)ship).getCommands()) {
+//            vanCommand = command.Ò00000;
+//            if (
+//                    vanCommand.name().equals(vanillaCommandStrings.TURN_LEFT)
+//                    || vanCommand.name().equals(vanillaCommandStrings.TURN_RIGHT)
+//            )
+//                vanCommands.add(command);
+//        }
+//        ((Ship)ship).getCommands().removeAll(vanCommands);
+//        vanCommands.clear();
         switch (rotation) {
             case 0: ship.blockCommandForOneFrame(ShipCommand.TURN_LEFT);
                 ship.blockCommandForOneFrame(ShipCommand.TURN_RIGHT); break;

@@ -1,0 +1,5343 @@
+[
+  {
+    "c": "",
+    "classes": [
+      "API/RTS_API_SystemBehaviour$1.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$manualData.class",
+      "data/scripts/plugins/BlockedSystems/RTS_Template_Bs$1.class",
+      "data/scripts/plugins/BlockedSystems/RTS_Template_Bs$2.class",
+      "data/scripts/plugins/BlockedSystems/RTS_Template_Bs$3.class",
+      "data/scripts/plugins/BlockedSystems/RTS_Template_Bs$4.class",
+      "data/scripts/plugins/BlockedSystems/RTS_Template_Bs$5.class",
+      "data/scripts/plugins/BlockedSystems/RTS_Template_Bs$6.class",
+      "data/scripts/plugins/BroadsideModifiers/RTS_Template_Br.class",
+      "data/scripts/plugins/DevTools/RTS_ShipTestSuite.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$2.class",
+      "data/scripts/plugins/Utils/RTS_Event.class",
+      "data/scripts/RTSAssistModPlugin$1.class"
+    ],
+    "src": "API/RTS_API_SystemBehaviour.java:26",
+    "asId": false,
+    "decision": "skip",
+    "category": "empty",
+    "reason": "空字符串字面量"
+  },
+  {
+    "c": "\u0001\u0001",
+    "classes": [
+      "data/scripts/plugins/Utils/RTS_StatefulClasses.class"
+    ],
+    "src": null,
+    "asId": false,
+    "decision": "skip",
+    "category": "fmt",
+    "reason": "含 \\u0001 占位符的内部拼接/索引键（SoundManager 音效名、反射拼接），非 UI 文本；且数量与位置不可变（铁律 R6）"
+  },
+  {
+    "c": "\u0001_acausal_target",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_MachinaVoid$9.class",
+      "data/scripts/plugins/BlockedSystems/RTS_ScalarTech$4.class"
+    ],
+    "src": null,
+    "asId": false,
+    "decision": "skip",
+    "category": "fmt",
+    "reason": "含 \\u0001 占位符的内部拼接/索引键（SoundManager 音效名、反射拼接），非 UI 文本；且数量与位置不可变（铁律 R6）"
+  },
+  {
+    "c": "\u0001_entropy_target_data",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_SOTF$1.class"
+    ],
+    "src": null,
+    "asId": false,
+    "decision": "skip",
+    "category": "fmt",
+    "reason": "含 \\u0001 占位符的内部拼接/索引键（SoundManager 音效名、反射拼接），非 UI 文本；且数量与位置不可变（铁律 R6）"
+  },
+  {
+    "c": "\u0001_expsp_entropy_target_data",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_MachinaVoid$10.class"
+    ],
+    "src": null,
+    "asId": false,
+    "decision": "skip",
+    "category": "fmt",
+    "reason": "含 \\u0001 占位符的内部拼接/索引键（SoundManager 音效名、反射拼接），非 UI 文本；且数量与位置不可变（铁律 R6）"
+  },
+  {
+    "c": "\u0001_XHAN_TemporalLock_target",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Xhan$5.class"
+    ],
+    "src": null,
+    "asId": false,
+    "decision": "skip",
+    "category": "fmt",
+    "reason": "含 \\u0001 占位符的内部拼接/索引键（SoundManager 音效名、反射拼接），非 UI 文本；且数量与位置不可变（铁律 R6）"
+  },
+  {
+    "c": "*  *  *  *  *\n* RTSAssist Handled Exception.\n* Message: \u0001\n* Line #: \u0001\n* Affected system: \u0001\n*  *  *  *  *",
+    "classes": [
+      "API/RTS_API_SystemBehaviour$1.class"
+    ],
+    "src": null,
+    "asId": false,
+    "decision": "skip",
+    "category": "log",
+    "reason": "第三方系统插件异常转储（stdout，面向 modder）"
+  },
+  {
+    "c": "$RTSA_SAVEID",
+    "classes": [
+      "data/scripts/RTSAssistModPlugin.class"
+    ],
+    "src": "data/scripts/RTSAssistModPlugin.java:105",
+    "asId": false,
+    "decision": "skip",
+    "category": "fmt",
+    "reason": "存档持久化键/公共数据文件名（标识符）"
+  },
+  {
+    "c": "ACCELERATE",
+    "classes": [
+      "data/scripts/plugins/RTS_ShipMoveToPosition$valCommandString.class",
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class"
+    ],
+    "src": "data/scripts/plugins/RTS_ShipMoveToPosition.java:60",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "ACCELERATE_BACKWARDS",
+    "classes": [
+      "data/scripts/plugins/RTS_ShipMoveToPosition$valCommandString.class",
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class"
+    ],
+    "src": "data/scripts/plugins/RTS_ShipMoveToPosition.java:61",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "acs_advburndrive",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Indies_Expansion_Pack$1.class",
+      "data/scripts/plugins/BlockedSystems/RTS_Indies_Expansion_Pack$2.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Indies_Expansion_Pack.java:10",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "acs_phaseteleporter",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Indies_Expansion_Pack$3.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Indies_Expansion_Pack.java:64",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "alternativeRotation",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$3.class",
+      "data/scripts/plugins/RTSAssist$configIdentifiers.class",
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/RTSAssistModPlugin$1.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:275",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "alwaystrue",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Block_alwaystrue_.class",
+      "data/scripts/plugins/BlockedSystems/RTS_VanillaSystems$1.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Block_alwaystrue_.java:11",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "angle",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools.class",
+      "data/scripts/plugins/RTSAssist.class",
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Utils/RTS_BroadsideSelection.class",
+      "data/scripts/plugins/Utils/RTS_Draw.class"
+    ],
+    "src": "data/scripts/plugins/RTSAssist.java:388",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "angledAttack",
+    "classes": [
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class",
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_ShipMoveToPosition.java:433",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "Anti Fighter",
+    "classes": [
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class"
+    ],
+    "src": "data/scripts/plugins/RTS_ShipMoveToPosition.java:524",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "与引擎/原版数据比对的字符串（舰种分类、原版任务 id、hullmod id 等匹配键，绝不可译）"
+  },
+  {
+    "c": "apex_bifurcator",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_ApexDesign$1.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_ApexDesign.java:11",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "apex_cruisemode",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_ApexDesign$2.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_ApexDesign.java:31",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "apex_heavy_skimmer",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_ApexDesign$6.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_ApexDesign.java:130",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "apex_inertial_skimmer",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_ApexDesign$5.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_ApexDesign.java:101",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "apex_ins_destroyer",
+    "classes": [
+      "data/scripts/plugins/BroadsideModifiers/RTS_ApexDesign_Broadsides.class"
+    ],
+    "src": "data/scripts/plugins/BroadsideModifiers/RTS_ApexDesign_Broadsides.java:10",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "apex_microburn",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_ApexDesign$3.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_ApexDesign.java:56",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "apex_pursuit_jets",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_ApexDesign$4.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_ApexDesign.java:81",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "Argument for @NotNull parameter '%s' of %s.%s must not be null",
+    "classes": [
+      "data/scripts/plugins/RTSAssist$2.class"
+    ],
+    "src": null,
+    "asId": false,
+    "decision": "skip",
+    "category": "fmt",
+    "reason": "Kotlin/Intrinsics 编译期注入的断言模板（非本模组文案）"
+  },
+  {
+    "c": "armaa_havocDrive",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Arma$3.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Arma.java:68",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "armaa_jauntbooster",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Arma$1.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Arma.java:13",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "armaa_rampagedrive",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Arma$5.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Arma.java:123",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "armaa_rampagedrive2",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Arma$4.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Arma.java:94",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "armaa_tshell",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Arma$2.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Arma.java:42",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "assLocation",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Utils/RTS_MoveTogetherManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:215",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "assType",
+    "classes": [
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class",
+      "data/scripts/plugins/RTS_TaskManager$4.class",
+      "data/scripts/plugins/RTS_TaskManager$assType.class",
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup$1.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup$11.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup$15.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup$18.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup$22.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup$6.class",
+      "data/scripts/plugins/Utils/RTS_Context.class",
+      "data/scripts/plugins/Utils/RTS_MoveTogetherManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_ShipMoveToPosition.java:214",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "attackAngle",
+    "classes": [
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class",
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Utils/RTS_Context.class"
+    ],
+    "src": "data/scripts/plugins/RTS_ShipMoveToPosition.java:139",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "attackAtAngle",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager$4.class",
+      "data/scripts/plugins/RTS_TaskManager$assType.class",
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup$18.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup.class"
+    ],
+    "src": null,
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "AttackAtAngle",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:252",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "sounds.json 音效事件名（代码按该键取音效，改字符串会静默丢音，铁律 R7）"
+  },
+  {
+    "c": "attackMove",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$4.class",
+      "data/scripts/plugins/RTSAssist$hotKeyIdentifiers.class",
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class",
+      "data/scripts/plugins/RTS_TaskManager$4.class",
+      "data/scripts/plugins/RTS_TaskManager$assType.class",
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$35.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$36.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds.class",
+      "data/scripts/plugins/Utils/RTS_MoveTogetherManager.class",
+      "data/scripts/RTSAssistModPlugin$2.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:105",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "AttackMove",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:254",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "sounds.json 音效事件名（代码按该键取音效，改字符串会静默丢音，铁律 R7）"
+  },
+  {
+    "c": "AttackMoveConversion",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:1141",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "sounds.json 音效事件名（代码按该键取音效，改字符串会静默丢音，铁律 R7）"
+  },
+  {
+    "c": "AttackMoveShip",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:254",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "sounds.json 音效事件名（代码按该键取音效，改字符串会静默丢音，铁律 R7）"
+  },
+  {
+    "c": "basicAttack",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager$4.class",
+      "data/scripts/plugins/RTS_TaskManager$assType.class",
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup$15.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup.class"
+    ],
+    "src": null,
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "blockedSystem",
+    "classes": [
+      "data/scripts/plugins/RTS_ShipMoveToPosition$3.class",
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class",
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_ShipMoveToPosition.java:92",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "broadsides_\u0001",
+    "classes": [
+      "data/scripts/plugins/RTSAssist.class",
+      "data/scripts/plugins/Utils/RTS_BroadsideSelection.class"
+    ],
+    "src": null,
+    "asId": false,
+    "decision": "skip",
+    "category": "fmt",
+    "reason": "含 \\u0001 占位符的内部拼接/索引键（SoundManager 音效名、反射拼接），非 UI 文本；且数量与位置不可变（铁律 R6）"
+  },
+  {
+    "c": "broadsideSelection",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$4.class",
+      "data/scripts/plugins/RTSAssist$classidentifiers.class",
+      "data/scripts/plugins/RTSAssist$hotKeyIdentifiers.class",
+      "data/scripts/plugins/RTSAssist.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$27.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$28.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds.class",
+      "data/scripts/RTSAssistModPlugin$2.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:150",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "burndrive",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_VanillaSystems$4.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_VanillaSystems.java:67",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "Button",
+    "classes": [
+      "data/scripts/plugins/DevTools/RTS_Console$SimpleExample.class"
+    ],
+    "src": "data/scripts/plugins/DevTools/RTS_Console.java:26",
+    "asId": false,
+    "decision": "skip",
+    "category": "other",
+    "reason": "DevTools/RTS_Console.java 的 AWT 示例窗口（上游遗留示例，模组从未实例化该类，运行期不可见）"
+  },
+  {
+    "c": "CAPITAL_SHIP",
+    "classes": [
+      "data/scripts/plugins/RTS_ShipMoveToPosition$1.class",
+      "data/scripts/plugins/Utils/RTS_Pathing.class"
+    ],
+    "src": "data/scripts/plugins/RTS_ShipMoveToPosition.java:73",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "closestEnemy",
+    "classes": [
+      "data/scripts/plugins/RTS_ShipMoveToPosition$2.class",
+      "data/scripts/plugins/RTS_ShipMoveToPosition$3.class",
+      "data/scripts/plugins/RTS_ShipMoveToPosition$classidentifiers.class",
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class",
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_ShipMoveToPosition.java:316",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "combat_burn",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_VanillaSystems$11.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_VanillaSystems.java:250",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "Command Shuttle",
+    "classes": [
+      "data/scripts/plugins/RTS_SelectionListener.class",
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Utils/RTS_ModeManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_SelectionListener.java:372",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "与引擎/原版数据比对的字符串（舰种分类、原版任务 id、hullmod id 等匹配键，绝不可译）"
+  },
+  {
+    "c": "config",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/DevTools/RTS_ShipTestSuite.class",
+      "data/scripts/plugins/RTSAssist$1.class",
+      "data/scripts/plugins/RTSAssist$classidentifiers.class",
+      "data/scripts/plugins/RTSAssist.class",
+      "data/scripts/plugins/RTS_CameraRework.class",
+      "data/scripts/plugins/RTS_ParseInput.class",
+      "data/scripts/plugins/RTS_SelectionListener.class",
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Utils/RTS_Draw.class",
+      "data/scripts/plugins/Utils/RTS_SoundsManager.class",
+      "data/scripts/RTSAssistModPlugin.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:23",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "Config.ini",
+    "classes": [
+      "data/scripts/RTSAssistModPlugin.class"
+    ],
+    "src": "data/scripts/RTSAssistModPlugin.java:37",
+    "asId": false,
+    "decision": "skip",
+    "category": "path",
+    "reason": "配置文件名（路径）"
+  },
+  {
+    "c": "conquest",
+    "classes": [
+      "data/scripts/plugins/BroadsideModifiers/RTS_VanillaBroadsides.class"
+    ],
+    "src": "data/scripts/plugins/BroadsideModifiers/RTS_VanillaBroadsides.java:12",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "controlGroups",
+    "classes": [
+      "data/scripts/plugins/RTS_SelectionListener$1.class",
+      "data/scripts/plugins/RTS_SelectionListener$classidentifiers.class",
+      "data/scripts/plugins/RTS_SelectionListener.class",
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$45.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$46.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:843",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "cooldownData",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$11$1.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$11$2.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$11.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$cooldownData.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$typeIdentifiers.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools.class"
+    ],
+    "src": null,
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "coOrd",
+    "classes": [
+      "data/scripts/plugins/RTS_SelectionListener.class",
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class",
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup$2.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup$7.class",
+      "data/scripts/plugins/Utils/RTS_Draw.class",
+      "data/scripts/plugins/Utils/RTS_MoveTogetherManager.class",
+      "data/scripts/plugins/Utils/RTS_Pathing.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:159",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "coOrdSec",
+    "classes": [
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class",
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup$14.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup$17.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup$21.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup$3.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup$8.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:160",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "CreateControlGroup",
+    "classes": [
+      "data/scripts/plugins/RTS_SelectionListener.class"
+    ],
+    "src": "data/scripts/plugins/RTS_SelectionListener.java:223",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "sounds.json 音效事件名（代码按该键取音效，改字符串会静默丢音，铁律 R7）"
+  },
+  {
+    "c": "CreateSecondaryAssignment",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:251",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "sounds.json 音效事件名（代码按该键取音效，改字符串会静默丢音，铁律 R7）"
+  },
+  {
+    "c": "CreateSelectionEvent",
+    "classes": [
+      "data/scripts/plugins/RTS_SelectionListener.class"
+    ],
+    "src": "data/scripts/plugins/RTS_SelectionListener.java:183",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "sounds.json 音效事件名（代码按该键取音效，改字符串会静默丢音，铁律 R7）"
+  },
+  {
+    "c": "CreateStandardAssignment",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:249",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "sounds.json 音效事件名（代码按该键取音效，改字符串会静默丢音，铁律 R7）"
+  },
+  {
+    "c": "CreateTemporaryAssignment",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:248",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "sounds.json 音效事件名（代码按该键取音效，改字符串会静默丢音，铁律 R7）"
+  },
+  {
+    "c": "CRUISER",
+    "classes": [
+      "data/scripts/plugins/RTS_ShipMoveToPosition$1.class",
+      "data/scripts/plugins/Utils/RTS_Pathing.class"
+    ],
+    "src": "data/scripts/plugins/RTS_ShipMoveToPosition.java:72",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "csp_assaultmode_activate",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_CSP$1.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_CSP.java:11",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "csp_transam",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_CSP$2.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_CSP.java:35",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "data/scripts/plugins/RTSAssist$2",
+    "classes": [
+      "data/scripts/plugins/RTSAssist$2.class",
+      "data/scripts/plugins/RTSAssist.class"
+    ],
+    "src": null,
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "类名（标识符）"
+  },
+  {
+    "c": "DECELERATE",
+    "classes": [
+      "data/scripts/plugins/RTS_ShipMoveToPosition$valCommandString.class",
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class"
+    ],
+    "src": "data/scripts/plugins/RTS_ShipMoveToPosition.java:62",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "defaultModeIsRTS",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$3.class",
+      "data/scripts/plugins/RTSAssist$configIdentifiers.class",
+      "data/scripts/plugins/RTS_ParseInput.class",
+      "data/scripts/RTSAssistModPlugin$1.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:162",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "DeleteAssignment",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:599",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "sounds.json 音效事件名（代码按该键取音效，改字符串会静默丢音，铁律 R7）"
+  },
+  {
+    "c": "deleteAssignments",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$4.class",
+      "data/scripts/plugins/RTSAssist$hotKeyIdentifiers.class",
+      "data/scripts/plugins/RTS_TaskManager$2.class",
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$37.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$38.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds.class",
+      "data/scripts/plugins/Utils/RTS_ModeManager.class",
+      "data/scripts/RTSAssistModPlugin$2.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:69",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "Deselect",
+    "classes": [
+      "data/scripts/plugins/RTS_SelectionListener.class"
+    ],
+    "src": "data/scripts/plugins/RTS_SelectionListener.java:189",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "sounds.json 音效事件名（代码按该键取音效，改字符串会静默丢音，铁律 R7）"
+  },
+  {
+    "c": "dest",
+    "classes": [
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class",
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Utils/RTS_Context.class",
+      "data/scripts/plugins/Utils/RTS_MoveTogetherManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_ShipMoveToPosition.java:152",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "DESTROYER",
+    "classes": [
+      "data/scripts/plugins/RTS_ShipMoveToPosition$1.class",
+      "data/scripts/plugins/Utils/RTS_Pathing.class"
+    ],
+    "src": "data/scripts/plugins/RTS_ShipMoveToPosition.java:71",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "destSec",
+    "classes": [
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class",
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Utils/RTS_Context.class"
+    ],
+    "src": "data/scripts/plugins/RTS_ShipMoveToPosition.java:151",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "diableavionics_damperwave",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_DiableSystems$4.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_DiableSystems.java:87",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "diableavionics_drift",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_DiableSystems$2.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_DiableSystems.java:26",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "diableavionics_evasion",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_DiableSystems$3.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_DiableSystems.java:64",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "diableavionics_flicker",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_DiableSystems$6.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_DiableSystems.java:147",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "diableavionics_heavyflicker",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_DiableSystems$5.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_DiableSystems.java:116",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "diableavionics_temporalshell",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_DiableSystems$8.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_DiableSystems.java:203",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "diableavionics_transit2",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_DiableSystems$1.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_DiableSystems.java:13",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "diableavionics_unlockedFlicker",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_DiableSystems$7.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_DiableSystems.java:178",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "displacer",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_VanillaSystems$5.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_VanillaSystems.java:96",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "displacer_degraded",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_VanillaSystems$6.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_VanillaSystems.java:125",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "DOUBLE",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_CommonsControl$1.class",
+      "data/scripts/modInitilisation/RTS_CommonsControl$JSONType.class"
+    ],
+    "src": null,
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "dynamic_stabilizer",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Koc$2.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Koc.java:31",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "dynamicHoldOnFlux",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager$4.class",
+      "data/scripts/plugins/RTS_TaskManager$assType.class",
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup$11.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup.class",
+      "data/scripts/plugins/Utils/RTS_MoveTogetherManager.class"
+    ],
+    "src": null,
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "eis_jump",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_IronShellSystems$1.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_IronShellSystems.java:11",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "eis_microburn",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_IronShellSystems$3.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_IronShellSystems.java:69",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "eis_rampagedrive",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_IronShellSystems$2.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_IronShellSystems.java:40",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "eis_rampagedrive2",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_IronShellSystems$5.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_IronShellSystems.java:127",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "eis_zandatsu",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_IronShellSystems$4.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_IronShellSystems.java:98",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "emptyCommons",
+    "classes": [
+      "data/scripts/plugins/DevTools/RTS_ShipTestSuite.class"
+    ],
+    "src": "data/scripts/plugins/DevTools/RTS_ShipTestSuite.java:273",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "enable_RTSMode",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$4.class",
+      "data/scripts/plugins/RTSAssist$hotKeyIdentifiers.class",
+      "data/scripts/plugins/RTS_ParseInput.class",
+      "data/scripts/RTSAssistModPlugin$2.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:40",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "enableShipTestSuite",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/RTSAssistModPlugin$1.class",
+      "data/scripts/RTSAssistModPlugin.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:295",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "END",
+    "classes": [
+      "data/scripts/plugins/DevTools/RTS_ShipTestSuite.class"
+    ],
+    "src": "data/scripts/plugins/DevTools/RTS_ShipTestSuite.java:166",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "ESCAPE",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:1466",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "expsp_abyssdash",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_MachinaVoid$1.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_MachinaVoid.java:12",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "expsp_beamovercharge",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_MachinaVoid$7.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_MachinaVoid.java:154",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "expsp_bombardmentmode",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_MachinaVoid$11.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_MachinaVoid.java:244",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "expsp_burstcore",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_MachinaVoid$8.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_MachinaVoid.java:174",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "expsp_coreoverclock",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_MachinaVoid$2.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_MachinaVoid.java:41",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "expsp_cossackjets",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_MachinaVoid$3.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_MachinaVoid.java:61",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "expsp_disruptor",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_MachinaVoid$9.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_MachinaVoid.java:196",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "expsp_energizedcharge",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_MachinaVoid$6.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_MachinaVoid.java:129",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "expsp_energizedram_sys",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_MachinaVoid$13.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_MachinaVoid.java:287",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "expsp_harmony",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_MachinaVoid$4.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_MachinaVoid.java:85",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "expsp_hybridfocus",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_MachinaVoid$5.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_MachinaVoid.java:109",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "expsp_lock",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_MachinaVoid$10.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_MachinaVoid.java:222",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "expsp_pursuitburn",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_MachinaVoid$12.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_MachinaVoid.java:262",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "FIGHTER",
+    "classes": [
+      "data/scripts/plugins/DevTools/RTS_ShipTestSuite.class",
+      "data/scripts/plugins/Utils/RTS_ShipLocAPI.class"
+    ],
+    "src": "data/scripts/plugins/Utils/RTS_ShipLocAPI.java:232",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "findAllShips",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/DevTools/RTS_ShipTestSuite.class",
+      "data/scripts/plugins/RTSAssist$3.class",
+      "data/scripts/plugins/RTSAssist$DevToolIdentifiers.class",
+      "data/scripts/RTSAssistModPlugin$1.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:313",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "fishkill",
+    "classes": [
+      "data/scripts/plugins/BroadsideModifiers/RTS_HMIBase_Broadsides.class"
+    ],
+    "src": "data/scripts/plugins/BroadsideModifiers/RTS_HMIBase_Broadsides.java:10",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "FRIGATE",
+    "classes": [
+      "data/scripts/plugins/RTS_ShipMoveToPosition$1.class",
+      "data/scripts/plugins/Utils/RTS_Pathing.class"
+    ],
+    "src": "data/scripts/plugins/RTS_ShipMoveToPosition.java:70",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "GeneralUIFeedback01",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Utils/RTS_SystemManager.class",
+      "data/scripts/plugins/Utils/RTS_VentManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:1167",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "sounds.json 音效事件名（代码按该键取音效，改字符串会静默丢音，铁律 R7）"
+  },
+  {
+    "c": "getHullSize -> name: \u0001",
+    "classes": [
+      "data/scripts/plugins/DevTools/RTS_ShipTestSuite.class"
+    ],
+    "src": null,
+    "asId": false,
+    "decision": "skip",
+    "category": "log",
+    "reason": "开发者控制台调试输出前缀（DevTools ShipTestSuite，写 stdout）"
+  },
+  {
+    "c": "getHullSpec -> getBaseHullId: \u0001",
+    "classes": [
+      "data/scripts/plugins/DevTools/RTS_ShipTestSuite.class"
+    ],
+    "src": null,
+    "asId": false,
+    "decision": "skip",
+    "category": "log",
+    "reason": "开发者控制台调试输出前缀（DevTools ShipTestSuite，写 stdout）"
+  },
+  {
+    "c": "getId: \u0001",
+    "classes": [
+      "data/scripts/plugins/DevTools/RTS_ShipTestSuite.class"
+    ],
+    "src": null,
+    "asId": false,
+    "decision": "skip",
+    "category": "fmt",
+    "reason": "含 \\u0001 占位符的内部拼接/索引键（SoundManager 音效名、反射拼接），非 UI 文本；且数量与位置不可变（铁律 R6）"
+  },
+  {
+    "c": "getName: \u0001",
+    "classes": [
+      "data/scripts/plugins/DevTools/RTS_ShipTestSuite.class"
+    ],
+    "src": null,
+    "asId": false,
+    "decision": "skip",
+    "category": "fmt",
+    "reason": "含 \\u0001 占位符的内部拼接/索引键（SoundManager 音效名、反射拼接），非 UI 文本；且数量与位置不可变（铁律 R6）"
+  },
+  {
+    "c": "getSystem -> getId: \u0001",
+    "classes": [
+      "data/scripts/plugins/DevTools/RTS_ShipTestSuite.class"
+    ],
+    "src": null,
+    "asId": false,
+    "decision": "skip",
+    "category": "log",
+    "reason": "开发者控制台调试输出前缀（DevTools ShipTestSuite，写 stdout）"
+  },
+  {
+    "c": "gl_benchmark",
+    "classes": [
+      "data/scripts/plugins/RTSAssist.class"
+    ],
+    "src": "data/scripts/plugins/RTSAssist.java:449",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "与引擎/原版数据比对的字符串（舰种分类、原版任务 id、hullmod id 等匹配键，绝不可译）"
+  },
+  {
+    "c": "H",
+    "classes": [
+      "data/scripts/RTSAssistModPlugin.class"
+    ],
+    "src": "data/scripts/RTSAssistModPlugin.java:86",
+    "asId": false,
+    "decision": "skip",
+    "category": "fmt",
+    "reason": "单字符常量（热键默认值），非可见文本"
+  },
+  {
+    "c": "hadEnemyData",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$4.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$5.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$6.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$hadEnemyData.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$typeIdentifiers.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools.class"
+    ],
+    "src": null,
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "HEAVY_ESCORT",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager$4.class",
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:921",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "hmi_ammodrive",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_HazardMiningBase$5.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_HazardMiningBase.java:110",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "hmi_creep_drive",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_HazardMiningBase$2.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_HazardMiningBase.java:38",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "hmi_displacer",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_HazardMiningSuperVillans$3.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_HazardMiningSuperVillans.java:66",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "hmi_draco_bridgehead",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_HazardMiningSuperVillans$4.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_HazardMiningSuperVillans.java:95",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "hmi_draco_bridgehead_lrg",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_HazardMiningSuperVillans$2.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_HazardMiningSuperVillans.java:41",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "hmi_draco_bridgehead_med",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_HazardMiningSuperVillans$5.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_HazardMiningSuperVillans.java:120",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "hmi_drill_attack",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_HazardMiningBase$3.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_HazardMiningBase.java:64",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "hmi_lidararray",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_HazardMiningBrighton$1.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_HazardMiningBrighton.java:11",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "hmi_runaway",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_HazardMiningBase$1.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_HazardMiningBase.java:11",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "hmi_runaway_exodus",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_HazardMiningBase$4.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_HazardMiningBase.java:83",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "hmi_runaway_ons",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_HazardMiningBase$6.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_HazardMiningBase.java:134",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "hmi_sv_phase_orion_device",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_HazardMiningSuperVillans$1.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_HazardMiningSuperVillans.java:14",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "hotKeys",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$1.class",
+      "data/scripts/plugins/RTSAssist$classidentifiers.class",
+      "data/scripts/plugins/RTSAssist.class",
+      "data/scripts/plugins/RTS_ParseInput.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$10.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$12.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$14.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$16.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$18.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$20.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$22.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$24.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$26.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$28.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$30.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$32.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$34.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$36.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$38.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$4.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$40.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$42.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$6.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$8.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds.class",
+      "data/scripts/plugins/Utils/RTS_Unused_InputManager.class",
+      "data/scripts/RTSAssistModPlugin.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:22",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "Hotkeys.ini",
+    "classes": [
+      "data/scripts/RTSAssistModPlugin.class"
+    ],
+    "src": "data/scripts/RTSAssistModPlugin.java:66",
+    "asId": false,
+    "decision": "skip",
+    "category": "path",
+    "reason": "配置文件名（路径）"
+  },
+  {
+    "c": "HSI_Burial",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_HaloDynamics$6.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_HaloDynamics.java:127",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "HSI_DeployCitadel",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_HaloDynamics$1.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_HaloDynamics.java:13",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "HSI_ElegySystem",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_HaloDynamics$7.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_HaloDynamics.java:140",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "HSI_OverBurstDrive",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_HaloDynamics$4.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_HaloDynamics.java:81",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "HSI_OverDrive",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_HaloDynamics$2.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_HaloDynamics.java:30",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "HSI_Phaseteleporter",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_HaloDynamics$5.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_HaloDynamics.java:106",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "HSI_SiegeMode",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_HaloDynamics$8.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_HaloDynamics.java:160",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "HSI_TimeWarp",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_HaloDynamics$3.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_HaloDynamics.java:52",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "HSICitadelDeployed",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_HaloDynamics$1.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_HaloDynamics.java:21",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "第三方 mod 舰体 id / customData 键 / 内部配置键（标识符）"
+  },
+  {
+    "c": "I",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_CommonsControl.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools.class",
+      "data/scripts/plugins/DevTools/RTS_ShipTestSuite.class",
+      "data/scripts/plugins/RTS_CameraRework$OOBHold.class",
+      "data/scripts/plugins/RTS_CameraRework.class",
+      "data/scripts/plugins/RTS_SelectionListener.class",
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class",
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Utils/RTS_AssortedFunctions.class",
+      "data/scripts/plugins/Utils/RTS_CollisionManager.class",
+      "data/scripts/plugins/Utils/RTS_ModeManager.class",
+      "data/scripts/plugins/Utils/RTS_Pathing.class",
+      "data/scripts/plugins/Utils/RTS_ShipLocAPI.class",
+      "data/scripts/plugins/Utils/RTS_StateEngine.class",
+      "data/scripts/plugins/Utils/RTS_StatefulClasses.class",
+      "data/scripts/plugins/Utils/RTS_Unused_InputManager$eventStorageClass.class",
+      "data/scripts/plugins/Utils/RTS_Unused_InputManager$hotKey.class",
+      "data/scripts/plugins/Utils/RTS_Unused_InputManager.class",
+      "data/scripts/RTSAssistModPlugin.class"
+    ],
+    "src": "data/scripts/RTSAssistModPlugin.java:91",
+    "asId": true,
+    "decision": "skip",
+    "category": "fmt",
+    "reason": "单字符常量（热键默认值），非可见文本"
+  },
+  {
+    "c": "ii_boss_dominus",
+    "classes": [
+      "data/scripts/plugins/BroadsideModifiers/RTS_Imperial_Broadsides.class"
+    ],
+    "src": "data/scripts/plugins/BroadsideModifiers/RTS_Imperial_Broadsides.java:10",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "ii_boss_modifiedbooster",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_InterstellarImperium$3.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_InterstellarImperium.java:55",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "ii_explode",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_InterstellarImperium$1.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_InterstellarImperium.java:13",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "ii_impulsebooster",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_InterstellarImperium$2.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_InterstellarImperium.java:26",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "ii_titan",
+    "classes": [
+      "data/scripts/plugins/Utils/RTS_SystemManager.class"
+    ],
+    "src": "data/scripts/plugins/Utils/RTS_SystemManager.java:99",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "ii_turbofeeder",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_InterstellarImperium$4.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_InterstellarImperium.java:84",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "iniDisToAssignment",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Utils/RTS_MoveTogetherManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:216",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "INT",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_CommonsControl$1.class",
+      "data/scripts/modInitilisation/RTS_CommonsControl$JSONType.class"
+    ],
+    "src": null,
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "interdictor",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Koc$1.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Koc.java:11",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "intersect",
+    "classes": [
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class"
+    ],
+    "src": "data/scripts/plugins/RTS_ShipMoveToPosition.java:502",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "intHold",
+    "classes": [
+      "data/scripts/plugins/Utils/RTS_StatefulClasses.class"
+    ],
+    "src": "data/scripts/plugins/Utils/RTS_StatefulClasses.java:13",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "isEnabled",
+    "classes": [
+      "data/scripts/plugins/RTSAssist$1.class",
+      "data/scripts/plugins/RTSAssist$classidentifiers.class",
+      "data/scripts/plugins/RTSAssist.class",
+      "data/scripts/RTSAssistModPlugin.class"
+    ],
+    "src": "data/scripts/plugins/RTSAssist.java:243",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "内部配置/自定义数据键"
+  },
+  {
+    "c": "J",
+    "classes": [
+      "data/scripts/RTSAssistModPlugin.class"
+    ],
+    "src": "data/scripts/RTSAssistModPlugin.java:87",
+    "asId": false,
+    "decision": "skip",
+    "category": "fmt",
+    "reason": "单字符常量（热键默认值），非可见文本"
+  },
+  {
+    "c": "jdp_combatmasterlidararray",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_JaydeePiracy$4.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_JaydeePiracy.java:93",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "jdp_lidararray",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_JaydeePiracy$1.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_JaydeePiracy.java:12",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "jdp_penrose",
+    "classes": [
+      "data/scripts/plugins/BroadsideModifiers/RTS_Jaydee_Broadsides.class"
+    ],
+    "src": "data/scripts/plugins/BroadsideModifiers/RTS_Jaydee_Broadsides.java:10",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "jdp_quickdrawlidararray",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_JaydeePiracy$3.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_JaydeePiracy.java:65",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "jdp_temporalteleporter",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_JaydeePiracy$2.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_JaydeePiracy.java:40",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "JSONARRAY",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_CommonsControl$1.class",
+      "data/scripts/modInitilisation/RTS_CommonsControl$JSONType.class",
+      "data/scripts/plugins/DevTools/RTS_ShipTestSuite.class"
+    ],
+    "src": null,
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "JSONOBJECT",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_CommonsControl$1.class",
+      "data/scripts/modInitilisation/RTS_CommonsControl$JSONType.class",
+      "data/scripts/plugins/RTSAssist.class",
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Utils/RTS_BroadsideSelection.class"
+    ],
+    "src": null,
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "K",
+    "classes": [
+      "data/scripts/RTSAssistModPlugin.class"
+    ],
+    "src": "data/scripts/RTSAssistModPlugin.java:88",
+    "asId": false,
+    "decision": "skip",
+    "category": "fmt",
+    "reason": "单字符常量（热键默认值），非可见文本"
+  },
+  {
+    "c": "KEYPRESS",
+    "classes": [
+      "data/scripts/plugins/Utils/RTS_Unused_InputManager$inputType.class",
+      "data/scripts/plugins/Utils/RTS_Unused_InputManager.class"
+    ],
+    "src": null,
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "kol_lidar",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_KoLSystems$9.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_KoLSystems.java:221",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "kol_lunge",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_KoLSystems$11.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_KoLSystems.java:274",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "kol_onion",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_KoLSystems$10.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_KoLSystems.java:249",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "LCONTROL",
+    "classes": [
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$44.class"
+    ],
+    "src": "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds.java:706",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "LIGHT_ESCORT",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager$4.class",
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:923",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "LMB",
+    "classes": [
+      "data/scripts/plugins/Utils/RTS_Unused_InputManager$eventStorageClass.class",
+      "data/scripts/plugins/Utils/RTS_Unused_InputManager$hotKey.class",
+      "data/scripts/plugins/Utils/RTS_Unused_InputManager$inputType.class",
+      "data/scripts/plugins/Utils/RTS_Unused_InputManager.class"
+    ],
+    "src": null,
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "LoadAssignments",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:1023",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "sounds.json 音效事件名（代码按该键取音效，改字符串会静默丢音，铁律 R7）"
+  },
+  {
+    "c": "loadLayout",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$4.class",
+      "data/scripts/plugins/RTSAssist$hotKeyIdentifiers.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$31.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$32.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds.class",
+      "data/scripts/RTSAssistModPlugin$2.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:60",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "lunalib",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$3.class",
+      "data/scripts/plugins/RTSAssist$4.class",
+      "data/scripts/plugins/RTSAssist.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:26",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "M",
+    "classes": [
+      "data/scripts/RTSAssistModPlugin.class"
+    ],
+    "src": "data/scripts/RTSAssistModPlugin.java:93",
+    "asId": false,
+    "decision": "skip",
+    "category": "fmt",
+    "reason": "单字符常量（热键默认值），非可见文本"
+  },
+  {
+    "c": "maneuveringjets",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_VanillaSystems$2.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_VanillaSystems.java:23",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "manualData",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$2.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$3.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$manualData.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$typeIdentifiers.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools.class"
+    ],
+    "src": null,
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "maxZoom",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$3.class",
+      "data/scripts/plugins/RTSAssist$configIdentifiers.class",
+      "data/scripts/plugins/RTS_CameraRework.class",
+      "data/scripts/RTSAssistModPlugin$1.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:233",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "MEDIUM_ESCORT",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager$4.class",
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:922",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "members",
+    "classes": [
+      "data/scripts/plugins/RTS_CameraRework.class",
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:859",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "microburn",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_VanillaSystems$7.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_VanillaSystems.java:154",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "modDest",
+    "classes": [
+      "data/scripts/plugins/RTS_ShipMoveToPosition$3.class",
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class",
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Utils/RTS_Context.class"
+    ],
+    "src": "data/scripts/plugins/RTS_ShipMoveToPosition.java:178",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "MODIFIER",
+    "classes": [
+      "data/scripts/plugins/Utils/RTS_Unused_InputManager$inputType.class",
+      "data/scripts/plugins/Utils/RTS_Unused_InputManager.class"
+    ],
+    "src": null,
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "moveAndHold",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager$4.class",
+      "data/scripts/plugins/RTS_TaskManager$assType.class",
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup$6.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup.class",
+      "data/scripts/plugins/Utils/RTS_MoveTogetherManager.class"
+    ],
+    "src": null,
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "moveAndRelease",
+    "classes": [
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class",
+      "data/scripts/plugins/RTS_TaskManager$4.class",
+      "data/scripts/plugins/RTS_TaskManager$assType.class",
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup$1.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup$10.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup$5.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup.class",
+      "data/scripts/plugins/Utils/RTS_Context.class",
+      "data/scripts/plugins/Utils/RTS_Draw.class",
+      "data/scripts/plugins/Utils/RTS_MoveTogetherManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_ShipMoveToPosition.java:148",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "moveTogether",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$4.class",
+      "data/scripts/plugins/RTSAssist$hotKeyIdentifiers.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$33.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$34.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds.class",
+      "data/scripts/RTSAssistModPlugin$2.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:96",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "N",
+    "classes": [
+      "data/scripts/RTSAssistModPlugin.class"
+    ],
+    "src": "data/scripts/RTSAssistModPlugin.java:92",
+    "asId": false,
+    "decision": "skip",
+    "category": "fmt",
+    "reason": "单字符常量（热键默认值），非可见文本"
+  },
+  {
+    "c": "neural_interface",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:1572",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "neural_link",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:1564",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "nope",
+    "classes": [
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class"
+    ],
+    "src": "data/scripts/plugins/RTS_ShipMoveToPosition.java:504",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "nova_burst",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_VanillaSystems$8.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_VanillaSystems.java:179",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "odyssey",
+    "classes": [
+      "data/scripts/plugins/BroadsideModifiers/RTS_VanillaBroadsides.class"
+    ],
+    "src": "data/scripts/plugins/BroadsideModifiers/RTS_VanillaBroadsides.java:14",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "ora_attitude",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_ORA$1.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_ORA.java:13",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "ora_beatitude",
+    "classes": [
+      "data/scripts/plugins/BroadsideModifiers/RTS_ORA_Broadsides.class"
+    ],
+    "src": "data/scripts/plugins/BroadsideModifiers/RTS_ORA_Broadsides.java:8",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "ora_bliss",
+    "classes": [
+      "data/scripts/plugins/BroadsideModifiers/RTS_ORA_Broadsides.class"
+    ],
+    "src": "data/scripts/plugins/BroadsideModifiers/RTS_ORA_Broadsides.java:9",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "ora_discernment",
+    "classes": [
+      "data/scripts/plugins/BroadsideModifiers/RTS_ORA_Broadsides.class"
+    ],
+    "src": "data/scripts/plugins/BroadsideModifiers/RTS_ORA_Broadsides.java:15",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "ora_enlightenment",
+    "classes": [
+      "data/scripts/plugins/BroadsideModifiers/RTS_ORA_Broadsides.class"
+    ],
+    "src": "data/scripts/plugins/BroadsideModifiers/RTS_ORA_Broadsides.java:13",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "ora_felicity",
+    "classes": [
+      "data/scripts/plugins/BroadsideModifiers/RTS_ORA_Broadsides.class"
+    ],
+    "src": "data/scripts/plugins/BroadsideModifiers/RTS_ORA_Broadsides.java:10",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "ora_harmony",
+    "classes": [
+      "data/scripts/plugins/BroadsideModifiers/RTS_ORA_Broadsides.class"
+    ],
+    "src": "data/scripts/plugins/BroadsideModifiers/RTS_ORA_Broadsides.java:14",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "ora_revelation",
+    "classes": [
+      "data/scripts/plugins/BroadsideModifiers/RTS_ORA_Broadsides.class"
+    ],
+    "src": "data/scripts/plugins/BroadsideModifiers/RTS_ORA_Broadsides.java:11",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "ora_sanctuary",
+    "classes": [
+      "data/scripts/plugins/BroadsideModifiers/RTS_ORA_Broadsides.class"
+    ],
+    "src": "data/scripts/plugins/BroadsideModifiers/RTS_ORA_Broadsides.java:12",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "orion_device",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_VanillaSystems$9.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_VanillaSystems.java:204",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "overrideFacingData",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$10.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$9.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$overrideFacingData.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$typeIdentifiers.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools.class"
+    ],
+    "src": null,
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "overrideThrustData",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$7.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$8.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$overrideThrustData.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$typeIdentifiers.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools.class"
+    ],
+    "src": null,
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "PAMED_Teleport",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Xhan$9.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Xhan.java:197",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "param1",
+    "classes": [
+      "data/scripts/plugins/RTSAssist$4.class",
+      "data/scripts/plugins/RTSAssist$hotKeyIdentifiers.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$3.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$4.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds.class",
+      "data/scripts/RTSAssistModPlugin.class"
+    ],
+    "src": "data/scripts/plugins/RTSAssist.java:290",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "param2",
+    "classes": [
+      "data/scripts/plugins/RTSAssist$4.class",
+      "data/scripts/plugins/RTSAssist$hotKeyIdentifiers.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$5.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$6.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds.class",
+      "data/scripts/RTSAssistModPlugin.class"
+    ],
+    "src": "data/scripts/plugins/RTSAssist.java:291",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "param3",
+    "classes": [
+      "data/scripts/plugins/RTSAssist$4.class",
+      "data/scripts/plugins/RTSAssist$hotKeyIdentifiers.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$7.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$8.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds.class",
+      "data/scripts/RTSAssistModPlugin.class"
+    ],
+    "src": "data/scripts/plugins/RTSAssist.java:292",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "param4",
+    "classes": [
+      "data/scripts/plugins/RTSAssist$4.class",
+      "data/scripts/plugins/RTSAssist$hotKeyIdentifiers.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$10.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$9.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds.class",
+      "data/scripts/RTSAssistModPlugin.class"
+    ],
+    "src": "data/scripts/plugins/RTSAssist.java:293",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "param5",
+    "classes": [
+      "data/scripts/plugins/RTSAssist$4.class",
+      "data/scripts/plugins/RTSAssist$hotKeyIdentifiers.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$11.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$12.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds.class",
+      "data/scripts/RTSAssistModPlugin.class"
+    ],
+    "src": "data/scripts/plugins/RTSAssist.java:294",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "param6",
+    "classes": [
+      "data/scripts/plugins/RTSAssist$4.class",
+      "data/scripts/plugins/RTSAssist$hotKeyIdentifiers.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$13.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$14.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds.class",
+      "data/scripts/RTSAssistModPlugin.class"
+    ],
+    "src": "data/scripts/plugins/RTSAssist.java:295",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "param7",
+    "classes": [
+      "data/scripts/plugins/RTSAssist$4.class",
+      "data/scripts/plugins/RTSAssist$hotKeyIdentifiers.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$15.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$16.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds.class",
+      "data/scripts/RTSAssistModPlugin.class"
+    ],
+    "src": "data/scripts/plugins/RTSAssist.java:296",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "param8",
+    "classes": [
+      "data/scripts/plugins/RTSAssist$4.class",
+      "data/scripts/plugins/RTSAssist$hotKeyIdentifiers.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$17.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$18.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds.class",
+      "data/scripts/RTSAssistModPlugin.class"
+    ],
+    "src": "data/scripts/plugins/RTSAssist.java:297",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "pauseUnpause",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$3.class",
+      "data/scripts/plugins/RTSAssist$configIdentifiers.class",
+      "data/scripts/plugins/RTS_ParseInput$1.class",
+      "data/scripts/plugins/RTS_ParseInput$classidentifiers.class",
+      "data/scripts/plugins/RTS_ParseInput.class",
+      "data/scripts/plugins/Utils/RTS_ModeManager.class",
+      "data/scripts/RTSAssistModPlugin$1.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:171",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "phaseteleporter",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_VanillaSystems$10.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_VanillaSystems.java:229",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "plasmajets",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_VanillaSystems$3.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_VanillaSystems.java:45",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "Point Defense",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools.class",
+      "data/scripts/plugins/BlockedSystems/RTS_JaydeePiracy$1.class",
+      "data/scripts/plugins/BlockedSystems/RTS_JaydeePiracy$3.class",
+      "data/scripts/plugins/BlockedSystems/RTS_JaydeePiracy$4.class",
+      "data/scripts/plugins/BlockedSystems/RTS_KoLSystems$1.class",
+      "data/scripts/plugins/BlockedSystems/RTS_KoLSystems$9.class",
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools.java:137",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "与引擎/原版数据比对的字符串（舰种分类、原版任务 id、hullmod id 等匹配键，绝不可译）"
+  },
+  {
+    "c": "Point Defense (Area)",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools.class",
+      "data/scripts/plugins/BlockedSystems/RTS_JaydeePiracy$1.class",
+      "data/scripts/plugins/BlockedSystems/RTS_JaydeePiracy$3.class",
+      "data/scripts/plugins/BlockedSystems/RTS_JaydeePiracy$4.class",
+      "data/scripts/plugins/BlockedSystems/RTS_KoLSystems$1.class",
+      "data/scripts/plugins/BlockedSystems/RTS_KoLSystems$9.class",
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools.java:138",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "与引擎/原版数据比对的字符串（舰种分类、原版任务 id、hullmod id 等匹配键，绝不可译）"
+  },
+  {
+    "c": "positions",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:830",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "POSTADVANCE",
+    "classes": [
+      "data/scripts/plugins/AISystems/RTS_AIInjector$1.class",
+      "data/scripts/plugins/AISystems/RTS_AIInjector$eventType.class",
+      "data/scripts/plugins/AISystems/RTS_AIInjector.class",
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class"
+    ],
+    "src": null,
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "PREADVANCE",
+    "classes": [
+      "data/scripts/plugins/AISystems/RTS_AIInjector$1.class",
+      "data/scripts/plugins/AISystems/RTS_AIInjector$eventType.class",
+      "data/scripts/plugins/AISystems/RTS_AIInjector.class",
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class"
+    ],
+    "src": null,
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "PreviewSelection",
+    "classes": [
+      "data/scripts/plugins/RTS_SelectionListener.class"
+    ],
+    "src": "data/scripts/plugins/RTS_SelectionListener.java:141",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "sounds.json 音效事件名（代码按该键取音效，改字符串会静默丢音，铁律 R7）"
+  },
+  {
+    "c": "primary",
+    "classes": [
+      "data/scripts/plugins/RTS_ParseInput.class",
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$35.class"
+    ],
+    "src": "data/scripts/plugins/RTS_ParseInput.java:298",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "primaryEnemy",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup$13.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup$16.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup$19.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup$23.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup$4.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup$9.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:143",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "prioritiseEnemy",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager$4.class",
+      "data/scripts/plugins/RTS_TaskManager$assType.class",
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup$22.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup.class"
+    ],
+    "src": null,
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "priorityEnemy",
+    "classes": [
+      "data/scripts/plugins/RTS_ShipMoveToPosition$3.class",
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class",
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Utils/RTS_Context.class"
+    ],
+    "src": "data/scripts/plugins/RTS_ShipMoveToPosition.java:122",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "qSaveData_\u0001",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": null,
+    "asId": false,
+    "decision": "skip",
+    "category": "fmt",
+    "reason": "含 \\u0001 占位符的内部拼接/索引键（SoundManager 音效名、反射拼接），非 UI 文本；且数量与位置不可变（铁律 R6）"
+  },
+  {
+    "c": "QueueAssignment",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:289",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "sounds.json 音效事件名（代码按该键取音效，改字符串会静默丢音，铁律 R7）"
+  },
+  {
+    "c": "rat_abyssal_charge",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_RAT$3.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_RAT.java:68",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "rat_abyssal_skimmer",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_RAT$6.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_RAT.java:134",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "rat_arkas_system",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_RAT$4.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_RAT.java:90",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "rat_gilgamesh_system",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_RAT$7.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_RAT.java:165",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "rat_hypatia_system",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_RAT$8.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_RAT.java:195",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "rat_prayer_system",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_RAT$10.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_RAT.java:237",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "rat_primordial_cloak",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_RAT$12.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_RAT.java:292",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "rat_raguel_system",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_RAT$11.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_RAT.java:266",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "rat_raphael_system",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_RAT$9.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_RAT.java:210",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "rat_spatial_disturbance",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_RAT$2.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_RAT.java:39",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "rat_temporal_stasis",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_RAT$5.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_RAT.java:112",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "rat_tylos_system",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_RAT$1.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_RAT.java:17",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "reflected",
+    "classes": [
+      "data/scripts/plugins/RTSAssist.class",
+      "data/scripts/plugins/Utils/RTS_BroadsideSelection.class"
+    ],
+    "src": "data/scripts/plugins/RTSAssist.java:389",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "relativeCoOrd",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:819",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "relativeCoOrdSec",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:823",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "rememberZoom",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$3.class",
+      "data/scripts/plugins/RTSAssist$configIdentifiers.class",
+      "data/scripts/plugins/RTS_CameraRework.class",
+      "data/scripts/RTSAssistModPlugin$1.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:266",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "rerouteAccelerationData",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$1.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$rerouteAccelerationData.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$typeIdentifiers.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools.class"
+    ],
+    "src": null,
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "RMB",
+    "classes": [
+      "data/scripts/plugins/Utils/RTS_Unused_InputManager$eventStorageClass.class",
+      "data/scripts/plugins/Utils/RTS_Unused_InputManager$hotKey.class",
+      "data/scripts/plugins/Utils/RTS_Unused_InputManager$inputType.class",
+      "data/scripts/plugins/Utils/RTS_Unused_InputManager.class"
+    ],
+    "src": null,
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "RotateAssignments",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:790",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "sounds.json 音效事件名（代码按该键取音效，改字符串会静默丢音，铁律 R7）"
+  },
+  {
+    "c": "RTS_BLOCKAI_ForYourOwnSakeDontUseThis",
+    "classes": [
+      "data/scripts/plugins/RTSAssist$shipCustomIdentifiers.class"
+    ],
+    "src": "data/scripts/plugins/RTSAssist.java:128",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "舰船 customData 键（标识符，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "RTS_common",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_CommonsControl$writeProcess.class",
+      "data/scripts/modInitilisation/RTS_CommonsControl.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_CommonsControl.java:15",
+    "asId": false,
+    "decision": "skip",
+    "category": "fmt",
+    "reason": "存档持久化键/公共数据文件名（标识符）"
+  },
+  {
+    "c": "RTS_OVERRIDEBLOCKSYSTEM_ForYourOwnSakeDontUseThis",
+    "classes": [
+      "data/scripts/plugins/RTSAssist$shipCustomIdentifiers.class"
+    ],
+    "src": "data/scripts/plugins/RTSAssist.java:131",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "舰船 customData 键（标识符，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "RTS_OVERRIDEFACING_ForYourOwnSakeDontUseThis",
+    "classes": [
+      "data/scripts/plugins/RTSAssist$shipCustomIdentifiers.class"
+    ],
+    "src": "data/scripts/plugins/RTSAssist.java:130",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "舰船 customData 键（标识符，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "RTS_OVERRIDETHRUST_ForYourOwnSakeDontUseThis",
+    "classes": [
+      "data/scripts/plugins/RTSAssist$shipCustomIdentifiers.class"
+    ],
+    "src": "data/scripts/plugins/RTSAssist.java:129",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "舰船 customData 键（标识符，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "RTSA_SettingsConfig_alternativeRotation",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$3.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:272",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "LunaLib 设置键 / 存档与音效名（标识符，代码按该字符串读取）"
+  },
+  {
+    "c": "RTSA_SettingsConfig_defaultModeIsRTS",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$3.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:159",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "LunaLib 设置键 / 存档与音效名（标识符，代码按该字符串读取）"
+  },
+  {
+    "c": "RTSA_SettingsConfig_maxZoom",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$3.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:230",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "LunaLib 设置键 / 存档与音效名（标识符，代码按该字符串读取）"
+  },
+  {
+    "c": "RTSA_SettingsConfig_pauseUnpause",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$3.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:168",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "LunaLib 设置键 / 存档与音效名（标识符，代码按该字符串读取）"
+  },
+  {
+    "c": "RTSA_SettingsConfig_rememberZoom",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$3.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:263",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "LunaLib 设置键 / 存档与音效名（标识符，代码按该字符串读取）"
+  },
+  {
+    "c": "RTSA_SettingsConfig_screenScaling",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$3.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:241",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "LunaLib 设置键 / 存档与音效名（标识符，代码按该字符串读取）"
+  },
+  {
+    "c": "RTSA_SettingsConfig_scrollSmoothing",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$3.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:197",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "LunaLib 设置键 / 存档与音效名（标识符，代码按该字符串读取）"
+  },
+  {
+    "c": "RTSA_SettingsConfig_scrollSmoothingKeyboard",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$3.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:219",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "LunaLib 设置键 / 存档与音效名（标识符，代码按该字符串读取）"
+  },
+  {
+    "c": "RTSA_SettingsConfig_scrollSpeed",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$3.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:186",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "LunaLib 设置键 / 存档与音效名（标识符，代码按该字符串读取）"
+  },
+  {
+    "c": "RTSA_SettingsConfig_scrollSpeedKeyboard",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$3.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:208",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "LunaLib 设置键 / 存档与音效名（标识符，代码按该字符串读取）"
+  },
+  {
+    "c": "RTSA_SettingsConfig_selectionTolerance",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$3.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:252",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "LunaLib 设置键 / 存档与音效名（标识符，代码按该字符串读取）"
+  },
+  {
+    "c": "RTSA_SettingsConfig_switchRightClick",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$3.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:177",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "LunaLib 设置键 / 存档与音效名（标识符，代码按该字符串读取）"
+  },
+  {
+    "c": "RTSA_SettingsDevTools_enableShipTestSuite",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:292",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "LunaLib 设置键 / 存档与音效名（标识符，代码按该字符串读取）"
+  },
+  {
+    "c": "RTSA_SettingsDevTools_findAllShips",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$3.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:310",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "LunaLib 设置键 / 存档与音效名（标识符，代码按该字符串读取）"
+  },
+  {
+    "c": "RTSA_SettingsDevTools_modID",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$3.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:301",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "LunaLib 设置键 / 存档与音效名（标识符，代码按该字符串读取）"
+  },
+  {
+    "c": "RTSA_SettingsKeybind_attackMove",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$4.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:102",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "LunaLib 设置键 / 存档与音效名（标识符，代码按该字符串读取）"
+  },
+  {
+    "c": "RTSA_SettingsKeybind_broadsideSelection",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$4.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:147",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "LunaLib 设置键 / 存档与音效名（标识符，代码按该字符串读取）"
+  },
+  {
+    "c": "RTSA_SettingsKeybind_deleteAssignments",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$4.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:66",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "LunaLib 设置键 / 存档与音效名（标识符，代码按该字符串读取）"
+  },
+  {
+    "c": "RTSA_SettingsKeybind_enable_RTSMode",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$4.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:37",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "LunaLib 设置键 / 存档与音效名（标识符，代码按该字符串读取）"
+  },
+  {
+    "c": "RTSA_SettingsKeybind_loadLayout",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$4.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:57",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "LunaLib 设置键 / 存档与音效名（标识符，代码按该字符串读取）"
+  },
+  {
+    "c": "RTSA_SettingsKeybind_moveTogether",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$4.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:93",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "LunaLib 设置键 / 存档与音效名（标识符，代码按该字符串读取）"
+  },
+  {
+    "c": "RTSA_SettingsKeybind_saveLayout",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$4.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:48",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "LunaLib 设置键 / 存档与音效名（标识符，代码按该字符串读取）"
+  },
+  {
+    "c": "RTSA_SettingsKeybind_strafeDown",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$4.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:138",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "LunaLib 设置键 / 存档与音效名（标识符，代码按该字符串读取）"
+  },
+  {
+    "c": "RTSA_SettingsKeybind_strafeLeft",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$4.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:111",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "LunaLib 设置键 / 存档与音效名（标识符，代码按该字符串读取）"
+  },
+  {
+    "c": "RTSA_SettingsKeybind_strafeRight",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$4.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:120",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "LunaLib 设置键 / 存档与音效名（标识符，代码按该字符串读取）"
+  },
+  {
+    "c": "RTSA_SettingsKeybind_strafeUp",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$4.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:129",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "LunaLib 设置键 / 存档与音效名（标识符，代码按该字符串读取）"
+  },
+  {
+    "c": "RTSA_SettingsKeybind_useSystem",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$4.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:84",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "LunaLib 设置键 / 存档与音效名（标识符，代码按该字符串读取）"
+  },
+  {
+    "c": "RTSA_SettingsKeybind_vent",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$4.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:75",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "LunaLib 设置键 / 存档与音效名（标识符，代码按该字符串读取）"
+  },
+  {
+    "c": "RTSA_SettingsUI_CommandVolume",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$3.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:281",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "LunaLib 设置键 / 存档与音效名（标识符，代码按该字符串读取）"
+  },
+  {
+    "c": "RTSAssist",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$3.class",
+      "data/scripts/plugins/RTSAssist$4.class",
+      "data/scripts/plugins/RTSAssist.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:17",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "模组 id（LunaLib 注册用标识符，绝不可译）"
+  },
+  {
+    "c": "RTSAssist: You attempted to add a listener, with updateNow set to true, during an eventsUpdate operation. This is not allowed",
+    "classes": [
+      "data/scripts/plugins/Utils/RTS_EventManager.class"
+    ],
+    "src": "data/scripts/plugins/Utils/RTS_EventManager.java:10",
+    "asId": false,
+    "decision": "skip",
+    "category": "log",
+    "reason": "模组 API 误用时的开发者告警（写 stdout，面向 modder 非玩家）"
+  },
+  {
+    "c": "RTSAssist: You attempted to add an event, with updateNow set to true, during an eventsUpdate operation. This is not allowed",
+    "classes": [
+      "data/scripts/plugins/Utils/RTS_EventManager.class"
+    ],
+    "src": "data/scripts/plugins/Utils/RTS_EventManager.java:9",
+    "asId": false,
+    "decision": "skip",
+    "category": "log",
+    "reason": "模组 API 误用时的开发者告警（写 stdout，面向 modder 非玩家）"
+  },
+  {
+    "c": "s",
+    "classes": [
+      "data/scripts/plugins/RTSAssist$2.class"
+    ],
+    "src": null,
+    "asId": false,
+    "decision": "skip",
+    "category": "fmt",
+    "reason": "单字符常量（热键默认值），非可见文本"
+  },
+  {
+    "c": "safetyoverrides",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools.class",
+      "data/scripts/plugins/Utils/RTS_VentManager.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools.java:60",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "SaveAssignments",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:868",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "sounds.json 音效事件名（代码按该键取音效，改字符串会静默丢音，铁律 R7）"
+  },
+  {
+    "c": "saveLayout",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$4.class",
+      "data/scripts/plugins/RTSAssist$hotKeyIdentifiers.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$29.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$30.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds.class",
+      "data/scripts/RTSAssistModPlugin$2.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:51",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "screenScaling",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$3.class",
+      "data/scripts/plugins/RTSAssist$configIdentifiers.class",
+      "data/scripts/plugins/RTS_SelectionListener.class",
+      "data/scripts/plugins/Utils/RTS_Draw.class",
+      "data/scripts/RTSAssistModPlugin$1.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:244",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "scrollSmoothing",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$3.class",
+      "data/scripts/plugins/RTSAssist$configIdentifiers.class",
+      "data/scripts/plugins/RTS_CameraRework$1.class",
+      "data/scripts/plugins/RTS_CameraRework$classidentifiers.class",
+      "data/scripts/plugins/RTS_CameraRework.class",
+      "data/scripts/RTSAssistModPlugin$1.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:200",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "scrollSmoothingKeyboard",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$3.class",
+      "data/scripts/plugins/RTSAssist$configIdentifiers.class",
+      "data/scripts/plugins/RTS_CameraRework$1.class",
+      "data/scripts/plugins/RTS_CameraRework$classidentifiers.class",
+      "data/scripts/plugins/RTS_CameraRework.class",
+      "data/scripts/RTSAssistModPlugin$1.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:222",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "scrollSpeed",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$3.class",
+      "data/scripts/plugins/RTSAssist$configIdentifiers.class",
+      "data/scripts/plugins/RTS_CameraRework.class",
+      "data/scripts/RTSAssistModPlugin$1.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:189",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "scrollSpeedKeyboard",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$3.class",
+      "data/scripts/plugins/RTSAssist$configIdentifiers.class",
+      "data/scripts/plugins/RTS_CameraRework.class",
+      "data/scripts/RTSAssistModPlugin$1.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:211",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "SCY_dracanae",
+    "classes": [
+      "data/scripts/plugins/BroadsideModifiers/RTS_ScyNation_Broadsides.class"
+    ],
+    "src": "data/scripts/plugins/BroadsideModifiers/RTS_ScyNation_Broadsides.java:10",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "第三方 mod 舰体 id / customData 键 / 内部配置键（标识符）"
+  },
+  {
+    "c": "SCY_experimentalTeleporter",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_ScyNation$1.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_ScyNation.java:11",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "SCY_targeting",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_ScyNation$2.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_ScyNation.java:32",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "secondary",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:147",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "secondaryEnemy",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup$12.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup$20.class",
+      "data/scripts/plugins/Setup/RTS_TaskManagerAssSetup$24.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:148",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "selection",
+    "classes": [
+      "data/scripts/plugins/DevTools/RTS_ShipTestSuite.class",
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Utils/RTS_MoveTogetherManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:158",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "selectionTolerance",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$3.class",
+      "data/scripts/plugins/RTSAssist$configIdentifiers.class",
+      "data/scripts/plugins/RTS_SelectionListener.class",
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/RTSAssistModPlugin$1.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:255",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "settingsChanged",
+    "classes": [
+      "data/scripts/plugins/RTSAssist$2.class"
+    ],
+    "src": null,
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "sfcfueldump",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_PhilAndrada$1.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_PhilAndrada.java:11",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "sfcovercharge",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_PhilAndrada$5.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_PhilAndrada.java:107",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "sfcoverclock",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_PhilAndrada$2.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_PhilAndrada.java:36",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "sfcplusjets",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_PhilAndrada$4.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_PhilAndrada.java:85",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "sfcramdriveburn",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_PhilAndrada$3.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_PhilAndrada.java:56",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "ship",
+    "classes": [
+      "data/scripts/plugins/AISystems/RTS_AIInjector.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$10.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$11$1.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$11$2.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$11.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$4.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$5.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$6.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$7.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$8.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools$9.class",
+      "data/scripts/plugins/DevTools/RTS_ShipTestSuite$1.class",
+      "data/scripts/plugins/DevTools/RTS_ShipTestSuite$2.class",
+      "data/scripts/plugins/DevTools/RTS_ShipTestSuite.class",
+      "data/scripts/plugins/RTS_CameraRework.class",
+      "data/scripts/plugins/RTS_SelectionListener$2.class",
+      "data/scripts/plugins/RTS_SelectionListener.class",
+      "data/scripts/plugins/RTS_ShipMoveToPosition$2.class",
+      "data/scripts/plugins/RTS_ShipMoveToPosition$3.class",
+      "data/scripts/plugins/RTS_ShipMoveToPosition$classidentifiers.class",
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class",
+      "data/scripts/plugins/RTS_TaskManager$3.class",
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$35.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$39.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$41.class",
+      "data/scripts/plugins/Utils/RTS_BroadsideSelection.class",
+      "data/scripts/plugins/Utils/RTS_CollisionManager.class",
+      "data/scripts/plugins/Utils/RTS_Context.class",
+      "data/scripts/plugins/Utils/RTS_Draw.class",
+      "data/scripts/plugins/Utils/RTS_ModeManager$1.class",
+      "data/scripts/plugins/Utils/RTS_ModeManager$2.class",
+      "data/scripts/plugins/Utils/RTS_ModeManager$3.class",
+      "data/scripts/plugins/Utils/RTS_ModeManager.class",
+      "data/scripts/plugins/Utils/RTS_MoveTogetherManager.class",
+      "data/scripts/plugins/Utils/RTS_Pathing.class",
+      "data/scripts/plugins/Utils/RTS_ShipLocAPI.class",
+      "data/scripts/plugins/Utils/RTS_SystemManager.class",
+      "data/scripts/plugins/Utils/RTS_VentManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_ShipMoveToPosition.java:130",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "shipsWillRun",
+    "classes": [
+      "data/scripts/plugins/RTSAssist$3.class",
+      "data/scripts/plugins/RTSAssist$configIdentifiers.class",
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/RTSAssistModPlugin$1.class"
+    ],
+    "src": "data/scripts/plugins/RTSAssist.java:240",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "shipTask",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:207",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "shipTestSuiteShipList",
+    "classes": [
+      "data/scripts/plugins/DevTools/RTS_ShipTestSuite.class"
+    ],
+    "src": "data/scripts/plugins/DevTools/RTS_ShipTestSuite.java:61",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "shipTestSuiteTestShip",
+    "classes": [
+      "data/scripts/plugins/DevTools/RTS_ShipTestSuite.class"
+    ],
+    "src": "data/scripts/plugins/DevTools/RTS_ShipTestSuite.java:62",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "sotf_entropiccatalyst",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_SOTF$1.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_SOTF.java:14",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "START",
+    "classes": [
+      "data/scripts/plugins/DevTools/RTS_ShipTestSuite.class"
+    ],
+    "src": "data/scripts/plugins/DevTools/RTS_ShipTestSuite.java:160",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "STRAFE_LEFT",
+    "classes": [
+      "data/scripts/plugins/RTS_ShipMoveToPosition$valCommandString.class",
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class"
+    ],
+    "src": "data/scripts/plugins/RTS_ShipMoveToPosition.java:58",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "STRAFE_RIGHT",
+    "classes": [
+      "data/scripts/plugins/RTS_ShipMoveToPosition$valCommandString.class",
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class"
+    ],
+    "src": "data/scripts/plugins/RTS_ShipMoveToPosition.java:59",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "strafeCameraDown",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$4.class",
+      "data/scripts/plugins/RTSAssist$hotKeyIdentifiers.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$26.class",
+      "data/scripts/RTSAssistModPlugin$2.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:141",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "strafeCameraLeft",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$4.class",
+      "data/scripts/plugins/RTSAssist$hotKeyIdentifiers.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$20.class",
+      "data/scripts/RTSAssistModPlugin$2.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:114",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "strafeCameraRight",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$4.class",
+      "data/scripts/plugins/RTSAssist$hotKeyIdentifiers.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$22.class",
+      "data/scripts/RTSAssistModPlugin$2.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:123",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "strafeCameraUp",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$4.class",
+      "data/scripts/plugins/RTSAssist$hotKeyIdentifiers.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$24.class",
+      "data/scripts/RTSAssistModPlugin$2.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:132",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "STRING",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_CommonsControl$1.class",
+      "data/scripts/modInitilisation/RTS_CommonsControl$JSONType.class",
+      "data/scripts/plugins/DevTools/RTS_ShipTestSuite.class"
+    ],
+    "src": null,
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "SU_SpeedUpEveryFrame",
+    "classes": [
+      "data/scripts/plugins/Utils/RTS_HandleTimeMult.class"
+    ],
+    "src": "data/scripts/plugins/Utils/RTS_HandleTimeMult.java:33",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "第三方 mod 舰体 id / customData 键 / 内部配置键（标识符）"
+  },
+  {
+    "c": "sw_concentratefire",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_StarWars$2.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_StarWars.java:33",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "sw_gravitywellgenerator",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_StarWars$3.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_StarWars.java:55",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "sw_heavytractorbeam",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_StarWars$6.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_StarWars.java:107",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "sw_holdomaneuver",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_StarWars$5.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_StarWars.java:82",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "sw_mediumtractorbeam",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_StarWars$7.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_StarWars.java:127",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "sw_requestescort_imperial",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_StarWars$4.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_StarWars.java:68",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "sw_tacticalanalysis",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_StarWars$8.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_StarWars.java:147",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "sw_tractorbeam",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_StarWars$1.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_StarWars.java:13",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "switchRightClick",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$3.class",
+      "data/scripts/plugins/RTSAssist$configIdentifiers.class",
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/RTSAssistModPlugin$1.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:180",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "tahlan_auxthrusters",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Tahlaan$1.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Tahlaan.java:11",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "tahlan_berserk",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_ScalarTech$9.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_ScalarTech.java:189",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "tahlan_boostthruster",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Tahlaan$12.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Tahlaan.java:298",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "tahlan_capoverdrive",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_ScalarTech$5.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_ScalarTech.java:109",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "tahlan_cavalrycharge",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Tahlaan$19.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Tahlaan.java:464",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "tahlan_chainskimmer",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_ScalarTech$11.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_ScalarTech.java:231",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "tahlan_crusherdrive",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Tahlaan$14.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Tahlaan.java:346",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "tahlan_cycleaccel",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_ScalarTech$8.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_ScalarTech.java:169",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "tahlan_divinemight",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Tahlaan$9.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Tahlaan.java:221",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "tahlan_emsuppression",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_ScalarTech$4.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_ScalarTech.java:85",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "tahlan_errantdrive",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Tahlaan$2.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Tahlaan.java:37",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "tahlan_flickerdrive",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_ScalarTech$3.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_ScalarTech.java:54",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "tahlan_helcrusherdrive",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Tahlaan$20.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Tahlaan.java:489",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "tahlan_inertialessdrive",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Tahlaan$8.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Tahlaan.java:195",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "tahlan_infernalcharge",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Tahlaan$15.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Tahlaan.java:375",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "tahlan_jauntdrive",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Tahlaan$4.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Tahlaan.java:91",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "tahlan_limitrelease",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_ScalarTech$6.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_ScalarTech.java:129",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "tahlan_loaderjets",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_ScalarTech$10.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_ScalarTech.java:209",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "tahlan_ltskimmer",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Tahlaan$5.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Tahlaan.java:120",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "tahlan_Nibelung",
+    "classes": [
+      "data/scripts/plugins/BroadsideModifiers/RTS_Tahlaan_Broadsides.class"
+    ],
+    "src": "data/scripts/plugins/BroadsideModifiers/RTS_Tahlaan_Broadsides.java:10",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "tahlan_orion_device_mk2",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Tahlaan$18.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Tahlaan.java:439",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "tahlan_overboost",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_ScalarTech$12.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_ScalarTech.java:260",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "tahlan_penetrationDrive",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Tahlaan$7.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Tahlaan.java:171",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "tahlan_phasebreaker",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Tahlaan$11.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Tahlaan.java:272",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "tahlan_Phoca",
+    "classes": [
+      "data/scripts/plugins/BroadsideModifiers/RTS_Tahlaan_Broadsides.class"
+    ],
+    "src": "data/scripts/plugins/BroadsideModifiers/RTS_Tahlaan_Broadsides.java:11",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "tahlan_powersurge",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_ScalarTech$7.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_ScalarTech.java:149",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "tahlan_pulsedrive",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_ScalarTech$1.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_ScalarTech.java:12",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "tahlan_raiderjets",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Tahlaan$6.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Tahlaan.java:149",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "tahlan_raidestjets",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Tahlaan$13.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Tahlaan.java:320",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "tahlan_realityshell",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Tahlaan$17.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Tahlaan.java:427",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "tahlan_rrskimmer",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Tahlaan$3.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Tahlaan.java:62",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "tahlan_stormdrive",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Tahlaan$10.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Tahlaan.java:247",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "tahlan_supercruise",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_ScalarTech$2.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_ScalarTech.java:37",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "tahlan_temporaldrift",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Tahlaan$16.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Tahlaan.java:404",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "tahlan_vectorshift",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Tahlaan$21.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Tahlaan.java:518",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "target",
+    "classes": [
+      "data/scripts/plugins/RTS_SelectionListener.class",
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class",
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:860",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "targetEnemy",
+    "classes": [
+      "data/scripts/plugins/RTS_ShipMoveToPosition$3.class",
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class",
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Utils/RTS_Context.class",
+      "data/scripts/plugins/Utils/RTS_Pathing$classidentifiers.class",
+      "data/scripts/plugins/Utils/RTS_Pathing.class"
+    ],
+    "src": "data/scripts/plugins/RTS_ShipMoveToPosition.java:121",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "TargetEnemy",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:250",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "sounds.json 音效事件名（代码按该键取音效，改字符串会静默丢音，铁律 R7）"
+  },
+  {
+    "c": "TargetEnemyLong",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:250",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "sounds.json 音效事件名（代码按该键取音效，改字符串会静默丢音，铁律 R7）"
+  },
+  {
+    "c": "tasks",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:864",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "test",
+    "classes": [
+      "data/scripts/plugins/DevTools/RTS_Console$SimpleExample$1.class",
+      "data/scripts/plugins/RTS_ShipMoveToPosition$4.class",
+      "data/scripts/plugins/Utils/RTS_AssortedFunctions$LRSTest.class",
+      "data/scripts/plugins/Utils/RTS_AssortedFunctions.class"
+    ],
+    "src": "data/scripts/plugins/DevTools/RTS_Console.java:30",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "THIS IS MY FIRST AWT EXAMPLE",
+    "classes": [
+      "data/scripts/plugins/DevTools/RTS_Console$SimpleExample.class"
+    ],
+    "src": "data/scripts/plugins/DevTools/RTS_Console.java:36",
+    "asId": false,
+    "decision": "skip",
+    "category": "other",
+    "reason": "DevTools/RTS_Console.java 的 AWT 示例窗口（上游遗留示例，模组从未实例化该类，运行期不可见）"
+  },
+  {
+    "c": "TITLE",
+    "classes": [
+      "data/scripts/plugins/RTSAssist.class"
+    ],
+    "src": "data/scripts/plugins/RTSAssist.java:431",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "TOGGLE_SHIELD",
+    "classes": [
+      "data/scripts/plugins/RTS_ShipMoveToPosition$valCommandString.class"
+    ],
+    "src": "data/scripts/plugins/RTS_ShipMoveToPosition.java:63",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "TURN_LEFT",
+    "classes": [
+      "data/scripts/plugins/RTS_ShipMoveToPosition$valCommandString.class",
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class"
+    ],
+    "src": "data/scripts/plugins/RTS_ShipMoveToPosition.java:56",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "TURN_RIGHT",
+    "classes": [
+      "data/scripts/plugins/RTS_ShipMoveToPosition$valCommandString.class",
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class"
+    ],
+    "src": "data/scripts/plugins/RTS_ShipMoveToPosition.java:57",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "type",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_CommonsControl.class",
+      "data/scripts/plugins/AISystems/RTS_AIInjector.class",
+      "data/scripts/plugins/BlockedSystems/RTS_CompatibilityTools.class",
+      "data/scripts/plugins/RTS_SelectionListener$2.class",
+      "data/scripts/plugins/RTS_TaskManager$2.class",
+      "data/scripts/plugins/RTS_TaskManager$3.class",
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Utils/RTS_AssortedFunctions.class",
+      "data/scripts/plugins/Utils/RTS_Event.class",
+      "data/scripts/plugins/Utils/RTS_EventManager.class",
+      "data/scripts/plugins/Utils/RTS_Listener.class",
+      "data/scripts/plugins/Utils/RTS_ModeManager$1.class",
+      "data/scripts/plugins/Utils/RTS_ModeManager$2.class",
+      "data/scripts/plugins/Utils/RTS_ShipLocAPI$2.class",
+      "data/scripts/plugins/Utils/RTS_ShipLocAPI$3.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:861",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "U",
+    "classes": [
+      "data/scripts/RTSAssistModPlugin.class"
+    ],
+    "src": "data/scripts/RTSAssistModPlugin.java:90",
+    "asId": false,
+    "decision": "skip",
+    "category": "fmt",
+    "reason": "单字符常量（热键默认值），非可见文本"
+  },
+  {
+    "c": "uaf_ai_roria_esvernia",
+    "classes": [
+      "data/scripts/plugins/BroadsideModifiers/RTS_UAF_Broadsides.class"
+    ],
+    "src": "data/scripts/plugins/BroadsideModifiers/RTS_UAF_Broadsides.java:10",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "uaf_burnDrive",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_UAF$5.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_UAF.java:116",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "uaf_evasive_manujet",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_UAF$2.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_UAF.java:33",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "uaf_fusoDrive",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_UAF$3.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_UAF.java:62",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "uaf_royalBurn",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_UAF$4.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_UAF.java:91",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "uaf_royalJets",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_UAF$1.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_UAF.java:11",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "uaf_supercap_royaljets",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_UAF$6.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_UAF.java:145",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "UICommandVolume",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$3.class",
+      "data/scripts/plugins/RTSAssist$configIdentifiers.class",
+      "data/scripts/plugins/Utils/RTS_SoundsManager.class",
+      "data/scripts/RTSAssistModPlugin$1.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:284",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "第三方 mod 舰体 id / customData 键 / 内部配置键（标识符）"
+  },
+  {
+    "c": "useSystem",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$4.class",
+      "data/scripts/plugins/RTSAssist$hotKeyIdentifiers.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$41.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$42.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds.class",
+      "data/scripts/RTSAssistModPlugin$2.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:87",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "UUID",
+    "classes": [
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Utils/RTS_MoveTogetherManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:205",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "全大写标识符（枚举/常量/引擎匹配键，如 HEAVY_ESCORT、PREADVANCE、FIGHTER）"
+  },
+  {
+    "c": "valk_burstdrive",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Valkyrie$3.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Valkyrie.java:51",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "valk_chargingjets",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Valkyrie$5.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Valkyrie.java:101",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "valk_inferniumdrive",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Valkyrie$4.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Valkyrie.java:76",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "valk_overcharge",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Valkyrie$2.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Valkyrie.java:31",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "valk_phaseteleporter",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Valkyrie$6.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Valkyrie.java:123",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "valk_valiant_defense",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Valkyrie$1.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Valkyrie.java:11",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "valk_vatican_II",
+    "classes": [
+      "data/scripts/plugins/BroadsideModifiers/RTS_Valkyrie_Broadsides.class"
+    ],
+    "src": "data/scripts/plugins/BroadsideModifiers/RTS_Valkyrie_Broadsides.java:10",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "vent",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_LunaIntegration.class",
+      "data/scripts/plugins/RTSAssist$4.class",
+      "data/scripts/plugins/RTSAssist$hotKeyIdentifiers.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$39.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$40.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds.class",
+      "data/scripts/RTSAssistModPlugin$2.class"
+    ],
+    "src": "data/scripts/modInitilisation/RTS_LunaIntegration.java:78",
+    "asId": true,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "vic_adaptiveassault",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Volkov$5.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Volkov.java:114",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "vic_defenceSuppressor",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Volkov$7.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Volkov.java:163",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "vic_DriftBoost",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Volkov$6.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Volkov.java:134",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "vic_hunterDrive",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Volkov$3.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Volkov.java:56",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "vic_pirateBurn",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Volkov$2.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Volkov.java:27",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "vic_quantumlunge",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Volkov$1.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Volkov.java:14",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "vic_quantumteleporter",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Volkov$8.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Volkov.java:180",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "vic_zealotDrive",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Volkov$4.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Volkov.java:85",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "volantian_phaseslip",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Volantian$1.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Volantian.java:11",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "weaponPosMods",
+    "classes": [
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class",
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_ShipMoveToPosition.java:285",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "weaponRanges",
+    "classes": [
+      "data/scripts/plugins/Utils/RTS_Context.class"
+    ],
+    "src": "data/scripts/plugins/Utils/RTS_Context.java:45",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "单 token 标识符（HashMap/JSON 键、枚举名、类名；代码按该字符串读写数据，绝不可译）"
+  },
+  {
+    "c": "x",
+    "classes": [
+      "data/scripts/modInitilisation/RTS_CommonsControl.class",
+      "data/scripts/plugins/DevTools/RTS_ShipTestSuite.class",
+      "data/scripts/plugins/RTS_ParseInput.class",
+      "data/scripts/plugins/RTS_SelectionListener.class",
+      "data/scripts/plugins/RTS_ShipMoveToPosition$thrustIdentifiers.class",
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class",
+      "data/scripts/plugins/RTS_TaskManager.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$10.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$11.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$12.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$13.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$14.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$15.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$16.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$17.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$18.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$19.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$21.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$23.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$25.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$27.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$29.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$3.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$30.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$31.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$32.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$33.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$34.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$35.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$36.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$37.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$38.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$39.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$4.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$40.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$41.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$42.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$43.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$44.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$45.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$46.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$5.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$6.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$7.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$8.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds$9.class",
+      "data/scripts/plugins/Setup/RTS_ParseInputKeyBinds.class",
+      "data/scripts/plugins/Utils/RTS_EventManager.class",
+      "data/scripts/plugins/Utils/RTS_StateEngine.class",
+      "data/scripts/plugins/Utils/RTS_StatefulClasses.class",
+      "data/scripts/plugins/Utils/RTS_Unused_InputManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:886",
+    "asId": true,
+    "decision": "skip",
+    "category": "fmt",
+    "reason": "单字符常量（热键默认值），非可见文本"
+  },
+  {
+    "c": "XHAN_Gramada",
+    "classes": [
+      "data/scripts/plugins/BroadsideModifiers/RTS_Xhan_Broadsides.class"
+    ],
+    "src": "data/scripts/plugins/BroadsideModifiers/RTS_Xhan_Broadsides.java:10",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "第三方 mod 舰体 id / customData 键 / 内部配置键（标识符）"
+  },
+  {
+    "c": "xhan_maneuvering",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Xhan$1.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Xhan.java:12",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "xhan_microburn",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Xhan$3.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Xhan.java:55",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "XHAN_MindControl",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Xhan$7.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Xhan.java:150",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "XHAN_PhaseHop",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Xhan$8.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Xhan.java:173",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "xhan_skipdrive",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Xhan$2.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Xhan.java:34",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "XHAN_TemporalLock",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Xhan$5.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Xhan.java:106",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "XHAN_TorchDrive",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Xhan$4.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Xhan.java:80",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "XHAN_TurboBurn",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_Xhan$6.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_Xhan.java:131",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "y",
+    "classes": [
+      "data/scripts/plugins/RTS_ShipMoveToPosition$thrustIdentifiers.class",
+      "data/scripts/plugins/RTS_ShipMoveToPosition.class",
+      "data/scripts/plugins/RTS_TaskManager.class"
+    ],
+    "src": "data/scripts/plugins/RTS_TaskManager.java:887",
+    "asId": true,
+    "decision": "skip",
+    "category": "fmt",
+    "reason": "单字符常量（热键默认值），非可见文本"
+  },
+  {
+    "c": "Y",
+    "classes": [
+      "data/scripts/RTSAssistModPlugin.class"
+    ],
+    "src": "data/scripts/RTSAssistModPlugin.java:89",
+    "asId": false,
+    "decision": "skip",
+    "category": "fmt",
+    "reason": "单字符常量（热键默认值），非可见文本"
+  },
+  {
+    "c": "zea_boss_relativisticdrift",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_KoLSystems$3.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_KoLSystems.java:69",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "zea_dawn_charge_drive",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_KoLSystems$2.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_KoLSystems.java:42",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "zea_dawn_flare_burn",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_KoLSystems$6.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_KoLSystems.java:152",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "zea_dawn_targeting_beam",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_KoLSystems$1.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_KoLSystems.java:14",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "zea_dusk_displacer",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_KoLSystems$4.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_KoLSystems.java:94",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "zea_dusk_phase_skip",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_KoLSystems$8.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_KoLSystems.java:198",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "zea_dusk_phaseteleporter",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_KoLSystems$7.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_KoLSystems.java:177",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  },
+  {
+    "c": "zea_edf_minijump",
+    "classes": [
+      "data/scripts/plugins/BlockedSystems/RTS_KoLSystems$5.class"
+    ],
+    "src": "data/scripts/plugins/BlockedSystems/RTS_KoLSystems.java:123",
+    "asId": false,
+    "decision": "skip",
+    "category": "id",
+    "reason": "BlockedSystems/BroadsideModifiers 返回的舰船系统 id 或舰体 id（引擎按 id 匹配，绝不可译，铁律 R7）"
+  }
+]

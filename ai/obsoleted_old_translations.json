@@ -1,0 +1,22 @@
+[
+  {
+    "file": "data/scripts/modInitilisation/RTS_LunaIntegration.java",
+    "en": "UI Settings",
+    "zh": "界面设置"
+  },
+  {
+    "file": "data/scripts/modInitilisation/RTS_LunaIntegration.java",
+    "en": "UI Scaling",
+    "zh": "界面缩放"
+  },
+  {
+    "file": "data/scripts/modInitilisation/RTS_LunaIntegration.java",
+    "en": "Manually adjust UI scaling. If using in game UI scaling this should not be necessary. If you are using nvidia upscaling for example, you will likely need to adjust this setting. Match the value with your scaling setting.",
+    "zh": "手动调整界面缩放比例。若已在游戏本体中启用了 UI 缩放，则通常无需调整此项。若使用了 NVIDIA 超分辨率等缩放功能，可能需要调整此项以匹配对应的缩放比例数值。"
+  },
+  {
+    "file": "data/scripts/modInitilisation/RTS_LunaIntegration.java",
+    "en": "UI Command Volume",
+    "zh": "界面指令音量"
+  }
+]
