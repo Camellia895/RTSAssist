@@ -1,6 +1,6 @@
 /*
   **********************************************************************************************************
-  * RTSAssist version 0.2.10exp
+  * RTSAssist version 0.2.11exp
   * Copyright (C) 2025-2026, Raatle
 
   * This program is free software: you can redistribute it and/or modify
@@ -26,9 +26,6 @@ import data.scripts.plugins.Render.RTS_drawManager.*;
 import data.scripts.plugins.Render.RTS_drawManager.RTS_animator.RTS_AnimationController;
 import data.scripts.plugins.Render.RTS_drawManager.RTS_animator.RTS_Animator;
 import data.scripts.plugins.Render.RTS_drawManager.RTS_FBO.RTS_BoundTexture;
-import data.scripts.plugins.Render.RTS_drawManager.RTS_FBO.RTS_FBO;
-import data.scripts.plugins.Render.RTS_drawManager.RTS_FBO.RTS_FBOManager;
-import data.scripts.plugins.Render.RTS_drawManager.RTS_FBO.RTS_PaintJob;
 import data.scripts.plugins.Render.JXDOM.Props.*;
 import data.scripts.plugins.Render.RTS_RenderManager;
 import data.scripts.plugins.Render.RTS_Root;
@@ -38,7 +35,7 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 
-import org.lwjgl.opengl.*;
+import org.lwjgl.opengl.GL11;
 
 public class RTS_MiniMapRenderer {
 
@@ -84,14 +81,26 @@ public class RTS_MiniMapRenderer {
     private static final float shipLineThickness = 2f;
     private static final float fighterLineThickness = 1.2f;
     private static final float rightClickMarkerDuration = 0.4f;
-    public static RTS_FBO miniMapFBO;
+
+    /* Radar sweep presentation. Each refresh cycle is split in two phases: ships are re-swept
+     * during the first half, fighters during the second. Units are swept one by one in a fresh
+     * random order every cycle; a sweep hit flashes (brighten + ring), then the unit decays
+     * towards a dim floor until its next sweep. */
+    private static final float sweepPhaseSplit = 0.5f;      // ships [0,split), fighters [split,1)
+    private static final float sweepFloor = 0.25f;          // dimmest state between sweeps
+    private static final float sweepTauFactor = 0.55f;      // decay constant, x cycle duration
+    private static final float sweepFlashDurFactor = 0.8f;  // flash duration, x phase duration
+    private static final float sweepFlashWhiteness = 0.75f; // how far the flash pushes towards white
+    private static final float sweepRingGrow = 1.9f;        // ring end radius, x unit icon size
+    private static final float sweepRingAlpha = 0.55f;
 
     private RTS_DrawManager drawManager;
     public RTS_Animator animator;
-    /* Map geometry refresh interval in ms. Heavy layers render into an FBO at this cadence;
-     * between refreshes only the finished texture is blitted (one quad per frame). */
+    /* Data refresh cadence in ms; one sweep cycle equals one refresh. Set from RTS_Root. */
     public float refreshMs = 200f;
-    private long lastRefresh = 0;
+    private long cycleStart = 0;
+    private boolean cycleValid = false;
+    private boolean firstCycle = true;
 
     private boolean init;
     private Vector2f pos = new Vector2f();
@@ -112,12 +121,19 @@ public class RTS_MiniMapRenderer {
     }
     private HashMap<Integer, markerStore> aniStore;
 
-    private List<ShipAPI> friendlyShips;
-    private List<ShipAPI> alliedShips;
-    private List<ShipAPI> enemyShips;
-    private List<ShipAPI> friendlyFighters;
-    private List<ShipAPI> enemyFighters;
-    private List<ShipAPI> alliedFighters;
+    /* Data snapshot taken once per cycle; the sweep animates over this frozen frame of data. */
+    private static final class Blip {
+        final Vector2f loc = new Vector2f();
+        final Vector2f vel = new Vector2f();
+        float facing;
+        float size;
+        float thickness;
+        float lineScale;
+        Color color;
+        float sweepOffset; // 0..1 position within its phase, in sweep order
+    }
+    private final ArrayList<Blip> shipBlips = new ArrayList<>();
+    private final ArrayList<Blip> fighterBlips = new ArrayList<>();
 
     //------------------------------------------------------------------------------------------------------------------
 
@@ -128,9 +144,8 @@ public class RTS_MiniMapRenderer {
     ) {
         if (disabled || !this.init)
             return;
-        this.camera = camera;
-        this.buildShipLists(listOfShips);
-        this.drawManager.registerDrawCall(this.mapLayerCall);
+        this.updateAnimationControllers();
+        this.drawManager.registerDrawCall(this.sweepLayerCall);
         this.drawManager.registerDrawCall(this.viewPortBox);
         this.drawManager.registerDrawCall(this.rightClickMarker);
     }
@@ -141,21 +156,14 @@ public class RTS_MiniMapRenderer {
         this.pos.set((float)props.get(RTS_P_Left.ID()), RTS_Root.screenDim.getY() - (float)props.get(RTS_P_Top.ID()));
         this.dim.set((float)props.get(RTS_P_Width.ID()), (float)props.get(RTS_P_Height.ID()));
         this.posRef.set(this.pos.getX(), this.pos.getY() - this.dim.getY());
-        if (!this.init)
-            this.init();
-        this.rightClickMarker.modify();
-    }
-
-    private void init () {
-        RTS_MiniMapRenderer.miniMapFBO = RTS_FBOManager.buildFBO(this.dim);
         this.init = true;
     }
 
     //------------------------------------------------------------------------------------------------------------------
 
-    /* The whole map (triangles, velocity lines, objectives) renders into an FBO every refreshMs;
-     * every frame only the finished texture is painted, so the per-frame cost is a single quad. */
-    private RTS_DrawCall mapLayerCall = new RTS_DrawCall() {
+    /* Per frame: advance the sweep cycle, take a data snapshot at each cycle boundary and draw
+     * every unit at a brightness driven by the time since its last sweep hit. */
+    private RTS_DrawCall sweepLayerCall = new RTS_DrawCall() {
         @Override
         public Integer zIndex() {
             return (layers.miniMap);
@@ -163,59 +171,122 @@ public class RTS_MiniMapRenderer {
 
         @Override
         public void call() {
-            long now = System.nanoTime();
-            if (lastRefresh == 0 || (now - lastRefresh) / 1000000L >= refreshMs) {
-                lastRefresh = now;
-                rebuildMapFBO();
+            long now = System.currentTimeMillis();
+            long cycleMs = (long)refreshMs;
+            if (!cycleValid || now - cycleStart >= cycleMs) {
+                if (cycleValid && RTS_MiniMapRenderer.this.firstCycle)
+                    RTS_MiniMapRenderer.this.firstCycle = false;
+                cycleStart = now;
+                cycleValid = true;
+                snapshot();
             }
-            RTS_FBOManager.paintFBO(new RTS_PaintJob(
-                    RTS_MiniMapRenderer.miniMapFBO,
-                    posRef,
-                    0
-            ));
+            drawSweep(now, cycleMs);
         }
     };
 
-    private void rebuildMapFBO () {
-        RTS_FBOManager.bindFBO(RTS_MiniMapRenderer.miniMapFBO, posRef);
+    private void snapshot () {
+        this.shipBlips.clear();
+        this.fighterBlips.clear();
+        CombatEngineAPI eng = Global.getCombatEngine();
+        float battleW = eng.getMapWidth();
+        float battleH = eng.getMapHeight();
+        for (ShipAPI ship : eng.getShips()) {
+            if (ship.isShuttlePod() || ship.getHullSize() == null || ship.getOriginalOwner() == 100)
+                continue;
+            boolean fighter = !ship.isHulk() && (ship.getHullSize().name().equals("FIGHTER") || ship.isFighter());
+            Color color;
+            if (fighter)
+                color = ship.isAlly() ? palette.allied : ship.getOriginalOwner() == 0 ? palette.friendly : palette.enemy;
+            else if (ship.isAlly())
+                color = palette.allied;
+            else if (ship.getOriginalOwner() == 0)
+                color = palette.friendly;
+            else if (ship.getOriginalOwner() == 1)
+                color = palette.enemy;
+            else
+                continue;
+            Blip blip = new Blip();
+            blip.loc.set(toMapX(ship.getLocation().getX(), battleW), toMapY(ship.getLocation().getY(), battleH));
+            blip.vel.set(ship.getVelocity().getX(), ship.getVelocity().getY());
+            blip.facing = ship.getFacing();
+            blip.size = fighter ? fighterIconSize : getShipIconSize(ship);
+            blip.thickness = fighter ? fighterLineThickness : shipLineThickness;
+            blip.lineScale = fighter ? fighterSpeedLineScale : shipSpeedLineScale;
+            blip.color = color;
+            if (fighter)
+                this.fighterBlips.add(blip);
+            else
+                this.shipBlips.add(blip);
+        }
+        assignSweepOffsets(this.shipBlips);
+        assignSweepOffsets(this.fighterBlips);
+    }
 
+    /* Fresh random sweep order every cycle; sweepOffset positions each hit within its phase. */
+    private void assignSweepOffsets (ArrayList<Blip> blips) {
+        int n = blips.size();
+        Integer[] order = new Integer[n];
+        for (int i = 0; i < n; i++)
+            order[i] = i;
+        Collections.shuffle(Arrays.asList(order));
+        for (int i = 0; i < n; i++)
+            blips.get(order[i]).sweepOffset = n <= 1 ? 0f : (float)i / (float)n;
+    }
+
+    private void drawSweep (long now, long cycleMs) {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
 
-        drawShipGroup(friendlyShips, palette.friendly, false);
-        drawShipGroup(enemyShips, palette.enemy, false);
-        drawShipGroup(alliedShips, palette.allied, false);
-        drawShipGroup(friendlyFighters, palette.friendly, true);
-        drawShipGroup(enemyFighters, palette.enemy, true);
-        drawShipGroup(alliedFighters, palette.allied, true);
+        drawSweepGroup(this.shipBlips, now, cycleMs, 0f);
+        drawSweepGroup(this.fighterBlips, now, cycleMs, sweepPhaseSplit);
 
         drawObjectives();
-
         GL11.glEnable(GL11.GL_TEXTURE_2D);
-        RTS_FBOManager.unbindFBO();
     }
 
-    private void drawShipGroup (List<ShipAPI> ships, Color color, boolean fighters) {
-        if (ships == null || ships.isEmpty())
+    private void drawSweepGroup (ArrayList<Blip> blips, long now, long cycleMs, float phaseStart) {
+        if (blips.isEmpty())
             return;
-        Color c = new Color(
-                color.getRed(),
-                color.getGreen(),
-                color.getBlue(),
-                ((Float)(color.getAlpha() * opacity)).intValue()
-        );
-        float thickness = fighters ? fighterLineThickness : shipLineThickness;
-        float lineScale = fighters ? fighterSpeedLineScale : shipSpeedLineScale;
-        for (ShipAPI ship : ships) {
-            float iconSize = fighters ? fighterIconSize : getShipIconSize(ship);
-            Vector2f loc = getShipLocation(ship);
-            drawTriangle(loc, ship.getFacing(), iconSize, thickness, c);
-            drawVelocityLine(ship, loc, lineScale, thickness, c);
+        long phaseMs = (long)(cycleMs * sweepPhaseSplit);
+        long flashDur = (long)(phaseMs * sweepFlashDurFactor);
+        float tau = cycleMs * sweepTauFactor;
+        for (Blip blip : blips) {
+            long sweptAt = cycleStart
+                    + (long)((phaseStart + blip.sweepOffset * sweepPhaseSplit) * cycleMs);
+            long sinceSweep = now - sweptAt;
+            boolean notYetSwept = sinceSweep < 0;
+            /* Not hit yet this cycle: still showing last cycle's pass, further decayed. */
+            if (notYetSwept)
+                sinceSweep += cycleMs;
+            /* First cycle: units that have not been swept yet have never existed. */
+            if (this.firstCycle && notYetSwept)
+                continue;
+            float bright = sweepFloor
+                    + (1f - sweepFloor) * (float)Math.exp(-sinceSweep / tau);
+            float glowK = notYetSwept ? 0f : 1f - (float)sinceSweep / (float)flashDur;
+            if (glowK < 0f)
+                glowK = 0f;
+
+            Color c = sweepColor(blip.color, bright, glowK);
+            float thickness = blip.thickness * (1f + 0.8f * glowK);
+            drawTriangle(blip.loc, blip.facing, blip.size, thickness, c);
+            drawVelocityLine(blip, c);
+            if (glowK > 0f)
+                drawFlashRing(blip, glowK, c);
         }
     }
 
-    /* Hollow, direction-pointing triangle built from three line segments. */
+    /* Blend the base colour towards white and scale alpha by the sweep brightness. */
+    private Color sweepColor (Color base, float bright, float glowK) {
+        float whiten = sweepFlashWhiteness * glowK;
+        int r = base.getRed() + ((int)((255 - base.getRed()) * whiten));
+        int g = base.getGreen() + ((int)((255 - base.getGreen()) * whiten));
+        int b = base.getBlue() + ((int)((255 - base.getBlue()) * whiten));
+        int a = (int)(base.getAlpha() * this.opacity * bright);
+        return (new Color(r, g, b, Math.min(a, 255)));
+    }
+
     private void drawTriangle (Vector2f centre, float facingDeg, float size, float thickness, Color color) {
         double rad = Math.toRadians(facingDeg);
         double nose = size * 0.62;
@@ -244,25 +315,49 @@ public class RTS_MiniMapRenderer {
         );
     }
 
-    private void drawVelocityLine (ShipAPI ship, Vector2f mapLoc, float scale, float thickness, Color color) {
-        Vector2f vel = ship.getVelocity();
+    private void drawVelocityLine (Blip blip, Color color) {
+        Vector2f vel = blip.vel;
         float speed = (float)Math.sqrt(vel.getX() * vel.getX() + vel.getY() * vel.getY());
         if (speed < 1f)
             return;
-        float len = Math.min(speed * scale * dim.getX(), dim.getX() * speedLineMaxLenMod);
+        float len = Math.min(speed * blip.lineScale * dim.getX(), dim.getX() * speedLineMaxLenMod);
         if (len < 1.5f)
             return;
         drawSegment(
-                mapLoc,
+                blip.loc,
                 new Vector2f(
-                        mapLoc.getX() + (vel.getX() / speed) * len,
-                        mapLoc.getY() + (vel.getY() / speed) * len
+                        blip.loc.getX() + (vel.getX() / speed) * len,
+                        blip.loc.getY() + (vel.getY() / speed) * len
                 ),
-                thickness, color
+                blip.thickness, color
         );
     }
 
-    /* Objectives as small hollow diamonds, tinted by owner like the vanilla command page. */
+    private final RTS_DrawQuad.quadCall ringQuad = new RTS_DrawQuad.quadCall();
+    private final RTS_GenericDrawMeth.quadToCircleLineShader ringShader = new RTS_GenericDrawMeth.quadToCircleLineShader();
+
+    /* Expanding fading ring on the unit that has just been swept. */
+    private void drawFlashRing (Blip blip, float glowK, Color color) {
+        float k = 1f - glowK; // 0 at flash start -> 1 at end
+        float ringSize = blip.size * (0.8f + sweepRingGrow * k);
+        int alpha = (int)(255 * sweepRingAlpha * glowK * this.opacity);
+        Color ring = new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha);
+        Color ringFade = new Color(ring.getRed(), ring.getGreen(), ring.getBlue(), alpha / 3);
+        ringQuad
+                .pos(blip.loc)
+                .size(ringSize)
+                .color(ring)
+                .filter(ringShader)
+                    .thickness(Math.max(1.5f, ringSize * 0.18f))
+                    .fadeThickness(3f)
+                    .colorFade(ringFade)
+                    .fitVsEncircle(true)
+                .set()
+                .render();
+    }
+
+    /* Objectives as small hollow diamonds, tinted by owner like the vanilla command page.
+     * Deliberately outside the sweep: constant, quiet reference points. */
     private void drawObjectives () {
         float size = 9f;
         float thickness = 1.4f;
@@ -276,7 +371,7 @@ public class RTS_MiniMapRenderer {
                     color.getRed(),
                     color.getGreen(),
                     color.getBlue(),
-                    ((Float)(color.getAlpha() * opacity)).intValue()
+                    ((Float)(color.getAlpha() * opacity * 0.55f)).intValue()
             );
             Vector2f loc = getVectorLoc(obj.getLocation());
             drawSegment(new Vector2f(loc.getX(), loc.getY() + size), new Vector2f(loc.getX() + size, loc.getY()), thickness, color);
@@ -448,54 +543,28 @@ public class RTS_MiniMapRenderer {
                 animator.removeAnimation(hold.aniCont.ID);
             }
         }
+        if (this.cycleValid)
+            this.firstCycle = false;
     }
 
     public RTS_Root.camera camera;
-    private Vector2f getShipLocation(ShipAPI ship) {
-        Vector2f location = new Vector2f();
-        float battleW = Global.getCombatEngine().getMapWidth();
-        float battleH = Global.getCombatEngine().getMapHeight();
-        location.setX(
-                  this.pos.getX()
-                + this.dim.getX() / 2f
-                + ((ship.getLocation().getX() / battleW) * this.dim.getX())
-        );
-        location.setY(
-                  this.pos.getY()
-                - this.dim.getY() / 2f
-                + ((ship.getLocation().getY() / battleH) * this.dim.getY())
-        );
-        return (location);
+
+    private float toMapX (float worldX, float battleW) {
+        return (this.pos.getX() + this.dim.getX() / 2f + ((worldX / battleW) * this.dim.getX()));
+    }
+
+    private float toMapY (float worldY, float battleH) {
+        return (this.pos.getY() - this.dim.getY() / 2f + ((worldY / battleH) * this.dim.getY()));
     }
 
     private Vector2f getVectorLoc (Vector2f loc) {
-        Vector2f location = new Vector2f();
         float battleW = Global.getCombatEngine().getMapWidth();
         float battleH = Global.getCombatEngine().getMapHeight();
-        location.setX(
-                this.pos.getX()
-                        + this.dim.getX() / 2f
-                        + ((loc.getX() / battleW) * this.dim.getX())
-        );
-        location.setY(
-                this.pos.getY()
-                        - this.dim.getY() / 2f
-                        + ((loc.getY() / battleH) * this.dim.getY())
-        );
-        return (location);
+        return (new Vector2f(toMapX(loc.getX(), battleW), toMapY(loc.getY(), battleH)));
     }
 
     private Float getShipIconSize (ShipAPI ship) {
         return (this.iconSizes.get(ship.getHullSize().name()));
-    }
-
-    private void buildShipLists (RTS_Root.shipList listOfShips) {
-        this.friendlyShips = listOfShips.friendlyShips;
-        this.alliedShips = listOfShips.alliedShips;
-        this.enemyShips = listOfShips.enemyShips;
-        this.friendlyFighters = listOfShips.friendlyFighters;
-        this.enemyFighters = listOfShips.enemyFighters;
-        this.alliedFighters = listOfShips.alliedFighters;
     }
 
     public int registerMarker (Vector2f location) {

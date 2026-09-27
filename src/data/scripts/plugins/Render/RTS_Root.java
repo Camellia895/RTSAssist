@@ -1,6 +1,6 @@
 /*
   **********************************************************************************************************
-  * RTSAssist version 0.2.10exp
+  * RTSAssist version 0.2.11exp
   * Copyright (C) 2025-2026, Raatle
 
   * This program is free software: you can redistribute it and/or modify
@@ -203,7 +203,6 @@ public class RTS_Root extends RTS_StatefulClasses implements RTS_Div, RTS_Minima
                         /* MiniMap */
                         div(
                                 props(
-                                        "debug", true,
                                         "height", this.screenDim.getY() / 3f,
                                         "width", this.screenDim.getY() / 3f,
                                         "bottom", miniY,
