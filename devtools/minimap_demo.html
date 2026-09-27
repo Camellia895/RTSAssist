@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>RTSAssist 小地图效果预览（CRT 磷光扫描）</title>
+<title>RTSAssist 小地图效果预览（PPI 磷光扫描）</title>
 <style>
   :root { color-scheme: dark; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -31,8 +31,8 @@
   button:hover { background: #1a3049; }
   #javaBox { width: 100%; height: 150px; background: #0a0f16; color: #9ece9e; border: 1px solid #1d2a3a;
     font-family: Consolas, monospace; font-size: 11px; padding: 6px; white-space: pre; overflow: auto; }
-  #timeline { position: absolute; left: 50%; transform: translateX(-50%); bottom: 14px;
-    width: 420px; background: rgba(10,14,22,0.85); border: 1px solid #1d2a3a; padding: 6px 8px; }
+  #timeline { position: absolute; left: 0; right: 352px; bottom: 14px;
+    margin: 0 auto; width: 420px; background: rgba(10,14,22,0.85); border: 1px solid #1d2a3a; padding: 6px 8px; }
   #timeline .bar { display: flex; height: 10px; }
   #timeline .seg { opacity: 0.35; }
   #timeline .seg.sweepS { background: #35c24a; }
@@ -41,6 +41,7 @@
   #timeline .seg.holdF  { background: #5c241d; }
   #timeline .cursor { position: absolute; top: 4px; bottom: 4px; width: 2px; background: #fff; }
   #timeline .cap { display: flex; justify-content: space-between; font-size: 10px; color: #5c6b7d; margin-top: 3px; }
+  #timeline .dbg { font-size: 10px; color: #7fd4ff; margin-top: 3px; }
   .hint { color: #5c6b7d; font-size: 11px; line-height: 1.5; }
 </style>
 </head>
@@ -54,6 +55,7 @@
   </div>
   <div class="cursor" id="cursor" style="left:0"></div>
   <div class="cap"><span>扫描舰船</span><span>保持</span><span>扫描战机</span><span>保持</span></div>
+  <div class="dbg" id="dbg">本帧绘制：舰船 0 · 战机 0</div>
 </div>
 
 <div id="panel">
@@ -67,13 +69,16 @@
         <option value="random">随机次序</option>
         <option value="flagship">离旗舰近先扫（脉冲波）</option>
       </select></div>
-    <div class="hint">周期结构：扫描舰船 → 保持 → 扫描战机 → 保持，循环。</div>
+    <div class="hint">周期结构：扫描舰船 → 保持 → 扫描战机 → 保持，循环。<br>
+      未被扫到的单位完全不在图上；扫到即从无到有出现（最亮），随后磷光消退。</div>
   </div>
 
   <div class="group"><b>磷光余晖（CRT）</b>
     <div class="row"><label>残影底值</label><input type="range" id="floor" min="0" max="0.9" step="0.01" value="0"><span class="val" id="floorV">0.00</span></div>
-    <div class="row"><label>衰减速率 (×周期)</label><input type="range" id="tau" min="0.2" max="3" step="0.05" value="0.45"><span class="val" id="tauV">0.45</span></div>
-    <div class="hint">亮度 = 底值 + (1−底值)·e^(−t/τ)，t 为距上次扫描的时间。底值 0 = 未扫到不显示；τ 越大残影越持久。</div>
+    <div class="row"><label>衰减速率 (×周期)</label><input type="range" id="tau" min="0.2" max="3" step="0.05" value="0.30"><span class="val" id="tauV">0.30</span></div>
+    <div class="row"><label>不可见阈值</label><input type="range" id="cutoff" min="0" max="0.3" step="0.01" value="0.06"><span class="val" id="cutoffV">0.06</span></div>
+    <div class="hint">亮度 = 底值 + (1−底值)·e^(−t/τ)，t 为距上次扫描的时间。<br>
+      亮度低于阈值视为不可见（保证未扫到的单位绝对不出现）。τ 越大残影越持久。</div>
   </div>
 
   <div class="group"><b>单位与线条</b>
@@ -102,296 +107,10 @@
   </div>
 </div>
 
-<script>
-'use strict';
-//=================================================================== 参数（与 mod 内常量同名同义）
-const P = {
-  cycleMs: 1000, sweepMs: 300, orderMode: 'random',
-  sweepFloor: 0, sweepTauFactor: 0.45,
-  shipSpeedLinePct: 10, fighterLineFactor: 0.45,
-  nShipsPerSide: 9, nFightersPerSide: 14,
-  showVel: true, showObj: true, showVP: true,
-  paused: false,
-};
-const SWEEP_PHASE_SPLIT = 0.5;
-const ICON = { FRIGATE:14, DESTROYER:19, CRUISER:27, CAPITAL_SHIP:42 };
-const FIGHTER_ICON = 7, SHIP_T = 2, FI_T = 1.2, MAXLEN_MOD = 0.16;
-const PALETTE = {
-  friendly:{r:0,g:255,b:0,a:235}, enemy:{r:255,g:0,b:0,a:235}, allied:{r:226,g:196,b:70,a:235},
-  neutral:{r:75,g:75,b:75,a:255}, viewPort:{r:255,g:255,b:255},
-  RCMCore:{r:113,g:234,b:14}, RCMBorder:{r:2,g:255,b:132},
-};
-
-//=================================================================== 模拟战场
-const MAP = { w: 32000, h: 22000 };
-let ships = [], fighters = [], objectives = [], flagship = null;
-let simTime = 0;
-
-function rnd(a, b) { return a + Math.random() * (b - a); }
-function mkShip(side, cls) {
-  const dir = side === 0 ? 1 : -1;
-  const speed = cls === 'CAPITAL_SHIP' ? rnd(40, 70) : cls === 'CRUISER' ? rnd(60, 95)
-              : cls === 'DESTROYER' ? rnd(80, 115) : rnd(100, 150);
-  return {
-    side, cls, x: side === 0 ? rnd(-MAP.w*0.42, -MAP.w*0.18) : rnd(MAP.w*0.18, MAP.w*0.42),
-    y: rnd(-MAP.h*0.35, MAP.h*0.35), heading: dir > 0 ? rnd(-0.5, 0.5) : Math.PI + rnd(-0.5, 0.5),
-    speed, turn: 0, turnTimer: rnd(0, 3), ally: Math.random() < 0.2,
-  };
-}
-function mkFighter(side) {
-  const dir = side === 0 ? 1 : -1;
-  return { side, x: (side===0?-1:1)*rnd(MAP.w*0.15, MAP.w*0.35), y: rnd(-MAP.h*0.3, MAP.h*0.3),
-    heading: dir>0?rnd(-0.9,0.9):Math.PI+rnd(-0.9,0.9), speed: rnd(180, 320), turn: 0, turnTimer: rnd(0,1) };
-}
-function resetSim() {
-  ships = []; fighters = [];
-  for (let s = 0; s < 2; s++) {
-    for (let i = 0; i < P.nShipsPerSide; i++) {
-      const cls = i < 2 ? 'CAPITAL_SHIP' : i < 6 ? 'CRUISER' : i < 11 ? 'DESTROYER' : 'FRIGATE';
-      ships.push(mkShip(s, cls));
-    }
-    for (let i = 0; i < P.nFightersPerSide; i++) fighters.push(mkFighter(s));
-  }
-  flagship = ships.find(s => s.side === 0 && s.cls === 'CAPITAL_SHIP');
-  objectives = [
-    { x: 0, y: -MAP.h*0.22, owner: 100 }, { x: 0, y: MAP.h*0.22, owner: 100 },
-    { x: -MAP.w*0.25, y: 0, owner: 0 }, { x: MAP.w*0.25, y: 0, owner: 1 },
-  ];
-}
-resetSim();
-
-function stepSim(dt) {
-  for (const s of ships) {
-    s.turnTimer -= dt;
-    if (s.turnTimer <= 0) { s.turn = rnd(-0.25, 0.25); s.turnTimer = rnd(1.5, 4); }
-    s.heading += s.turn * dt;
-    if ((s.side===0 && s.x > MAP.w*0.42) || (s.side===1 && s.x < -MAP.w*0.42)) s.heading = Math.PI - s.heading;
-    s.x += Math.cos(s.heading) * s.speed * dt; s.y += Math.sin(s.heading) * s.speed * dt;
-    s.y = Math.max(-MAP.h*0.45, Math.min(MAP.h*0.45, s.y));
-  }
-  for (const f of fighters) {
-    f.turnTimer -= dt;
-    if (f.turnTimer <= 0) { f.turn = rnd(-2.2, 2.2); f.turnTimer = rnd(0.3, 1.2); }
-    f.heading += f.turn * dt;
-    if ((f.side===0 && f.x > MAP.w*0.45) || (f.side===1 && f.x < -MAP.w*0.45)) f.heading += Math.PI;
-    f.x += Math.cos(f.heading) * f.speed * dt; f.y += Math.sin(f.heading) * f.speed * dt;
-    f.y = Math.max(-MAP.h*0.45, Math.min(MAP.h*0.45, f.y));
-  }
-}
-
-//=================================================================== 扫描状态机（与 mod 同逻辑）
-let blipsS = [], blipsF = [], sweepOffsetS = [], sweepOffsetF = [];
-let cycleStart = null, firstCycle = true, lastCycleMs = P.cycleMs;
-let markers = []; // 单击标记
-
-function sideColor(side, ally) { return ally ? PALETTE.allied : side === 0 ? PALETTE.friendly : PALETTE.enemy; }
-
-function snapshot() {
-  blipsS = ships.map(s => ({ x:s.x, y:s.y, vx:Math.cos(s.heading)*s.speed, vy:Math.sin(s.heading)*s.speed,
-    facing:s.heading*180/Math.PI, size:ICON[s.cls], t:SHIP_T,
-    lineScale:(P.shipSpeedLinePct/100)/250, color:sideColor(s.side, s.ally) }));
-  blipsF = fighters.map(f => ({ x:f.x, y:f.y, vx:Math.cos(f.heading)*f.speed, vy:Math.sin(f.heading)*f.speed,
-    facing:f.heading*180/Math.PI, size:FIGHTER_ICON, t:FI_T,
-    lineScale:(P.shipSpeedLinePct/100)/250*P.fighterLineFactor, color:sideColor(f.side, false) }));
-  assignOffsets(blipsS); assignOffsets(blipsF);
-}
-function assignOffsets(blips) {
-  const n = blips.length, idx = [...blips.keys()];
-  if (P.orderMode === 'flagship' && flagship) {
-    const fx = flagship.x, fy = flagship.y;
-    idx.sort((a, b) => Math.hypot(blips[a].x-fx, blips[a].y-fy) - Math.hypot(blips[b].x-fx, blips[b].y-fy));
-  } else {
-    for (let i = n-1; i > 0; i--) { const j = (Math.random()*(i+1))|0; [idx[i], idx[j]] = [idx[j], idx[i]]; }
-  }
-  for (let r = 0; r < n; r++) blips[idx[r]].sweepOffset = n <= 1 ? 0 : r/n;
-}
-
-//=================================================================== 画布
-const cv = document.getElementById('cv'), ctx = cv.getContext('2d');
-let W = 0, H = 0, dpr = 1;
-function resize() {
-  dpr = window.devicePixelRatio || 1;
-  W = window.innerWidth; H = window.innerHeight;
-  cv.width = W*dpr; cv.height = H*dpr;
-  cv.style.width = W+'px'; cv.style.height = H+'px';
-}
-window.addEventListener('resize', resize); resize();
-
-const PANEL_W = 352;
-function minimapLayout() {
-  const dimX = Math.min(H/3, W/3);
-  return { dimX, px: W - PANEL_W - dimX - 30, top: H - 30 - dimX };
-}
-
-// 星空背景
-const stars = Array.from({length: 240}, () => ({ x: Math.random(), y: Math.random(), r: Math.random()*1.1+0.2, a: Math.random()*0.5+0.1 }));
-
-function toMapX(x, dimX, px) { return px + dimX/2 + (x/MAP.w)*dimX; }
-function toMapY(y, dimY, py) { return py - dimY/2 - (y/MAP.h)*dimY; }
-
-let lastT = performance.now();
-function frame(now) {
-  const dt = Math.min(0.05, (now-lastT)/1000); lastT = now;
-  if (!P.paused) { simTime += dt; stepSim(dt); }
-
-  // ---- 扫描周期状态机（与 RTS_MiniMapRenderer 一致）
-  const cycleMs = P.cycleMs;
-  if (cycleStart === null) { cycleStart = now; snapshot(); }
-  else if (now - cycleStart >= cycleMs) {
-    if (firstCycle) firstCycle = false;
-    cycleStart = now;
-    if (lastCycleMs !== cycleMs) { firstCycle = true; lastCycleMs = cycleMs; }
-    snapshot();
-  }
-
-  //------------------------------------------------ 绘制
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  ctx.fillStyle = '#05070c'; ctx.fillRect(0, 0, W, H);
-  ctx.fillStyle = '#9fb4c8';
-  for (const st of stars) { ctx.globalAlpha = st.a; ctx.fillRect(st.x*W, st.y*H, st.r, st.r); }
-  ctx.globalAlpha = 1;
-
-  const L = minimapLayout();
-  const dimX = L.dimX, dimY = L.dimX;
-  const px = L.px;
-  const top = L.top; // 面板左上角（屏幕坐标）
-  const mx = x => px + dimX/2 + (x/MAP.w)*dimX;
-  const my = y => top + dimY/2 + (y/MAP.h)*dimY; // y 向下 = 南
-
-  const tau = cycleMs * P.sweepTauFactor;
-  const sweep = Math.min(P.sweepMs, cycleMs/2);
-  const drawGroup = (blips, phaseStartMs) => {
-    for (const b of blips) {
-      const sweptAt = cycleStart + phaseStartMs + b.sweepOffset*sweep;
-      let since = now - sweptAt;
-      const notYet = since < 0;
-      if (notYet) since += cycleMs;
-      if (firstCycle && notYet) continue;
-      const bright = P.sweepFloor + (1-P.sweepFloor) * Math.exp(-since/tau);
-      const a = Math.min(255, b.color.a * bright);
-      const col = `rgba(${b.color.r},${b.color.g},${b.color.b},${(a/255).toFixed(3)})`;
-      drawTriangle(mx(b.x), my(b.y), b.facing, b.size, b.t, col);
-      if (P.showVel) drawVelLine(b, col, dimX, mx, my);
-    }
-  };
-  function drawTriangle(cx0, cy0, facingDeg, size, thickness, col) {
-    const rad = facingDeg*Math.PI/180;
-    const c = Math.cos(rad), s = Math.sin(rad);
-    const nx = cx0 + c*size*0.62, ny = cy0 + s*size*0.62;
-    const tx = cx0 - c*size*0.38, ty = cy0 - s*size*0.38;
-    const pxn = -s, pyn = c, hw = size*0.48;
-    ctx.strokeStyle = col; ctx.lineWidth = thickness; ctx.lineJoin = 'round';
-    ctx.beginPath();
-    ctx.moveTo(nx, ny); ctx.lineTo(tx+pxn*hw, ty+pyn*hw);
-    ctx.lineTo(tx-pxn*hw, ty-pyn*hw); ctx.closePath(); ctx.stroke();
-  }
-  function drawVelLine(b, col, dimX_, mx_, my_) {
-    const sp = Math.hypot(b.vx, b.vy); if (sp < 1) return;
-    const len = Math.min(sp*b.lineScale*dimX_, dimX_*MAXLEN_MOD); if (len < 1.5) return;
-    ctx.strokeStyle = col; ctx.lineWidth = b.t;
-    ctx.beginPath(); ctx.moveTo(mx_(b.x), my_(b.y));
-    ctx.lineTo(mx_(b.x) + b.vx/sp*len, my_(b.y) + b.vy/sp*len); ctx.stroke();
-  }
-
-  drawGroup(blipsS, 0);
-  drawGroup(blipsF, SWEEP_PHASE_SPLIT*cycleMs);
-
-  if (P.showObj) for (const o of objectives) {
-    const c = o.owner===100 ? PALETTE.neutral : o.owner===1 ? PALETTE.enemy : PALETTE.friendly;
-    const col = `rgba(${c.r},${c.g},${c.b},${(c.a*0.55/255).toFixed(3)})`;
-    const cx0 = mx(o.x), cy0 = my(o.y), sz = 9;
-    ctx.strokeStyle = col; ctx.lineWidth = 1.4;
-    ctx.beginPath(); ctx.moveTo(cx0, cy0-sz); ctx.lineTo(cx0+sz, cy0);
-    ctx.lineTo(cx0, cy0+sz); ctx.lineTo(cx0-sz, cy0); ctx.closePath(); ctx.stroke();
-  }
-
-  if (P.showVP) { // 视野框：跟随旗舰
-    const vw = 7000, vh = 5000, cx0 = flagship ? flagship.x : 0, cy0 = flagship ? flagship.y : 0;
-    ctx.strokeStyle = 'rgba(255,255,255,0.8)'; ctx.lineWidth = 1;
-    ctx.strokeRect(mx(cx0 - vw/2), my(cy0 - vh/2), vw/MAP.w*dimX, vh/MAP.h*dimY);
-  }
-
-  // 单击标记（右键指令标记配色）
-  markers = markers.filter(m => now - m.t0 < 400);
-  for (const m of markers) {
-    const d = (now-m.t0)/400*100, size = 10 + d/2;
-    let a = 1; if (d < 20) a = d/20; else if (d > 80) a = (100-d)/20;
-    a = Math.max(0, Math.min(1, a)) - 0.7*(d/100); a = Math.max(0, a);
-    const c1 = PALETTE.RCMCore, c2 = PALETTE.RCMBorder;
-    ctx.strokeStyle = `rgba(${c1.r},${c1.g},${c1.b},${a})`; ctx.lineWidth = Math.min(5, size*0.2);
-    ctx.beginPath(); ctx.arc(m.x, m.y, size/2, 0, Math.PI*2); ctx.stroke();
-    ctx.strokeStyle = `rgba(${c2.r},${c2.g},${c2.b},${a/3})`; ctx.lineWidth = 5;
-    ctx.beginPath(); ctx.arc(m.x, m.y, size/2, 0, Math.PI*2); ctx.stroke();
-  }
-
-  // 时间轴
-  const pos = ((now - cycleStart) % cycleMs) / cycleMs;
-  document.getElementById('cursor').style.left = (pos*100)+'%';
-  const segs = document.querySelectorAll('#timeline .seg');
-  const sw = P.sweepMs, half = cycleMs/2, hold = half - sw;
-  segs[0].style.flex = sw; segs[1].style.flex = hold; segs[2].style.flex = sw; segs[3].style.flex = hold;
-
-  requestAnimationFrame(frame);
-}
-requestAnimationFrame(frame);
-
-//=================================================================== 控件绑定
-function bind(id, key, fmt, scale) {
-  const el = document.getElementById(id), out = document.getElementById(id+'V');
-  const apply = () => {
-    let v = scale ? scale(+el.value) : +el.value;
-    if (el.type === 'checkbox') v = el.checked;
-    P[key] = v; out.textContent = fmt(el.type==='checkbox' ? (v?'开':'关') : +el.value);
-    updateJava();
-  };
-  el.addEventListener('input', apply); apply();
-}
-const sel = document.getElementById('orderMode');
-sel.addEventListener('change', () => { P.orderMode = sel.value; snapshot(); updateJava(); });
-bind('cycleMs','cycleMs', v=>v);
-bind('sweepMs','sweepMs', v=>v);
-bind('floor','sweepFloor', v=>v.toFixed(2), v=>+v);
-bind('tau','sweepTauFactor', v=>v.toFixed(2), v=>+v);
-bind('shipLine','shipSpeedLinePct', v=>v+'%');
-bind('fiLine','fighterLineFactor', v=>v.toFixed(2), v=>+v);
-bind('nShip','nShipsPerSide', v=>v);
-bind('nFi','nFightersPerSide', v=>v);
-bind('showVel','showVel', v=>v);
-bind('showObj','showObj', v=>v);
-bind('showVP','showVP', v=>v);
-document.getElementById('nShip').addEventListener('change', resetSim);
-document.getElementById('nFi').addEventListener('change', resetSim);
-
-document.getElementById('btnPause').onclick = e => {
-  P.paused = !P.paused; e.target.textContent = P.paused ? '继续' : '暂停';
-};
-document.getElementById('btnShuffle').onclick = () => snapshot();
-document.getElementById('btnReset').onclick = () => location.reload();
-cv.addEventListener('click', e => {
-  const L = minimapLayout();
-  if (e.clientX >= L.px && e.clientY >= L.top) markers.push({ x:e.clientX, y:e.clientY, t0:performance.now() });
-});
-
-// Java 迁移片段
-function updateJava() {
-  const box = document.getElementById('javaBox');
-  box.textContent =
-`// RTS_MiniMapRenderer.java
-private static final float sweepPhaseSplit = ${SWEEP_PHASE_SPLIT}f;
-private static final float sweepFloor = ${P.sweepFloor.toFixed(2)}f;
-private static final float sweepTauFactor = ${P.sweepTauFactor.toFixed(2)}f;
-private static final float shipSpeedLineScale = ${(P.shipSpeedLinePct/100).toFixed(2)}f / 250f;
-private static final float fighterSpeedLineScale = shipSpeedLineScale * ${P.fighterLineFactor.toFixed(2)}f;
-
-// Config.ini / Luna
-"miniMapRefreshMs": ${P.cycleMs},
-"miniMapSweepMs": ${P.sweepMs},
-扫描排序: ${P.orderMode === 'random' ? '随机次序' : '离旗舰近先扫（脉冲波）'}`;
-}
-updateJava();
-document.getElementById('btnCopy').onclick = () => {
-  navigator.clipboard.writeText(document.getElementById('javaBox').textContent);
-};
-</script>
+<!-- 拆分的脚本：参数/常量 -> 战场模拟 -> 扫描渲染 -> 控件绑定 -->
+<script src="demo_params.js"></script>
+<script src="demo_sim.js"></script>
+<script src="demo_sweep.js"></script>
+<script src="demo_panel.js"></script>
 </body>
 </html>
