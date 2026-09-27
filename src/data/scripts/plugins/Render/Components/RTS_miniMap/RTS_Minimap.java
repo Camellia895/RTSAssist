@@ -54,7 +54,9 @@ public interface RTS_Minimap extends RTS_BaseInterface {
         RTS_ParseInput inputManager = (RTS_ParseInput)root.getState(RTSAssist.stNames.parseInput);
         CAU_muStatState_CAU.amendedProps.clear();
         CAU_muStatState_CAU.amendedProps.putAll(props);
-        if (!(boolean)root.getState(RTS_ParseInput.stNames.isShiftDown)) {
+        /* An inert minimap must not intercept mouse input either. */
+        boolean disabled = props.get("inert") instanceof Boolean && (Boolean)props.get("inert");
+        if (!disabled && !(boolean)root.getState(RTS_ParseInput.stNames.isShiftDown)) {
             CAU_muStatState_CAU.amendedProps.putAll(Map.of(
                     "onDrag", leftClickHoldManager.getLeftClickHold(cameraRework),
                     "onRightClick", rightClickManager.getRightClick(inputManager),

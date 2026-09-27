@@ -72,6 +72,13 @@ public class RTSAssistModPlugin extends BaseModPlugin {
             put("UICommandVolume", (float)configFile.getDouble("UICommandVolume"));
             put("enableShipTestSuite", (boolean)configFile.getBoolean("enableShipTestSuite"));
             put("findAllShips", (boolean)configFile.getBoolean("findAllShips"));
+            /* Falls back to true for config files predating this option. */
+            boolean showMiniMap = true;
+            try {
+                showMiniMap = (boolean)configFile.getBoolean("showMiniMap");
+            } catch (JSONException ignored) {
+            }
+            put("showMiniMap", showMiniMap);
             if (configFile.getString("modID").isEmpty())
                 put("modID", "");
             else
@@ -101,6 +108,16 @@ public class RTSAssistModPlugin extends BaseModPlugin {
             put("moveTogether", ((Character)hotKeyFile.getString("moveTogether").charAt(0)).toString());
             put("attackMove", ((Character)hotKeyFile.getString("attackMove").charAt(0)).toString());
             put("broadsideSelection", ((Character)hotKeyFile.getString("broadsideSelection").charAt(0)).toString());
+            /* Falls back to "G" for hotkey files predating this option; empty disables the binding. */
+            String toggleMiniMap = "";
+            try {
+                toggleMiniMap = hotKeyFile.getString("toggleMiniMap");
+            } catch (JSONException ignored) {
+            }
+            if (toggleMiniMap.isEmpty())
+                put("toggleMiniMap", null);
+            else
+                put("toggleMiniMap", ((Character)toggleMiniMap.charAt(0)).toString());
         }};
         if (true) {
             this.hotKeys.put("param1", "H");

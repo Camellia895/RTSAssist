@@ -1638,7 +1638,7 @@ public class RTS_TaskManager extends RTS_StatefulClasses {
 
     private void firstFrameInit () {
         if (!(boolean)this.getState(RTS_TaskManager.stNames.firstFrameInit)) {
-            if (((CombatEngineAPI)this.getState(RTSAssist.stNames.engine)).getPlayerShip().getName().equals("Command Shuttle"))
+            if (((CombatEngineAPI)this.getState(RTSAssist.stNames.engine)).getPlayerShip().isShuttlePod())
                 this.setState(RTS_TaskManager.stNames.commandShuttle, ((CombatEngineAPI)this.getState(RTSAssist.stNames.engine)).getPlayerShip());
             this.setState(RTS_TaskManager.stNames.firstFrameInit, true);
             this.setState(RTS_TaskManager.stNames.ShipLocAPI, new RTS_ShipLocAPI(this.returnState()));

@@ -170,6 +170,17 @@ public class RTS_LunaIntegration {
                 Keyboard.getKeyIndex(this.hotPointer.get("broadsideSelection")),
                 this.hotKeyTabName
         );
+        /* Show/hide minimap */
+        LunaSettings.SettingsCreator.addKeybind(
+                this.modID,
+                "RTSA_SettingsKeybind_toggleMiniMap",
+                "显示/隐藏小地图",
+                "在战斗中显示或隐藏 RTSAssist 小地图。",
+                this.hotPointer.get("toggleMiniMap") == null
+                        ? Keyboard.KEY_G
+                        : Keyboard.getKeyIndex(this.hotPointer.get("toggleMiniMap")),
+                this.hotKeyTabName
+        );
     }
 
     private void addConfig () {
@@ -326,6 +337,15 @@ public class RTS_LunaIntegration {
                 ((Float)this.confPointer.get("UICommandVolume")).intValue(),
                 0,
                 10,
+                this.UITabName
+        );
+        /* Show minimap */
+        LunaSettings.SettingsCreator.addBoolean(
+                this.modID,
+                "RTSA_SettingsUI_showMiniMap",
+                "显示小地图",
+                "开启/关闭：是否显示 RTSAssist 小地图。入战时按此设置初始化，战斗中也可随时用热键切换。",
+                (boolean)this.confPointer.get("showMiniMap"),
                 this.UITabName
         );
         /* Enable RTS Ship testing tools */

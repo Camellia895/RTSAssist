@@ -387,7 +387,7 @@ public class RTS_SelectionListener extends RTS_StatefulClasses {
                         || x.isStation()
                         || x.isAlly()
                         || x.getName() == null
-                        || x.getName().equals("Command Shuttle")
+                        || x.isShuttlePod()
                         || x.getHullSize() == null
         );
     }
