@@ -144,6 +144,7 @@ public class RTS_MiniMapRenderer {
     ) {
         if (disabled || !this.init)
             return;
+        this.camera = camera;
         this.updateAnimationControllers();
         this.drawManager.registerDrawCall(this.sweepLayerCall);
         this.drawManager.registerDrawCall(this.viewPortBox);
@@ -413,7 +414,7 @@ public class RTS_MiniMapRenderer {
 
         @Override
         public void call() {
-            if (!RTS_MiniMapRenderer.this.camera.init)
+            if (RTS_MiniMapRenderer.this.camera == null || !RTS_MiniMapRenderer.this.camera.init)
                 return;
             RTS_GenericDrawMeth.viewPortBoxOutline_LEGACY(
                     new RTS_GenericDrawMeth.quadRec(
