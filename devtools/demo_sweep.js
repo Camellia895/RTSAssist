@@ -12,7 +12,7 @@
  * ===================================================================================*/
 
 let blipsS = [], blipsF = [];
-let cycleStart = null, firstCycle = true, lastCycleMs = P.cycleMs;
+let cycleStart = null, sessionT0 = null, firstCycle = true, lastCycleMs = P.cycleMs;
 let markers = [];      // 单击指令标记
 
 function sideColor(side, ally) {
@@ -79,6 +79,7 @@ function frame(now) {
 
   /* ---- 周期状态机：周期边界做数据快照 + 重新洗牌 ---- */
   const cycleMs = P.cycleMs;
+  if (sessionT0 === null) sessionT0 = now;
   if (cycleStart === null) { cycleStart = now; snapshot(); }
   else if (now - cycleStart >= cycleMs) {
     if (firstCycle) firstCycle = false;
@@ -100,7 +101,6 @@ function frame(now) {
   const my = y => L.top + dimYof() /2 + (y/MAP.h)*dimX;
   function dimYof() { return dimX; }
 
-  const tau = cycleMs * P.sweepTauFactor;
   const sweep = Math.min(P.sweepMs, cycleMs/2);
   let drawnS = 0, drawnF = 0;
 
@@ -112,7 +112,7 @@ function frame(now) {
       const notYet = since < 0;
       if (notYet) since += cycleMs;             // 上一周期同一出场位次以来的时间
       if (firstCycle && notYet) continue;        // 首周期：没扫到就没存在过
-      const bright = P.sweepFloor + (1-P.sweepFloor) * Math.exp(-since/tau);
+      const bright = evalCurve(Math.min(since / cycleMs, 1));
       if (bright < P.sweepCutoff) continue;      // 磷光已灭：完全不绘制
       const a = Math.min(255, b.color.a * bright);
       const col = `rgba(${b.color.r},${b.color.g},${b.color.b},${(a/255).toFixed(3)})`;
@@ -173,16 +173,24 @@ function frame(now) {
     ctx.beginPath(); ctx.arc(m.x, m.y, size/2, 0, Math.PI*2); ctx.stroke();
   }
 
-  // 时间轴 + 调试读数
+  // 时间轴（横跨 3 个循环）+ 调试读数
   const pos = ((now - cycleStart) % cycleMs) / cycleMs;
-  document.getElementById('cursor').style.left = (pos*100)+'%';
+  const span = cycleMs * 3;
+  const cursorU = sessionT0 === null ? 0 : ((now - sessionT0) % span) / span;
+  document.getElementById('cursor').style.left = (cursorU*100)+'%';
   const segs = document.querySelectorAll('#timeline .seg');
   const sw = Math.min(P.sweepMs, cycleMs/2), half = cycleMs/2, hold = half - sw;
-  segs[0].style.flex = sw; segs[1].style.flex = hold; segs[2].style.flex = sw; segs[3].style.flex = hold;
+  for (let c = 0; c < 3; c++) {
+    segs[c*4+0].style.flex = sw; segs[c*4+1].style.flex = hold;
+    segs[c*4+2].style.flex = sw; segs[c*4+3].style.flex = hold;
+  }
   dbgEl.textContent = `本帧绘制：舰船 ${drawnS}/${blipsS.length} · 战机 ${drawnF}/${blipsF.length} · 相位 ${(pos*100).toFixed(0)}%`;
 
   // 供外部（自动化验证）读取
   window.__sweep = { now, pos, drawnS, drawnF, totalS: blipsS.length, totalF: blipsF.length };
+
+  // 曲线编辑器跟随主循环重绘（保证初始化时序健壮）
+  if (window.CurveEditor && window.CurveEditor.render) window.CurveEditor.render();
 
   requestAnimationFrame(frame);
 }

@@ -1,8 +1,7 @@
 'use strict';
 /* =====================================================================================
  * demo_params.js — 可调参数与常量
- * 这里集中了所有"效果参数"，且与 mod 内 RTS_MiniMapRenderer 的常量同名同义。
- * 调好后 demo_panel.js 会自动生成对应的 Java 片段，照抄回 mod 即可。
+ * 与 mod 内 RTS_MiniMapRenderer 对应；调好后 demo_panel.js 自动生成 Java 迁移片段。
  * ===================================================================================*/
 
 const P = {
@@ -11,10 +10,12 @@ const P = {
   sweepMs: 300,           // 每相位扫完全部单位的时间（mod: miniMapSweepMs）
   orderMode: 'random',    // 'random' 随机次序 | 'flagship' 离旗舰近先扫（脉冲波）
 
-  // ---- 磷光余晖（CRT/PPI）----
-  sweepFloor: 0,          // 亮度底值（mod: sweepFloor）。0 = 未扫到不显示
-  sweepTauFactor: 0.30,   // 衰减速率 ×周期（mod: sweepTauFactor）。1s 周期时 0.45 → 残影 10%，0.30 → 3.6%
-  sweepCutoff: 0.06,      // 不可见阈值：亮度低于此值不绘制（保证未扫到的单位绝对不出现）
+  // ---- 透明度-时间曲线（高亮 = 刷新本身）----
+  // 每个元素 [t, a]：t = 距扫描命中的时间（占周期 0..1），a = 不透明度 0..1。
+  // 曲线左端 = 扫描命中瞬间；曲线右端 = 下次扫描到来前的残影亮度。
+  // 未被扫到的单位不绘制；扫描命中后按此曲线查表衰减。
+  curve: [[0, 1], [0.28, 0.62], [0.6, 0.28], [1, 0.05]],
+  curveSteps: 16,         // 迁移到 mod 时的查表采样段数（表长 = steps + 1）
 
   // ---- 单位与线条 ----
   shipSpeedLinePct: 10,   // 250su/s 时速度线长度占地图宽度的百分比（mod: shipSpeedLineScale = pct/100/250）
@@ -43,3 +44,21 @@ const PALETTE = {
   RCMCore:  { r: 113, g: 234, b: 14 },
   RCMBorder:{ r: 2,   g: 255, b: 132 },
 };
+
+/* 曲线求值：u ∈ [0,1]（距扫描命中的时间占周期比例），返回不透明度 0..1（分段线性）*/
+function evalCurve(u) {
+  const pts = P.curve;
+  if (u <= pts[0][0]) return pts[0][1];
+  const last = pts[pts.length - 1];
+  if (u >= last[0]) return last[1];
+  for (let i = 1; i < pts.length; i++) {
+    if (u <= pts[i][0]) {
+      const x0 = pts[i-1][0], y0 = pts[i-1][1], x1 = pts[i][0], y1 = pts[i][1];
+      const f = (u - x0) / ((x1 - x0) || 1e-6);
+      return y0 + (y1 - y0) * f;
+    }
+  }
+  return last[1];
+}
+
+const CURVE_DEFAULT = [[0, 1], [0.28, 0.62], [0.6, 0.28], [1, 0.05]];

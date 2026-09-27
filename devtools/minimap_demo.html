@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>RTSAssist 小地图效果预览（PPI 磷光扫描）</title>
+<title>RTSAssist 小地图效果预览（透明度曲线）</title>
 <style>
   :root { color-scheme: dark; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -50,11 +50,16 @@
 
 <div id="timeline">
   <div class="bar">
-    <div class="seg sweepS" style="flex:300"></div><div class="seg holdS" style="flex:200"></div>
-    <div class="seg sweepF" style="flex:300"></div><div class="seg holdF" style="flex:200"></div>
+    <div class="seg sweepS" style="flex:1"></div><div class="seg holdS" style="flex:1"></div>
+    <div class="seg sweepF" style="flex:1"></div><div class="seg holdF" style="flex:1"></div>
+    <div class="seg sweepS" style="flex:1"></div><div class="seg holdS" style="flex:1"></div>
+    <div class="seg sweepF" style="flex:1"></div><div class="seg holdF" style="flex:1"></div>
+    <div class="seg sweepS" style="flex:1"></div><div class="seg holdS" style="flex:1"></div>
+    <div class="seg sweepF" style="flex:1"></div><div class="seg holdF" style="flex:1"></div>
   </div>
   <div class="cursor" id="cursor" style="left:0"></div>
-  <div class="cap"><span>扫描舰船</span><span>保持</span><span>扫描战机</span><span>保持</span></div>
+  <div class="cap"><span>&larr; 第1周期</span><span>第2周期</span><span>第3周期 &rarr;</span></div>
+  <div class="cap" style="margin-top:0"><span>扫描舰船 &rarr; 保持 &rarr; 扫描战机 &rarr; 保持，循环</span></div>
   <div class="dbg" id="dbg">本帧绘制：舰船 0 · 战机 0</div>
 </div>
 
@@ -73,12 +78,15 @@
       未被扫到的单位完全不在图上；扫到即从无到有出现（最亮），随后磷光消退。</div>
   </div>
 
-  <div class="group"><b>磷光余晖（CRT）</b>
-    <div class="row"><label>残影底值</label><input type="range" id="floor" min="0" max="0.9" step="0.01" value="0"><span class="val" id="floorV">0.00</span></div>
-    <div class="row"><label>衰减速率 (×周期)</label><input type="range" id="tau" min="0.2" max="3" step="0.05" value="0.30"><span class="val" id="tauV">0.30</span></div>
-    <div class="row"><label>不可见阈值</label><input type="range" id="cutoff" min="0" max="0.3" step="0.01" value="0.06"><span class="val" id="cutoffV">0.06</span></div>
-    <div class="hint">亮度 = 底值 + (1−底值)·e^(−t/τ)，t 为距上次扫描的时间。<br>
-      亮度低于阈值视为不可见（保证未扫到的单位绝对不出现）。τ 越大残影越持久。</div>
+  <div class="group"><b>透明度-时间曲线（高亮 = 刷新本身）</b>
+    <canvas id="curveEd" style="width:100%; height:180px"></canvas>
+    <div class="btns">
+      <button id="btnCurveReset">重置曲线</button>
+      <button id="btnCurvePulse">脉冲波预设</button>
+      <button id="btnCurveLinger">长残影预设</button>
+    </div>
+    <div class="hint">横轴：距扫描命中的时间（0 = 命中瞬间，1 = 下次扫描前）。纵轴：不透明度。<br>
+      拖动控制点改曲线；点击空白加点；双击控制点删点。<b>最右端 = 下次扫描前的残影亮度（拖到 0 则扫描前完全消失）。</b></div>
   </div>
 
   <div class="group"><b>单位与线条</b>
@@ -108,9 +116,9 @@
 </div>
 
 <!-- 拆分的脚本：参数/常量 -> 战场模拟 -> 扫描渲染 -> 控件绑定 -->
-<script src="demo_params.js"></script>
-<script src="demo_sim.js"></script>
-<script src="demo_sweep.js"></script>
-<script src="demo_panel.js"></script>
+<script src="demo_params.js?v=9"></script>
+<script src="demo_sim.js?v=9"></script>
+<script src="demo_sweep.js?v=9"></script>
+<script src="demo_panel.js?v=9"></script>
 </body>
 </html>
