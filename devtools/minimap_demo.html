@@ -71,9 +71,9 @@
   </div>
 
   <div class="group"><b>磷光余晖（CRT）</b>
-    <div class="row"><label>残影底值</label><input type="range" id="floor" min="0" max="0.9" step="0.01" value="0.30"><span class="val" id="floorV">0.30</span></div>
-    <div class="row"><label>衰减速率 (×周期)</label><input type="range" id="tau" min="0.2" max="3" step="0.05" value="1.00"><span class="val" id="tauV">1.00</span></div>
-    <div class="hint">亮度 = 底值 + (1−底值)·e^(−t/τ)，t 为距上次扫描的时间。τ 越大残影越持久。</div>
+    <div class="row"><label>残影底值</label><input type="range" id="floor" min="0" max="0.9" step="0.01" value="0"><span class="val" id="floorV">0.00</span></div>
+    <div class="row"><label>衰减速率 (×周期)</label><input type="range" id="tau" min="0.2" max="3" step="0.05" value="0.45"><span class="val" id="tauV">0.45</span></div>
+    <div class="hint">亮度 = 底值 + (1−底值)·e^(−t/τ)，t 为距上次扫描的时间。底值 0 = 未扫到不显示；τ 越大残影越持久。</div>
   </div>
 
   <div class="group"><b>单位与线条</b>
@@ -107,7 +107,7 @@
 //=================================================================== 参数（与 mod 内常量同名同义）
 const P = {
   cycleMs: 1000, sweepMs: 300, orderMode: 'random',
-  sweepFloor: 0.30, sweepTauFactor: 1.0,
+  sweepFloor: 0, sweepTauFactor: 0.45,
   shipSpeedLinePct: 10, fighterLineFactor: 0.45,
   nShipsPerSide: 9, nFightersPerSide: 14,
   showVel: true, showObj: true, showVP: true,

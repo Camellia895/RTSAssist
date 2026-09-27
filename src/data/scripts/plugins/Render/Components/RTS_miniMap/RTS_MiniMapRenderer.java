@@ -1,6 +1,6 @@
 /*
   **********************************************************************************************************
-  * RTSAssist version 0.2.12exp
+  * RTSAssist version 0.2.13exp
   * Copyright (C) 2025-2026, Raatle
 
   * This program is free software: you can redistribute it and/or modify
@@ -82,14 +82,15 @@ public class RTS_MiniMapRenderer {
     private static final float fighterLineThickness = 1.2f;
     private static final float rightClickMarkerDuration = 0.4f;
 
-    /* Radar sweep presentation, CRT style: each cycle splits into two phases - ships are
+    /* Radar sweep presentation, PPI/CRT style: each cycle splits into two phases - ships are
      * swept during the first phase (sweepMs), fighters during the second, each phase followed
-     * by a hold. Units are hit one by one in a fresh random order every cycle; a sweep hit
-     * excites the blip to full brightness, which then decays slowly like CRT phosphor and
-     * never fades out completely before the next sweep re-excites it. */
+     * by a hold. A unit that has not been swept yet in the current cycle is not drawn at all;
+     * the sweep materialises units one by one in a fresh random order. A sweep hit excites the
+     * blip to full brightness, which then decays like CRT phosphor down to a faint ghost
+     * (≈10% at sweepTauFactor 0.45) just before the next cycle re-excites it. */
     private static final float sweepPhaseSplit = 0.5f;      // ships [0,split), fighters [split,1)
-    private static final float sweepFloor = 0.30f;          // dimmest state between sweeps
-    private static final float sweepTauFactor = 1.0f;       // phosphor decay, x cycle duration
+    private static final float sweepFloor = 0.0f;           // brightness floor between sweeps
+    private static final float sweepTauFactor = 0.45f;      // phosphor decay, x cycle duration
 
     private RTS_DrawManager drawManager;
     public RTS_Animator animator;
