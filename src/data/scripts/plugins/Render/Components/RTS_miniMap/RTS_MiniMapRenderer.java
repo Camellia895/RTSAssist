@@ -1,6 +1,6 @@
 /*
   **********************************************************************************************************
-  * RTSAssist version 0.2.13exp
+  * RTSAssist version 0.2.14exp
   * Copyright (C) 2025-2026, Raatle
 
   * This program is free software: you can redistribute it and/or modify
@@ -33,7 +33,6 @@ import org.lwjgl.util.vector.Vector2f;
 
 import java.awt.*;
 import java.util.*;
-import java.util.List;
 
 import org.lwjgl.opengl.GL11;
 
@@ -73,34 +72,46 @@ public class RTS_MiniMapRenderer {
         put("CAPITAL_SHIP", 42f);
     }};
     private static final float fighterIconSize = 7f;
-    /* Velocity lines: pixels of length per (su/s), relative to the minimap width. Fighters fly
-     * much faster, so their scale is cut down to keep the map readable. */
+    /* 速度线：每 250su/s 对应的地图宽度占比；战机速度快，折减系数相应缩小 */
     private static final float shipSpeedLineScale = 0.10f / 250f;
-    private static final float fighterSpeedLineScale = shipSpeedLineScale * 0.45f;
+    private static final float fighterSpeedLineFactor = 0.45f;
     private static final float speedLineMaxLenMod = 0.16f;
     private static final float shipLineThickness = 2f;
     private static final float fighterLineThickness = 1.2f;
     private static final float rightClickMarkerDuration = 0.4f;
+    private static final int STAMP_LIFETIME_CYCLES = 3;   // 印记（残影）保留的周期数
+    private static final float SWEEP_PHASE_SPLIT = 0.5f;  // 舰船相位 [0,split)，战机相位 [split,1)
 
-    /* Radar sweep presentation, PPI/CRT style: each cycle splits into two phases - ships are
-     * swept during the first phase (sweepMs), fighters during the second, each phase followed
-     * by a hold. A unit that has not been swept yet in the current cycle is not drawn at all;
-     * the sweep materialises units one by one in a fresh random order. A sweep hit excites the
-     * blip to full brightness, which then decays like CRT phosphor down to a faint ghost
-     * (≈10% at sweepTauFactor 0.45) just before the next cycle re-excites it. */
-    private static final float sweepPhaseSplit = 0.5f;      // ships [0,split), fighters [split,1)
-    private static final float sweepFloor = 0.0f;           // brightness floor between sweeps
-    private static final float sweepTauFactor = 0.45f;      // phosphor decay, x cycle duration
+    /* 透明度-时间曲线（打点瞬间 = 1.0，原地按表衰减；时间基 = 3 个周期）。
+     * 由演示页 devtools/minimap_demo.html 导出：下标 i 对应印记年龄 = 3周期 × i/STEPS。 */
+    private static final int SWEEP_CURVE_STEPS = 16;
+    private static final float[] SWEEP_CURVE = {
+            1.000f, 0.904f, 0.809f, 0.713f, 0.617f, 0.521f,
+            0.451f, 0.389f, 0.328f, 0.267f, 0.206f, 0.161f,
+            0.135f, 0.109f, 0.083f, 0.058f, 0.040f,
+    };
+
+    /* 按印记年龄查曲线（分段线性插值） */
+    private static float sweepCurveAt (float ageMs, float cycleMs) {
+        float u = ageMs / (3f * cycleMs);
+        if (u < 0f) u = 0f; else if (u > 1f) u = 1f;
+        float f = u * SWEEP_CURVE_STEPS;
+        int i = (int) f;
+        if (i > SWEEP_CURVE_STEPS - 1) i = SWEEP_CURVE_STEPS - 1;
+        return SWEEP_CURVE[i] + (SWEEP_CURVE[i + 1] - SWEEP_CURVE[i]) * (f - i);
+    }
 
     private RTS_DrawManager drawManager;
     public RTS_Animator animator;
-    /* Data refresh cadence in ms; one sweep cycle equals one refresh. Set from RTS_Root. */
-    public float refreshMs = 1000f;
-    /* Duration of each phase's sweep pass; clamped to half the cycle. Set from RTS_Root. */
-    public float sweepMs = 300f;
+    /* 数据刷新周期 = 扫描循环周期（ms）；扫描时长 = 每相位扫完的时间（ms）。
+     * 由 RTS_Root 通过 RTS_Minimap 注入（Config.ini / Luna 可调）。 */
+    public float refreshMs = 1010f;
+    public float sweepMs = 200f;
+    public RTS_Root.camera camera;
+
     private long cycleStart = 0;
     private boolean cycleValid = false;
-    private boolean firstCycle = true;
+    private int cycleIdx = 0;
 
     private boolean init;
     private Vector2f pos = new Vector2f();
@@ -121,19 +132,23 @@ public class RTS_MiniMapRenderer {
     }
     private HashMap<Integer, markerStore> aniStore;
 
-    /* Data snapshot taken once per cycle; the sweep animates over this frozen frame of data. */
-    private static final class Blip {
+    /* 打点：扫描命中瞬间固化的位置/朝向/速度读数，原地保留 3 个周期 */
+    private static final class Stamp {
         final Vector2f loc = new Vector2f();
         final Vector2f vel = new Vector2f();
         float facing;
         float size;
-        float thickness;
+        float t;
         float lineScale;
         Color color;
-        float sweepOffset; // 0..1 position within its phase, in sweep order
+        long born;
     }
-    private final ArrayList<Blip> shipBlips = new ArrayList<>();
-    private final ArrayList<Blip> fighterBlips = new ArrayList<>();
+    private static final class SweepState {
+        final ArrayList<Stamp> stamps = new ArrayList<>();
+        float offset;          // 相位内出场位次 [0,1)
+        int sweptCycle = -1;
+    }
+    private final HashMap<ShipAPI, SweepState> states = new HashMap<>();
 
     //------------------------------------------------------------------------------------------------------------------
 
@@ -162,8 +177,8 @@ public class RTS_MiniMapRenderer {
 
     //------------------------------------------------------------------------------------------------------------------
 
-    /* Per frame: advance the sweep cycle, take a data snapshot at each cycle boundary and draw
-     * every unit at a brightness driven by the time since its last sweep hit. */
+    /* 每帧：推进扫描周期；轮到某单位时读取其当前位置打点（刷新位置+高亮同一瞬间），
+     * 随后逐帧按曲线绘制所有存活印记。周期边界只重排次序，不批量刷新位置。 */
     private RTS_DrawCall sweepLayerCall = new RTS_DrawCall() {
         @Override
         public Integer zIndex() {
@@ -173,160 +188,177 @@ public class RTS_MiniMapRenderer {
         @Override
         public void call() {
             long now = System.currentTimeMillis();
-            long cycleMs = (long)refreshMs;
+            long cycleMs = (long) refreshMs;
             if (!cycleValid || now - cycleStart >= cycleMs) {
-                if (cycleValid && RTS_MiniMapRenderer.this.firstCycle)
-                    RTS_MiniMapRenderer.this.firstCycle = false;
+                if (cycleValid) cycleIdx++;
                 cycleStart = now;
                 cycleValid = true;
-                snapshot();
+                reshuffle(now);
             }
-            drawSweep(now, cycleMs);
+            long sweep = (long) Math.min(sweepMs, cycleMs / 2f);
+            trySweepGroup(false, now, cycleMs, sweep, 0);
+            trySweepGroup(true, now, cycleMs, sweep, (long) (SWEEP_PHASE_SPLIT * cycleMs));
+
+            GL11.glEnable(GL11.GL_BLEND);
+            GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+            GL11.glDisable(GL11.GL_TEXTURE_2D);
+            drawAllStamps(now, cycleMs);
+            drawObjectives();
+            GL11.glEnable(GL11.GL_TEXTURE_2D);
         }
     };
 
-    private void snapshot () {
-        this.shipBlips.clear();
-        this.fighterBlips.clear();
-        CombatEngineAPI eng = Global.getCombatEngine();
-        float battleW = eng.getMapWidth();
-        float battleH = eng.getMapHeight();
-        for (ShipAPI ship : eng.getShips()) {
+    /* 周期边界：清退已离场的单位，并给剩余单位重新洗牌出场位次 */
+    private void reshuffle (long now) {
+        java.util.List<ShipAPI> live = Global.getCombatEngine().getShips();
+        states.keySet().removeIf(ship -> !live.contains(ship));
+        ArrayList<ShipAPI> ships = new ArrayList<>();
+        ArrayList<ShipAPI> fighters = new ArrayList<>();
+        for (ShipAPI ship : live) {
             if (ship.isShuttlePod() || ship.getHullSize() == null || ship.getOriginalOwner() == 100)
                 continue;
-            boolean fighter = !ship.isHulk() && (ship.getHullSize().name().equals("FIGHTER") || ship.isFighter());
-            Color color;
-            if (fighter)
-                color = ship.isAlly() ? palette.allied : ship.getOriginalOwner() == 0 ? palette.friendly : palette.enemy;
-            else if (ship.isAlly())
-                color = palette.allied;
-            else if (ship.getOriginalOwner() == 0)
-                color = palette.friendly;
-            else if (ship.getOriginalOwner() == 1)
-                color = palette.enemy;
-            else
+            if (isFighter(ship)) { fighters.add(ship); continue; }
+            if (ship.isHulk()) continue;   // 残骸不打新点；已有印记自然淡出
+            if (!ship.isAlly() && ship.getOriginalOwner() != 0 && ship.getOriginalOwner() != 1)
                 continue;
-            Blip blip = new Blip();
-            blip.loc.set(toMapX(ship.getLocation().getX(), battleW), toMapY(ship.getLocation().getY(), battleH));
-            blip.vel.set(ship.getVelocity().getX(), ship.getVelocity().getY());
-            blip.facing = ship.getFacing();
-            blip.size = fighter ? fighterIconSize : getShipIconSize(ship);
-            blip.thickness = fighter ? fighterLineThickness : shipLineThickness;
-            blip.lineScale = fighter ? fighterSpeedLineScale : shipSpeedLineScale;
-            blip.color = color;
-            if (fighter)
-                this.fighterBlips.add(blip);
-            else
-                this.shipBlips.add(blip);
+            ships.add(ship);
         }
-        assignSweepOffsets(this.shipBlips);
-        assignSweepOffsets(this.fighterBlips);
+        assignOffsets(ships);
+        assignOffsets(fighters);
     }
 
-    /* Fresh random sweep order every cycle; sweepOffset positions each hit within its phase. */
-    private void assignSweepOffsets (ArrayList<Blip> blips) {
-        int n = blips.size();
+    private void assignOffsets (ArrayList<ShipAPI> list) {
+        int n = list.size();
         Integer[] order = new Integer[n];
-        for (int i = 0; i < n; i++)
-            order[i] = i;
+        for (int i = 0; i < n; i++) order[i] = i;
         Collections.shuffle(Arrays.asList(order));
-        for (int i = 0; i < n; i++)
-            blips.get(order[i]).sweepOffset = n <= 1 ? 0f : (float)i / (float)n;
+        for (int r = 0; r < n; r++)
+            ensureState(list.get(order[r])).offset = n <= 1 ? 0f : (float) r / (float) n;
     }
 
-    private void drawSweep (long now, long cycleMs) {
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        GL11.glDisable(GL11.GL_TEXTURE_2D);
-
-        drawSweepGroup(this.shipBlips, now, cycleMs, 0f);
-        drawSweepGroup(this.fighterBlips, now, cycleMs, sweepPhaseSplit);
-
-        drawObjectives();
-        GL11.glEnable(GL11.GL_TEXTURE_2D);
+    private SweepState ensureState (ShipAPI ship) {
+        SweepState st = states.get(ship);
+        if (st == null) {
+            st = new SweepState();
+            states.put(ship, st);
+        }
+        return st;
     }
 
-    private void drawSweepGroup (ArrayList<Blip> blips, long now, long cycleMs, float phaseStart) {
-        if (blips.isEmpty())
-            return;
-        long phaseStartMs = (long)(phaseStart * cycleMs);
-        long sweep = Math.min((long)this.sweepMs, cycleMs / 2);
-        float tau = cycleMs * sweepTauFactor;
-        for (Blip blip : blips) {
-            long sweptAt = cycleStart + phaseStartMs
-                    + (long)(blip.sweepOffset * sweep);
-            long sinceSweep = now - sweptAt;
-            boolean notYetSwept = sinceSweep < 0;
-            /* Not hit yet this cycle: still showing last cycle's pass, further decayed. */
-            if (notYetSwept)
-                sinceSweep += cycleMs;
-            /* First cycle: units that have not been swept yet have never existed. */
-            if (this.firstCycle && notYetSwept)
+    private boolean isFighter (ShipAPI ship) {
+        return !ship.isHulk()
+                && (ship.getHullSize().name().equals("FIGHTER") || ship.isFighter());
+    }
+
+    private Color factionColor (ShipAPI ship) {
+        if (ship.isAlly()) return palette.allied;
+        if (ship.getOriginalOwner() == 0) return palette.friendly;
+        if (ship.getOriginalOwner() == 1) return palette.enemy;
+        return null;
+    }
+
+    /* 轮到某单位时打点：固化当前真实位置/朝向/速度为新印记（刷新+高亮同一瞬间） */
+    private void trySweepGroup (boolean fighters, long now, long cycleMs, long sweep, long phaseStartMs) {
+        for (ShipAPI ship : Global.getCombatEngine().getShips()) {
+            if (isFighter(ship) != fighters)
                 continue;
-            /* CRT phosphor: excited to full brightness by the sweep, then decays slowly
-             * towards the floor and is always still visible when re-excited. */
-            float bright = sweepFloor
-                    + (1f - sweepFloor) * (float)Math.exp(-sinceSweep / tau);
-            Color c = sweepColor(blip.color, bright);
-            drawTriangle(blip.loc, blip.facing, blip.size, blip.thickness, c);
-            drawVelocityLine(blip, c);
+            SweepState st = ensureState(ship);
+            if (st.sweptCycle == cycleIdx)
+                continue;                                 // 本周期已打过点
+            long sweptAt = cycleStart + phaseStartMs + (long) (st.offset * sweep);
+            if (now < sweptAt)
+                continue;                                 // 还没轮到
+            st.sweptCycle = cycleIdx;
+            Color color = factionColor(ship);
+            if (color == null)
+                continue;
+            Stamp s = new Stamp();
+            s.loc.set(ship.getLocation());
+            s.vel.set(ship.getVelocity());
+            s.facing = ship.getFacing();
+            s.size = fighters ? fighterIconSize : getShipIconSize(ship);
+            s.t = fighters ? fighterLineThickness : shipLineThickness;
+            s.lineScale = shipSpeedLineScale * (fighters ? fighterSpeedLineFactor : 1f);
+            s.color = color;
+            s.born = now;
+            st.stamps.add(s);
+            while (st.stamps.size() > STAMP_LIFETIME_CYCLES)
+                st.stamps.remove(0);                      // 只保留最近 3 个周期的印记
         }
     }
 
-    /* Scale the alpha by the phosphor brightness. */
-    private Color sweepColor (Color base, float bright) {
-        int a = (int)(base.getAlpha() * this.opacity * bright);
-        return (new Color(base.getRed(), base.getGreen(), base.getBlue(), Math.min(a, 255)));
+    /* 绘制所有存活印记：旧→新依次画（最亮者最后），速度线只画最新印记 */
+    private void drawAllStamps (long now, long cycleMs) {
+        for (Map.Entry<ShipAPI, SweepState> e : states.entrySet()) {
+            SweepState st = e.getValue();
+            if (st.stamps.isEmpty())
+                continue;
+            Iterator<Stamp> it = st.stamps.iterator();
+            while (it.hasNext())
+                if (now - it.next().born > (long) STAMP_LIFETIME_CYCLES * cycleMs)
+                    it.remove();                          // 超过保留期，移除
+            for (int i = 0; i < st.stamps.size(); i++) {
+                Stamp s = st.stamps.get(i);
+                float bright = sweepCurveAt(now - s.born, cycleMs);
+                if (bright < 0.02f)
+                    continue;                             // 磷光已灭
+                int a = Math.min(255, (int) (s.color.getAlpha() * opacity * bright));
+                Color col = new Color(s.color.getRed(), s.color.getGreen(), s.color.getBlue(), a);
+                Vector2f loc = getVectorLoc(s.loc);
+                drawTriangle(loc, s.facing, s.size, s.t, col);
+                if (i == st.stamps.size() - 1)
+                    drawVelLine(s, col, loc);
+            }
+        }
     }
 
+    /* 中空三角：三条细四边形线段（不受 glLineWidth 限制）*/
     private void drawTriangle (Vector2f centre, float facingDeg, float size, float thickness, Color color) {
         double rad = Math.toRadians(facingDeg);
         double nose = size * 0.62;
         double tail = size * 0.38;
         double halfW = size * 0.48;
-        float nx = centre.getX() + ((float)(Math.cos(rad) * nose));
-        float ny = centre.getY() + ((float)(Math.sin(rad) * nose));
-        float tx = centre.getX() - ((float)(Math.cos(rad) * tail));
-        float ty = centre.getY() - ((float)(Math.sin(rad) * tail));
-        float px = -((float)Math.sin(rad));
-        float py = ((float)Math.cos(rad));
+        float nx = centre.getX() + ((float) (Math.cos(rad) * nose));
+        float ny = centre.getY() + ((float) (Math.sin(rad) * nose));
+        float tx = centre.getX() - ((float) (Math.cos(rad) * tail));
+        float ty = centre.getY() - ((float) (Math.sin(rad) * tail));
+        float px = -((float) Math.sin(rad));
+        float py = ((float) Math.cos(rad));
         drawSegment(
                 new Vector2f(nx, ny),
-                new Vector2f(tx + px * (float)halfW, ty + py * (float)halfW),
+                new Vector2f(tx + px * (float) halfW, ty + py * (float) halfW),
                 thickness, color
         );
         drawSegment(
-                new Vector2f(tx + px * (float)halfW, ty + py * (float)halfW),
-                new Vector2f(tx - px * (float)halfW, ty - py * (float)halfW),
+                new Vector2f(tx + px * (float) halfW, ty + py * (float) halfW),
+                new Vector2f(tx - px * (float) halfW, ty - py * (float) halfW),
                 thickness, color
         );
         drawSegment(
-                new Vector2f(tx - px * (float)halfW, ty - py * (float)halfW),
+                new Vector2f(tx - px * (float) halfW, ty - py * (float) halfW),
                 new Vector2f(nx, ny),
                 thickness, color
         );
     }
 
-    private void drawVelocityLine (Blip blip, Color color) {
-        Vector2f vel = blip.vel;
-        float speed = (float)Math.sqrt(vel.getX() * vel.getX() + vel.getY() * vel.getY());
+    private void drawVelLine (Stamp s, Color color, Vector2f mapLoc) {
+        float speed = (float) Math.sqrt(s.vel.getX() * s.vel.getX() + s.vel.getY() * s.vel.getY());
         if (speed < 1f)
             return;
-        float len = Math.min(speed * blip.lineScale * dim.getX(), dim.getX() * speedLineMaxLenMod);
+        float len = Math.min(speed * s.lineScale * dim.getX(), dim.getX() * speedLineMaxLenMod);
         if (len < 1.5f)
             return;
         drawSegment(
-                blip.loc,
+                mapLoc,
                 new Vector2f(
-                        blip.loc.getX() + (vel.getX() / speed) * len,
-                        blip.loc.getY() + (vel.getY() / speed) * len
+                        mapLoc.getX() + (s.vel.getX() / speed) * len,
+                        mapLoc.getY() + (s.vel.getY() / speed) * len
                 ),
-                blip.thickness, color
+                s.t, color
         );
     }
 
-    /* Objectives as small hollow diamonds, tinted by owner like the vanilla command page.
-     * Deliberately outside the sweep: constant, quiet reference points. */
+    /* 目标点：空心菱形，按归属着色（原版中立灰）*/
     private void drawObjectives () {
         float size = 9f;
         float thickness = 1.4f;
@@ -340,7 +372,7 @@ public class RTS_MiniMapRenderer {
                     color.getRed(),
                     color.getGreen(),
                     color.getBlue(),
-                    ((Float)(color.getAlpha() * opacity * 0.55f)).intValue()
+                    ((Float) (color.getAlpha() * opacity * 0.55f)).intValue()
             );
             Vector2f loc = getVectorLoc(obj.getLocation());
             drawSegment(new Vector2f(loc.getX(), loc.getY() + size), new Vector2f(loc.getX() + size, loc.getY()), thickness, color);
@@ -350,21 +382,21 @@ public class RTS_MiniMapRenderer {
         }
     }
 
-    /* Thin quad between two points; quad-based so the width is not capped by glLineWidth. */
+    /* 细四边形线段：宽度不受 glLineWidth 限制 */
     private void drawSegment (Vector2f from, Vector2f to, float thickness, Color color) {
         float dx = to.getX() - from.getX();
         float dy = to.getY() - from.getY();
-        float len = (float)Math.sqrt(dx * dx + dy * dy);
+        float len = (float) Math.sqrt(dx * dx + dy * dy);
         if (len < 0.01f)
             return;
         float nx = (-dy / len) * (thickness / 2f);
         float ny = (dx / len) * (thickness / 2f);
         GL11.glBegin(GL11.GL_QUADS);
         GL11.glColor4ub(
-                (byte)color.getRed(),
-                (byte)color.getGreen(),
-                (byte)color.getBlue(),
-                (byte)color.getAlpha()
+                (byte) color.getRed(),
+                (byte) color.getGreen(),
+                (byte) color.getBlue(),
+                (byte) color.getAlpha()
         );
         GL11.glVertex2f(from.getX() + nx, from.getY() + ny);
         GL11.glVertex2f(to.getX() + nx, to.getY() + ny);
@@ -470,13 +502,13 @@ public class RTS_MiniMapRenderer {
                     coreColor.getRed(),
                     coreColor.getGreen(),
                     coreColor.getBlue(),
-                    ((Float)(alpha * 255f)).intValue()
+                    ((Float) (alpha * 255f)).intValue()
             );
             Color fade = new Color(
                     fadeColor.getRed(),
                     fadeColor.getGreen(),
                     fadeColor.getBlue(),
-                    ((Float)(alpha * 255f)).intValue()
+                    ((Float) (alpha * 255f)).intValue()
             );
             quadBuilder
                     .pos(location)
@@ -512,11 +544,7 @@ public class RTS_MiniMapRenderer {
                 animator.removeAnimation(hold.aniCont.ID);
             }
         }
-        if (this.cycleValid)
-            this.firstCycle = false;
     }
-
-    public RTS_Root.camera camera;
 
     private float toMapX (float worldX, float battleW) {
         return (this.pos.getX() + this.dim.getX() / 2f + ((worldX / battleW) * this.dim.getX()));

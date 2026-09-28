@@ -1,6 +1,6 @@
 /*
   **********************************************************************************************************
-  * RTSAssist version 0.2.12exp
+  * RTSAssist version 0.2.14exp
   * Copyright (C) 2025-2026, Raatle
 
   * This program is free software: you can redistribute it and/or modify
@@ -254,14 +254,14 @@ public class RTS_Root extends RTS_StatefulClasses implements RTS_Div, RTS_Minima
         Object value = this.getDeepState(Arrays.asList(RTSAssist.stNames.config, RTSAssist.coNames.miniMapRefreshMs));
         if (value instanceof Float && (Float)value >= 16f)
             return ((Float)value);
-        return (1000f);
+        return (1010f);
     }
 
     private Float getMiniMapSweepMs () {
         Object value = this.getDeepState(Arrays.asList(RTSAssist.stNames.config, RTSAssist.coNames.miniMapSweepMs));
         if (value instanceof Float && (Float)value >= 16f)
             return ((Float)value);
-        return (300f);
+        return (200f);
     }
 
     private void loadMiniMapPosition () {
