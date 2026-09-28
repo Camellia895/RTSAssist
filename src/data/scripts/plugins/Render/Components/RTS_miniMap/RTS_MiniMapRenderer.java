@@ -1,6 +1,6 @@
 /*
   **********************************************************************************************************
-  * RTSAssist version 0.2.14exp
+  * RTSAssist version 0.2.15exp
   * Copyright (C) 2025-2026, Raatle
 
   * This program is free software: you can redistribute it and/or modify
@@ -561,7 +561,11 @@ public class RTS_MiniMapRenderer {
     }
 
     private Float getShipIconSize (ShipAPI ship) {
-        return (this.iconSizes.get(ship.getHullSize().name()));
+        // HullSize.DEFAULT（部分原版/模组单位）与未知尺寸回退为护卫级，避免打点时 NPE
+        Float size = this.iconSizes.get(ship.getHullSize().name());
+        if (size == null)
+            size = this.iconSizes.get("FRIGATE");
+        return (size);
     }
 
     public int registerMarker (Vector2f location) {
