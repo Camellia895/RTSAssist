@@ -22,7 +22,7 @@ function bind(id, key, fmt, scale) {
 window.__panelStage = 'getting-sel';
 const sel = document.getElementById('orderMode');
 if (!sel) throw new Error('orderMode element missing');
-sel.addEventListener('change', () => { P.orderMode = sel.value; snapshot(); updateJava(); });
+sel.addEventListener('change', () => { P.orderMode = sel.value; reshuffle(); updateJava(); });
 window.__panelStage = 'sel-done';
 
 bind('cycleMs','cycleMs', v=>v);
@@ -41,7 +41,7 @@ document.getElementById('nFi').addEventListener('change', resetSim);
 document.getElementById('btnPause').onclick = e => {
   P.paused = !P.paused; e.target.textContent = P.paused ? '继续' : '暂停';
 };
-document.getElementById('btnShuffle').onclick = () => snapshot();
+document.getElementById('btnShuffle').onclick = () => reshuffle();
 document.getElementById('btnReset').onclick = () => location.reload();
 window.__panelStage = 'buttons-done';
 cv.addEventListener('click', e => {
@@ -184,14 +184,14 @@ function updateJava() {
   for (let i = 0; i < table.length; i += 6) lines.push('        ' + table.slice(i, i+6).join(', ') + ',');
   const pts = P.curve.map(p => `(${p[0].toFixed(2)},${p[1].toFixed(2)})`).join(' ');
   document.getElementById('javaBox').textContent =
-`// RTS_MiniMapRenderer.java —— 透明度-时间曲线（扫描命中 = 1.0，随后查表衰减）
+`// RTS_MiniMapRenderer.java —— 透明度-时间曲线（打点瞬间 = 1.0，原地按表衰减；时间基 = 3 个周期）
 private static final int SWEEP_CURVE_STEPS = ${n};
-// 下标 i 对应 sinceSweep = 周期 × i/STEPS；最后一个值 = 下次扫描前的残影亮度
+// 下标 i 对应印记年龄 = 3 周期 × i/STEPS；最后一个值 = 第 3 周期末的残影亮度
 private static final float[] SWEEP_CURVE = {
 ${lines.join('\n')}
 };
 // 取值：
-//   float u = Math.min(sinceSweepMs / cycleMs, 1f);
+//   float u = Math.min(sinceStampMs / (3f * cycleMs), 1f);
 //   float f = u * SWEEP_CURVE_STEPS;
 //   int   i = (int)f;
 //   float bright = SWEEP_CURVE[i] + (SWEEP_CURVE[i + 1] - SWEEP_CURVE[i]) * (f - i);

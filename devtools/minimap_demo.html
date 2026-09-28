@@ -75,7 +75,8 @@
         <option value="flagship">离旗舰近先扫（脉冲波）</option>
       </select></div>
     <div class="hint">周期结构：扫描舰船 → 保持 → 扫描战机 → 保持，循环。<br>
-      未被扫到的单位完全不在图上；扫到即从无到有出现（最亮），随后磷光消退。</div>
+      周期边界不刷新任何位置；轮到某单位时才读取其当前位置打点（刷新+高亮同一瞬间），
+      印记原地保留 3 个周期。同一单位的旧印记留在原地淡出 = 运动拖尾。</div>
   </div>
 
   <div class="group"><b>透明度-时间曲线（高亮 = 刷新本身）</b>
@@ -85,8 +86,8 @@
       <button id="btnCurvePulse">脉冲波预设</button>
       <button id="btnCurveLinger">长残影预设</button>
     </div>
-    <div class="hint">横轴：距扫描命中的时间（0 = 命中瞬间，1 = 下次扫描前）。纵轴：不透明度。<br>
-      拖动控制点改曲线；点击空白加点；双击控制点删点。<b>最右端 = 下次扫描前的残影亮度（拖到 0 则扫描前完全消失）。</b></div>
+    <div class="hint">横轴：距打点的时间（0 = 命中瞬间，1 = 三个周期后）。纵轴：不透明度。<br>
+      拖动控制点改曲线；点击空白加点；双击控制点删点。<b>印记原地保留 3 个周期，曲线右端 = 第 3 周期末的残影亮度。</b></div>
   </div>
 
   <div class="group"><b>单位与线条</b>
@@ -116,9 +117,9 @@
 </div>
 
 <!-- 拆分的脚本：参数/常量 -> 战场模拟 -> 扫描渲染 -> 控件绑定 -->
-<script src="demo_params.js?v=9"></script>
-<script src="demo_sim.js?v=9"></script>
-<script src="demo_sweep.js?v=9"></script>
-<script src="demo_panel.js?v=9"></script>
+<script src="demo_params.js?v=16"></script>
+<script src="demo_sim.js?v=16"></script>
+<script src="demo_sweep.js?v=16"></script>
+<script src="demo_panel.js?v=16"></script>
 </body>
 </html>
