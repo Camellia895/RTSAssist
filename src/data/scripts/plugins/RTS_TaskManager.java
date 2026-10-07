@@ -1586,14 +1586,14 @@ public class RTS_TaskManager extends RTS_StatefulClasses {
             List<ShipAPI> affectedShips = new ArrayList<>();
             for (ShipAPI ship: ((CombatEngineAPI)this.getState(RTSAssist.stNames.engine)).getShips())
                 if (!((RTS_SelectionListener)this.getState(RTSAssist.stNames.selectionListener)).dontSelect(ship)) {
-                    if (ship.getCaptain().isPlayer())
+                    if (ship.getCaptain() != null && ship.getCaptain().isPlayer())
                         player = ship.getCaptain();
                     if (ship.getVariant().getHullMods().contains("neural_interface"))
                         affectedShips.add(ship);
                 }
             if (player != null && affectedShips.size() == 2)
                 for (ShipAPI ship: affectedShips)
-                    if (!ship.getCaptain().isPlayer())
+                    if (ship.getCaptain() != null && !ship.getCaptain().isPlayer())
                         ship.setCaptain(player);
 //            /* Add a listener that ckecks if newly added ships are the player and and then checks if their is
 //             * a viable neural linked  ship. BUG If the viable ship is currently selected, ss core will overwrite

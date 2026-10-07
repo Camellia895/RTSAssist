@@ -267,7 +267,7 @@ public class RTS_ModeManager extends RTS_StatefulClasses {
             for (ShipAPI ship : ((CombatEngineAPI)this.getState(RTSAssist.stNames.engine)).getShips()) {
                 if (((RTS_SelectionListener)this.getState(RTSAssist.stNames.selectionListener)).dontSelect(ship))
                     continue;
-                if (ship.getCaptain().isPlayer()) {
+                if (ship.getCaptain() != null && ship.getCaptain().isPlayer()) {
                     this.setState(RTS_ParseInput.stNames.playerShipHold, ship);
                     this.newPlayerShip = false;
                     break;

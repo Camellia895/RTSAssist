@@ -1,0 +1,20 @@
+Full Changelog: https://fractalsoftworks.com/forum/index.php?topic=32007
+
+RTSAssist 汉化修复线（本地补丁记录，非上游发布）
+
+Version 0.2.16exp 修复说明（2026-10-06）
+    修复：旗舰未上场或阵亡后，切换到其他座舰时战斗内崩溃（NullPointerException: ShipAPI.getCaptain() is null）。
+    根因：RTS_ModeManager.playerSwitchesToDifferentShip 遍历全场舰船查找玩家舰长时，getCaptain() 对
+          无舰长舰船（未分配舰长的船/无人机/接驳舱等）返回 null，未判空直接调用 isPlayer()。
+    改法：3 处 getCaptain() 调用补判空（RTS_ModeManager 1 处崩溃点；RTS_TaskManager
+          handleNeuralLinkAtDeployment 2 处潜点，仅玩家拥有 neural_link 技能时触发），
+          重编译 12 个 class 替换 jar 条目，汉化文案无损失。
+
+Version 0.2.10exp–0.2.15exp 修复说明（2026-09-28）
+    承接 0.2.04exp 地图修复版，随上游 0.2.x 实验版滚动重建：切换旗舰/接管指挥闪退修复
+    （6 处舰名判断改用 isShuttlePod()，与语言无关）；小地图默认右下角、Shift+拖拽记忆位置；
+    新增小地图开关热键（G，Hotkeys.ini 的 toggleMiniMap）与设置项（showMiniMap）。
+
+Version 0.2.04exp 修复说明（2026-09-27）
+    地图修复版首发：切换旗舰 ClassCastException 闪退修复 + 小地图默认位置/开关；
+    详情见同日交付包说明 RTSAssist_0.2.04exp_zh_mapfix_修改说明.md。
