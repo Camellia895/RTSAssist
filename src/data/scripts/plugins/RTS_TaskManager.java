@@ -1,20 +1,22 @@
-/****************************************************************************************
- * RTSAssist version 0.1.5
- * Copyright (C) 2025, Raatle
+/*
+  **********************************************************************************************************
+  * RTSAssist version 0.2.04exp
+  * Copyright (C) 2025-2026, Raatle
 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+  * This program is free software: you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation, either version 3 of the License, or
+  * (at your option) any later version.
 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+  * This program is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see https://www.gnu.org/licenses/gpl-3.0.en.html.
- ****************************************************************************************/
+  * You should have received a copy of the GNU General Public License
+  * along with this program.  If not, see https://www.gnu.org/licenses/gpl-3.0.en.html.
+  **********************************************************************************************************
+ */
 
 package data.scripts.plugins;
 
@@ -1577,8 +1579,8 @@ public class RTS_TaskManager extends RTS_StatefulClasses {
     private void handleNeuralLinkAtDeployment () {
         if (
                 Global.getSector() != null
-                        && Global.getSector().getPlayerFleet() != null
-                        && Global.getSector().getPlayerStats().getSkillLevel("neural_link") == 1
+                && Global.getSector().getPlayerFleet() != null
+                && Global.getSector().getPlayerStats().getSkillLevel("neural_link") == 1
         ) {
             PersonAPI player = null;
             List<ShipAPI> affectedShips = new ArrayList<>();
@@ -1595,7 +1597,7 @@ public class RTS_TaskManager extends RTS_StatefulClasses {
                         ship.setCaptain(player);
 //            /* Add a listener that ckecks if newly added ships are the player and and then checks if their is
 //             * a viable neural linked  ship. BUG If the viable ship is currently selected, ss core will overwrite
-//             * ship.setCaptain and if the even if the captain is set every frame, neural link UI seems bugged./
+//             * ship.setCaptain and if the even if the captain is set every frame, neural link Render seems bugged./
 //            ((RTS_EventManager)this.getState(RTSAssist.stNames.eventManager)).addListener(new RTS_Listener() {
 //                @Override
 //                public String type () {
@@ -1708,9 +1710,10 @@ public class RTS_TaskManager extends RTS_StatefulClasses {
                 pointer.put("priorityEnemy", null);
 
             /* Check if we should draw this ships assignments, then draw them. */
-            if ((boolean)this.getState(RTS_ParseInput.stNames.isAltDown)
+            if (
+                    (boolean)this.getState(RTS_ParseInput.stNames.isAltDown)
                     || (this.getState(RTS_ParseInput.stNames.currentSelection) != null
-                            && ((List<ShipAPI>)this.getState(RTS_ParseInput.stNames.currentSelection)).contains(pointer.get("ship")))
+                    && ((List<ShipAPI>)this.getState(RTS_ParseInput.stNames.currentSelection)).contains(pointer.get("ship")))
             )
                 this.drawAssignments(pointer);
         }

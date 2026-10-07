@@ -1,3 +1,23 @@
+/*
+  **********************************************************************************************************
+  * RTSAssist version 0.2.04exp
+  * Copyright (C) 2025-2026, Raatle
+
+  * This program is free software: you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation, either version 3 of the License, or
+  * (at your option) any later version.
+
+  * This program is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  * GNU General Public License for more details.
+
+  * You should have received a copy of the GNU General Public License
+  * along with this program.  If not, see https://www.gnu.org/licenses/gpl-3.0.en.html.
+  **********************************************************************************************************
+ */
+
 package data.scripts.plugins.Setup;
 
 import com.fs.starfarer.api.combat.ShipAPI;
@@ -19,7 +39,6 @@ public class RTS_ParseInputKeyBinds extends RTS_StatefulClasses {
 
     public static class classidentifiers {
         public String eventValue = RTS_StatefulClasses.getUniqueIdentifier();
-        public String inDevelopment = RTS_StatefulClasses.getUniqueIdentifier();
     }
     public static RTS_ParseInputKeyBinds.classidentifiers kiNames = new RTS_ParseInputKeyBinds.classidentifiers();
 
@@ -107,7 +126,7 @@ public class RTS_ParseInputKeyBinds extends RTS_StatefulClasses {
         param1.addCondition(new RTS_StateEngine.condition() {
             @Override
             public String identifier() {
-                return RTS_ParseInputKeyBinds.kiNames.eventValue;
+                return (RTS_ParseInputKeyBinds.kiNames.eventValue);
             }
 
             @Override
@@ -134,7 +153,7 @@ public class RTS_ParseInputKeyBinds extends RTS_StatefulClasses {
         param2.addCondition(new RTS_StateEngine.condition() {
             @Override
             public String identifier() {
-                return RTS_ParseInputKeyBinds.kiNames.eventValue;
+                return (RTS_ParseInputKeyBinds.kiNames.eventValue);
             }
 
             @Override
@@ -161,7 +180,7 @@ public class RTS_ParseInputKeyBinds extends RTS_StatefulClasses {
         param3.addCondition(new RTS_StateEngine.condition() {
             @Override
             public String identifier() {
-                return RTS_ParseInputKeyBinds.kiNames.eventValue;
+                return (RTS_ParseInputKeyBinds.kiNames.eventValue);
             }
 
             @Override
@@ -188,7 +207,7 @@ public class RTS_ParseInputKeyBinds extends RTS_StatefulClasses {
         param4.addCondition(new RTS_StateEngine.condition() {
             @Override
             public String identifier() {
-                return RTS_ParseInputKeyBinds.kiNames.eventValue;
+                return (RTS_ParseInputKeyBinds.kiNames.eventValue);
             }
 
             @Override
@@ -215,7 +234,7 @@ public class RTS_ParseInputKeyBinds extends RTS_StatefulClasses {
         param5.addCondition(new RTS_StateEngine.condition() {
             @Override
             public String identifier() {
-                return RTS_ParseInputKeyBinds.kiNames.eventValue;
+                return (RTS_ParseInputKeyBinds.kiNames.eventValue);
             }
 
             @Override
@@ -242,7 +261,7 @@ public class RTS_ParseInputKeyBinds extends RTS_StatefulClasses {
         param6.addCondition(new RTS_StateEngine.condition() {
             @Override
             public String identifier() {
-                return RTS_ParseInputKeyBinds.kiNames.eventValue;
+                return (RTS_ParseInputKeyBinds.kiNames.eventValue);
             }
 
             @Override
@@ -270,7 +289,7 @@ public class RTS_ParseInputKeyBinds extends RTS_StatefulClasses {
         param7.addCondition(new RTS_StateEngine.condition() {
             @Override
             public String identifier() {
-                return RTS_ParseInputKeyBinds.kiNames.eventValue;
+                return (RTS_ParseInputKeyBinds.kiNames.eventValue);
             }
 
             @Override
@@ -297,7 +316,7 @@ public class RTS_ParseInputKeyBinds extends RTS_StatefulClasses {
         param8.addCondition(new RTS_StateEngine.condition() {
             @Override
             public String identifier() {
-                return RTS_ParseInputKeyBinds.kiNames.eventValue;
+                return (RTS_ParseInputKeyBinds.kiNames.eventValue);
             }
 
             @Override
@@ -323,7 +342,7 @@ public class RTS_ParseInputKeyBinds extends RTS_StatefulClasses {
         strafeLeft.addCondition(new RTS_StateEngine.condition() {
             @Override
             public String identifier() {
-                return RTS_ParseInputKeyBinds.kiNames.eventValue;
+                return (RTS_ParseInputKeyBinds.kiNames.eventValue);
             }
 
             @Override
@@ -349,7 +368,7 @@ public class RTS_ParseInputKeyBinds extends RTS_StatefulClasses {
         strafeRight.addCondition(new RTS_StateEngine.condition() {
             @Override
             public String identifier() {
-                return RTS_ParseInputKeyBinds.kiNames.eventValue;
+                return (RTS_ParseInputKeyBinds.kiNames.eventValue);
             }
 
             @Override
@@ -375,7 +394,7 @@ public class RTS_ParseInputKeyBinds extends RTS_StatefulClasses {
         strafeUp.addCondition(new RTS_StateEngine.condition() {
             @Override
             public String identifier() {
-                return RTS_ParseInputKeyBinds.kiNames.eventValue;
+                return (RTS_ParseInputKeyBinds.kiNames.eventValue);
             }
 
             @Override
@@ -401,7 +420,7 @@ public class RTS_ParseInputKeyBinds extends RTS_StatefulClasses {
         strafeDown.addCondition(new RTS_StateEngine.condition() {
             @Override
             public String identifier() {
-                return RTS_ParseInputKeyBinds.kiNames.eventValue;
+                return (RTS_ParseInputKeyBinds.kiNames.eventValue);
             }
 
             @Override
@@ -431,7 +450,7 @@ public class RTS_ParseInputKeyBinds extends RTS_StatefulClasses {
         broadsideSelection.addCondition(new RTS_StateEngine.condition() {
             @Override
             public String identifier() {
-                return RTS_ParseInputKeyBinds.kiNames.eventValue;
+                return (RTS_ParseInputKeyBinds.kiNames.eventValue);
             }
 
             @Override
@@ -456,7 +475,7 @@ public class RTS_ParseInputKeyBinds extends RTS_StatefulClasses {
         saveLayout.addCondition(new RTS_StateEngine.condition() {
             @Override
             public String identifier() {
-                return RTS_ParseInputKeyBinds.kiNames.eventValue;
+                return (RTS_ParseInputKeyBinds.kiNames.eventValue);
             }
 
             @Override
@@ -482,7 +501,7 @@ public class RTS_ParseInputKeyBinds extends RTS_StatefulClasses {
         loadLayout.addCondition(new RTS_StateEngine.condition() {
             @Override
             public String identifier() {
-                return RTS_ParseInputKeyBinds.kiNames.eventValue;
+                return (RTS_ParseInputKeyBinds.kiNames.eventValue);
             }
 
             @Override
@@ -509,7 +528,7 @@ public class RTS_ParseInputKeyBinds extends RTS_StatefulClasses {
         moveTogether.addCondition(new RTS_StateEngine.condition() {
             @Override
             public String identifier() {
-                return RTS_ParseInputKeyBinds.kiNames.eventValue;
+                return (RTS_ParseInputKeyBinds.kiNames.eventValue);
             }
 
             @Override
@@ -576,7 +595,7 @@ public class RTS_ParseInputKeyBinds extends RTS_StatefulClasses {
         attackMove.addCondition(new RTS_StateEngine.condition() {
             @Override
             public String identifier() {
-                return RTS_ParseInputKeyBinds.kiNames.eventValue;
+                return (RTS_ParseInputKeyBinds.kiNames.eventValue);
             }
 
             @Override
@@ -610,7 +629,7 @@ public class RTS_ParseInputKeyBinds extends RTS_StatefulClasses {
         deleteAssignments.addCondition(new RTS_StateEngine.condition() {
             @Override
             public String identifier() {
-                return RTS_ParseInputKeyBinds.kiNames.eventValue;
+                return (RTS_ParseInputKeyBinds.kiNames.eventValue);
             }
 
             @Override
@@ -637,7 +656,7 @@ public class RTS_ParseInputKeyBinds extends RTS_StatefulClasses {
         vent.addCondition(new RTS_StateEngine.condition() {
             @Override
             public String identifier() {
-                return RTS_ParseInputKeyBinds.kiNames.eventValue;
+                return (RTS_ParseInputKeyBinds.kiNames.eventValue);
             }
             @Override
             public Boolean check(Object var) {
@@ -665,7 +684,7 @@ public class RTS_ParseInputKeyBinds extends RTS_StatefulClasses {
         useSystem.addCondition(new RTS_StateEngine.condition() {
             @Override
             public String identifier() {
-                return RTS_ParseInputKeyBinds.kiNames.eventValue;
+                return (RTS_ParseInputKeyBinds.kiNames.eventValue);
             }
 
             @Override
@@ -698,7 +717,7 @@ public class RTS_ParseInputKeyBinds extends RTS_StatefulClasses {
         leftControl.addCondition(new RTS_StateEngine.condition() {
             @Override
             public String identifier() {
-                return RTS_ParseInputKeyBinds.kiNames.eventValue;
+                return (RTS_ParseInputKeyBinds.kiNames.eventValue);
             }
 
             @Override
@@ -742,7 +761,7 @@ public class RTS_ParseInputKeyBinds extends RTS_StatefulClasses {
         controlGroups.addCondition(new RTS_StateEngine.condition() {
             @Override
             public String identifier() {
-                return RTS_ParseInputKeyBinds.kiNames.eventValue;
+                return (RTS_ParseInputKeyBinds.kiNames.eventValue);
             }
 
             @Override

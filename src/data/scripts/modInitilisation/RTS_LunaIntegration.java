@@ -1,3 +1,23 @@
+/*
+  **********************************************************************************************************
+  * RTSAssist version 0.2.04exp
+  * Copyright (C) 2025-2026, Raatle
+
+  * This program is free software: you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation, either version 3 of the License, or
+  * (at your option) any later version.
+
+  * This program is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  * GNU General Public License for more details.
+
+  * You should have received a copy of the GNU General Public License
+  * along with this program.  If not, see https://www.gnu.org/licenses/gpl-3.0.en.html.
+  **********************************************************************************************************
+ */
+
 package data.scripts.modInitilisation;
 
 import com.fs.starfarer.api.Global;
@@ -17,7 +37,7 @@ public class RTS_LunaIntegration {
     String modID = "RTSAssist";
     String hotKeyTabName = "HotKeys";
     String configTabName = "Settings";
-    String UITabName = "UI Settings";
+    String UITabName = "Render Settings";
     String DevToolsTabName = "Dev Tools";
     HashMap<String, String> hotPointer = (HashMap<String, String>)RTSAssistModPlugin.RTS_Global.get("hotKeys");
     HashMap<String, Object> confPointer = (HashMap<String, Object>)RTSAssistModPlugin.RTS_Global.get("config");
@@ -224,6 +244,28 @@ public class RTS_LunaIntegration {
                 50,
                 this.configTabName
         );
+        /* Zoom Sensitivity */
+        LunaSettings.SettingsCreator.addDouble(
+                this.modID,
+                "RTSA_SettingsConfig_zoomSensi",
+                "Zoom Sensitivity",
+                "How sensitive the scroll wheel is.",
+                (float)this.confPointer.get("zoomSensi"),
+                0.1d,
+                10d,
+                this.configTabName
+        );
+        /* Minimum Zoom */
+        LunaSettings.SettingsCreator.addDouble(
+                this.modID,
+                "RTSA_SettingsConfig_minZoom",
+                "Minimum Zoom",
+                "How far the player can zoom in.",
+                (float)this.confPointer.get("minZoom"),
+                0.1d,
+                10d,
+                this.configTabName
+        );
         /* Maximum Zoom */
         LunaSettings.SettingsCreator.addDouble(
                 this.modID,
@@ -239,8 +281,8 @@ public class RTS_LunaIntegration {
         LunaSettings.SettingsCreator.addInt(
                 this.modID,
                 "RTSA_SettingsConfig_screenScaling",
-                "UI Scaling",
-                "Manually adjust UI scaling. If using in game UI scaling this should not be necessary. If you are using nvidia upscaling for example, you will likely need to adjust this setting. Match the value with your scaling setting.",
+                "Render Scaling",
+                "Manually adjust Render scaling. If using in game Render scaling this should not be necessary. If you are using nvidia upscaling for example, you will likely need to adjust this setting. Match the value with your scaling setting.",
                 ((Float)this.confPointer.get("screenScaling")).intValue(),
                 1,
                 500,
@@ -275,11 +317,11 @@ public class RTS_LunaIntegration {
                 (boolean)this.confPointer.get("alternativeRotation"),
                 this.configTabName
         );
-        /* UI Command Volume */
+        /* Render Command Volume */
         LunaSettings.SettingsCreator.addInt(
                 this.modID,
                 "RTSA_SettingsUI_CommandVolume",
-                "UI Command Volume",
+                "Render Command Volume",
                 "Adjust the volume assosciated with the audio feedback for issuing commands.",
                 ((Float)this.confPointer.get("UICommandVolume")).intValue(),
                 0,

@@ -1,20 +1,22 @@
-/****************************************************************************************
- * RTSAssist version 0.1.5
- * Copyright (C) 2025, Raatle
+/*
+  **********************************************************************************************************
+  * RTSAssist version 0.2.04exp
+  * Copyright (C) 2025-2026, Raatle
 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+  * This program is free software: you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation, either version 3 of the License, or
+  * (at your option) any later version.
 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+  * This program is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see https://www.gnu.org/licenses/gpl-3.0.en.html.
- ****************************************************************************************/
+  * You should have received a copy of the GNU General Public License
+  * along with this program.  If not, see https://www.gnu.org/licenses/gpl-3.0.en.html.
+  **********************************************************************************************************
+ */
 
 package data.scripts.plugins.AISystems;
 
@@ -95,17 +97,17 @@ public class RTS_AIInjector extends RTS_StatefulClasses {
                 @Override
                 public void advance(float amount) {
                     executeInjections(ship, eventType.PREADVANCE);
-                    ship.setShipAI(retrieveAI(ship));
-                    AIPointer = retrieveAI(ship);
+                    this.AIPointer = retrieveAI(ship);
+                    ship.setShipAI(this.AIPointer);
                     if (ship.getCustomData().get(RTSAssist.shipCNames.blockAi) == null)
-                        AIPointer.advance(amount);
+                        this.AIPointer.advance(amount);
                     ship.setShipAI(this);
                     executeInjections(ship, eventType.POSTADVANCE);
                 }
 
                 @Override
                 public boolean needsRefit() {
-                    return false;
+                    return (retrieveAI(ship).needsRefit());
                 }
 
                 @Override
@@ -121,7 +123,6 @@ public class RTS_AIInjector extends RTS_StatefulClasses {
                 @Override
                 public ShipAIConfig getConfig() {
                     return (retrieveAI(ship).getConfig());
-
                 }
             });
         ship.setShipAI(this.wrapperStore.get(ship));
@@ -146,9 +147,8 @@ public class RTS_AIInjector extends RTS_StatefulClasses {
         this.hookedShips.put(ship, 0);
         List<ShipAIPlugin> AIList = this.AIStore.get(ship.getId());
         if (this.recFlag) {
-            if (!AIList.isEmpty()) {
+            if (!AIList.isEmpty())
                 AIList.remove(AIList.size() - 1);
-            }
             if (!AIList.isEmpty())
                 return (AIList.get(AIList.size() - 1));
             else {
@@ -157,6 +157,7 @@ public class RTS_AIInjector extends RTS_StatefulClasses {
             }
         }
         recFlag = true;
+        // we are checking to see if the ai we retrieved is our wrapper, if its not this will do nothing, else the ai list will be trimmed.
         AIList.get(AIList.size() - 1).getConfig();
         this.recFlag = false;
         if (!AIList.isEmpty())

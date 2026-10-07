@@ -1,20 +1,22 @@
-/****************************************************************************************
- * RTSAssist version 0.1.5
- * Copyright (C) 2025, Raatle
+/*
+  **********************************************************************************************************
+  * RTSAssist version 0.2.04exp
+  * Copyright (C) 2025-2026, Raatle
 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+  * This program is free software: you can redistribute it and/or modify
+  * it under the terms of the GNU General Public License as published by
+  * the Free Software Foundation, either version 3 of the License, or
+  * (at your option) any later version.
 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+  * This program is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  * GNU General Public License for more details.
 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see https://www.gnu.org/licenses/gpl-3.0.en.html.
- ****************************************************************************************/
+  * You should have received a copy of the GNU General Public License
+  * along with this program.  If not, see https://www.gnu.org/licenses/gpl-3.0.en.html.
+  **********************************************************************************************************
+ */
 
 package data.scripts.plugins.Utils;
 
@@ -44,6 +46,7 @@ public class RTS_ModeManager extends RTS_StatefulClasses {
     HashMap<WeaponGroupAPI, Boolean> weaponGroups = new HashMap<>();
     Integer activeWeaponGroup = null;
     String changeGroupEventString;
+    String blockSystemEvent = null;
 
     public void buildListeners() {
         newShipListenerID = ((RTS_EventManager)this.getState(RTSAssist.stNames.eventManager))
@@ -199,15 +202,36 @@ public class RTS_ModeManager extends RTS_StatefulClasses {
 
     public void handlePlayerShipAi() {
         if ((Boolean)this.getState(RTS_ParseInput.stNames.RTSMode)) {
+            if (this.blockSystemEvent != null) {
+                ((RTS_EventManager)this.getState(RTSAssist.stNames.eventManager)).deleteEvent(this.blockSystemEvent);
+                this.blockSystemEvent = null;
+            }
             ((CombatEngineAPI)this.getState(RTSAssist.stNames.engine))
                     .getCombatUI().setDisablePlayerShipControlOneFrame(true);
-            if (((CombatEngineAPI)this.getState(RTSAssist.stNames.engine)).getPlayerShip().getAI() == null) {
+            if (((CombatEngineAPI)this.getState(RTSAssist.stNames.engine)).getPlayerShip().getAI() == null)
                 ((CombatEngineAPI)this.getState(RTSAssist.stNames.engine)).getPlayerShip().resetDefaultAI();
+        }
+        else if (((CombatEngineAPI)this.getState(RTSAssist.stNames.engine)).getPlayerShip().getAI() != null) {
+            if (this.blockSystemEvent == null) {
+                this.blockSystemEvent = ((RTS_EventManager)this.getState(RTSAssist.stNames.eventManager)).addEvent(new RTS_Event() {
+                    float tHold = (float)getDeepState(Arrays.asList(
+                            RTSAssist.stNames.amount,
+                            RTSAssist.amNames.elapsedPlay
+                    ));
+
+                    @Override
+                    public boolean shouldExecute(Object state) {
+                        ((CombatEngineAPI)getState(RTSAssist.stNames.engine)).getPlayerShip()
+                                .blockCommandForOneFrame(ShipCommand.USE_SYSTEM);
+                        float tNew = (float)getDeepState(Arrays.asList(
+                                RTSAssist.stNames.amount,
+                                RTSAssist.amNames.elapsedPlay
+                        ));
+                        return (tNew - this.tHold > 3f);
+                    }
+                });
             }
         }
-        else if (((CombatEngineAPI)this.getState(RTSAssist.stNames.engine)).getPlayerShip().getAI() != null)
-            ((CombatEngineAPI)this.getState(RTSAssist.stNames.engine)).getPlayerShip()
-                    .blockCommandForOneFrame(ShipCommand.USE_SYSTEM);
     }
 
     public void firstFrameOfBattle() {
