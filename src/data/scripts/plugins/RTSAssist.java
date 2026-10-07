@@ -1,6 +1,6 @@
 /*
   **********************************************************************************************************
-  * RTSAssist version 0.2.04exp
+  * RTSAssist version 0.2.12exp
   * Copyright (C) 2025-2026, Raatle
 
   * This program is free software: you can redistribute it and/or modify
@@ -76,6 +76,7 @@ public class RTSAssist extends BaseEveryFrameCombatPlugin {
         public String soundsManager = RTS_StatefulClasses.getUniqueIdentifier();
         public String broadsideSelection = RTS_StatefulClasses.getUniqueIdentifier();
         public String renderManager = RTS_StatefulClasses.getUniqueIdentifier();
+        public String miniMapEnabled = RTS_StatefulClasses.getUniqueIdentifier();
     }
     public static classidentifiers stNames = new classidentifiers();
     /**/
@@ -108,6 +109,9 @@ public class RTSAssist extends BaseEveryFrameCombatPlugin {
         public String rememberZoom = RTS_StatefulClasses.getUniqueIdentifier();
         public String alternativeRotation = RTS_StatefulClasses.getUniqueIdentifier();
         public String UICommandVolume = RTS_StatefulClasses.getUniqueIdentifier();
+        public String miniMapEnabled = RTS_StatefulClasses.getUniqueIdentifier();
+        public String miniMapRefreshMs = RTS_StatefulClasses.getUniqueIdentifier();
+        public String miniMapSweepMs = RTS_StatefulClasses.getUniqueIdentifier();
     }
     public static configIdentifiers coNames = new configIdentifiers();
     /**/
@@ -133,6 +137,7 @@ public class RTSAssist extends BaseEveryFrameCombatPlugin {
         public String param6 = RTS_StatefulClasses.getUniqueIdentifier();
         public String param7 = RTS_StatefulClasses.getUniqueIdentifier();
         public String param8 = RTS_StatefulClasses.getUniqueIdentifier();
+        public String toggleMiniMap = RTS_StatefulClasses.getUniqueIdentifier();
     }
     public static hotKeyIdentifiers hoNames = new hotKeyIdentifiers();
     /**/
@@ -188,6 +193,10 @@ public class RTSAssist extends BaseEveryFrameCombatPlugin {
         this.setDeepState(Arrays.asList(RTSAssist.stNames.amount, RTSAssist.amNames.elapsedPlay), 0f);
         this.getHotkeys();
         this.getConfig();
+        /* Runtime toggle for the minimap; starts from config and is flipped by the hotkey. */
+        this.setState(RTSAssist.stNames.miniMapEnabled,
+                this.getState(RTSAssist.coNames.miniMapEnabled) == null
+                        || (boolean)this.getState(RTSAssist.coNames.miniMapEnabled));
         if (Global.getSettings().getModManager().isModEnabled("lunalib"))
             LunaSettings.addSettingsListener(new LunaSettingsListener() {
                 @Override
@@ -240,6 +249,9 @@ public class RTSAssist extends BaseEveryFrameCombatPlugin {
                 put(RTSAssist.coNames.rememberZoom, confPointer.get("rememberZoom"));
                 put(RTSAssist.coNames.alternativeRotation, confPointer.get("alternativeRotation"));
                 put(RTSAssist.coNames.UICommandVolume, confPointer.get("UICommandVolume"));
+                put(RTSAssist.coNames.miniMapEnabled, confPointer.get("showMiniMap"));
+                put(RTSAssist.coNames.miniMapRefreshMs, confPointer.get("miniMapRefreshMs"));
+                put(RTSAssist.coNames.miniMapSweepMs, confPointer.get("miniMapSweepMs"));
                 put(RTSAssist.devNames.modID, confPointer.get("modID"));
                 put(RTSAssist.devNames.findAllShips, confPointer.get("findAllShips"));
             }
@@ -259,6 +271,9 @@ public class RTSAssist extends BaseEveryFrameCombatPlugin {
                 put(RTSAssist.coNames.rememberZoom, LunaSettings.getBoolean("RTSAssist", "RTSA_SettingsConfig_rememberZoom"));
                 put(RTSAssist.coNames.alternativeRotation, LunaSettings.getBoolean("RTSAssist", "RTSA_SettingsConfig_alternativeRotation"));
                 put(RTSAssist.coNames.UICommandVolume, LunaSettings.getInt("RTSAssist", "RTSA_SettingsUI_CommandVolume").floatValue());
+                put(RTSAssist.coNames.miniMapEnabled, LunaSettings.getBoolean("RTSAssist", "RTSA_SettingsUI_showMiniMap"));
+                put(RTSAssist.coNames.miniMapRefreshMs, LunaSettings.getInt("RTSAssist", "RTSA_SettingsUI_miniMapRefreshMs").floatValue());
+                put(RTSAssist.coNames.miniMapSweepMs, LunaSettings.getInt("RTSAssist", "RTSA_SettingsUI_miniMapSweepMs").floatValue());
                 put(RTSAssist.devNames.modID, LunaSettings.getString("RTSAssist","RTSA_SettingsDevTools_modID"));
                 put(RTSAssist.devNames.findAllShips, LunaSettings.getBoolean("RTSAssist", "RTSA_SettingsDevTools_findAllShips"));
             }
@@ -291,6 +306,7 @@ public class RTSAssist extends BaseEveryFrameCombatPlugin {
                 put(RTSAssist.hoNames.strafeCameraUp, hotPointer.get("strafeCameraUp"));
                 put(RTSAssist.hoNames.strafeCameraDown, hotPointer.get("strafeCameraDown"));
                 put(RTSAssist.hoNames.broadsideSelection, hotPointer.get("broadsideSelection"));
+                put(RTSAssist.hoNames.toggleMiniMap, hotPointer.get("toggleMiniMap"));
             }
             else {
                 put(RTSAssist.hoNames.enable_RTSMode, LunaSettings.getInt(
@@ -311,6 +327,7 @@ public class RTSAssist extends BaseEveryFrameCombatPlugin {
                 put(RTSAssist.hoNames.strafeCameraUp, Keyboard.getKeyName(LunaSettings.getInt("RTSAssist", "RTSA_SettingsKeybind_strafeUp")));
                 put(RTSAssist.hoNames.strafeCameraDown, Keyboard.getKeyName(LunaSettings.getInt("RTSAssist", "RTSA_SettingsKeybind_strafeDown")));
                 put(RTSAssist.hoNames.broadsideSelection, Keyboard.getKeyName(LunaSettings.getInt("RTSAssist", "RTSA_SettingsKeybind_broadsideSelection")));
+                put(RTSAssist.hoNames.toggleMiniMap, Keyboard.getKeyName(LunaSettings.getInt("RTSAssist", "RTSA_SettingsKeybind_toggleMiniMap")));
             }
             put(RTSAssist.hoNames.param1, hotPointer.get("param1"));
             put(RTSAssist.hoNames.param2, hotPointer.get("param2"));

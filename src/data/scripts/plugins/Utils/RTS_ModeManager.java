@@ -1,6 +1,6 @@
 /*
   **********************************************************************************************************
-  * RTSAssist version 0.2.04exp
+  * RTSAssist version 0.2.10exp
   * Copyright (C) 2025-2026, Raatle
 
   * This program is free software: you can redistribute it and/or modify
@@ -101,7 +101,7 @@ public class RTS_ModeManager extends RTS_StatefulClasses {
     /* This function requires abstraction */
     public void playerChangesMode() {
         if ((boolean)this.getState(RTS_ParseInput.stNames.RTSMode)
-                && ((ShipAPI)this.getState(RTS_ParseInput.stNames.playerShipHold)).getName().equals("Command Shuttle"))
+                && ((ShipAPI)this.getState(RTS_ParseInput.stNames.playerShipHold)).isShuttlePod())
             return;
         this.setState(RTS_ParseInput.stNames.RTSMode, !(Boolean)this.getState(RTS_ParseInput.stNames.RTSMode));
         /* We've switched to RTS mode */
@@ -135,7 +135,7 @@ public class RTS_ModeManager extends RTS_StatefulClasses {
         }
         /* We've switched to Vanilla mode */
         else {
-            if (((ShipAPI)this.getState(RTS_ParseInput.stNames.playerShipHold)).getName().equals("Command Shuttle"))
+            if (((ShipAPI)this.getState(RTS_ParseInput.stNames.playerShipHold)).isShuttlePod())
                 return;
             /* Reset all RTS buffers */
             this.setState(RTS_ParseInput.stNames.rightClickStore, null);
@@ -241,7 +241,7 @@ public class RTS_ModeManager extends RTS_StatefulClasses {
         );
         if (!(boolean)this.getState(RTS_ParseInput.stNames.RTSMode)
                 && ((CombatEngineAPI)this.getState(RTSAssist.stNames.engine))
-                        .getPlayerShip().getName().equals("Command Shuttle")
+                        .getPlayerShip().isShuttlePod()
         )
             this.setState(RTS_ParseInput.stNames.RTSMode, true);
         this.buildListeners();
@@ -267,7 +267,7 @@ public class RTS_ModeManager extends RTS_StatefulClasses {
             for (ShipAPI ship : ((CombatEngineAPI)this.getState(RTSAssist.stNames.engine)).getShips()) {
                 if (((RTS_SelectionListener)this.getState(RTSAssist.stNames.selectionListener)).dontSelect(ship))
                     continue;
-                if (ship.getCaptain().isPlayer()) {
+                if (ship.getCaptain() != null && ship.getCaptain().isPlayer()) {
                     this.setState(RTS_ParseInput.stNames.playerShipHold, ship);
                     this.newPlayerShip = false;
                     break;

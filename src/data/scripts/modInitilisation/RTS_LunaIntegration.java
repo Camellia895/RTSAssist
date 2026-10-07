@@ -1,6 +1,6 @@
 /*
   **********************************************************************************************************
-  * RTSAssist version 0.2.04exp
+  * RTSAssist version 0.2.12exp
   * Copyright (C) 2025-2026, Raatle
 
   * This program is free software: you can redistribute it and/or modify
@@ -170,6 +170,17 @@ public class RTS_LunaIntegration {
                 Keyboard.getKeyIndex(this.hotPointer.get("broadsideSelection")),
                 this.hotKeyTabName
         );
+        /* Show/hide minimap */
+        LunaSettings.SettingsCreator.addKeybind(
+                this.modID,
+                "RTSA_SettingsKeybind_toggleMiniMap",
+                "Toggle Minimap",
+                "Show or hide the RTSAssist minimap during combat.",
+                this.hotPointer.get("toggleMiniMap") == null
+                        ? Keyboard.KEY_G
+                        : Keyboard.getKeyIndex(this.hotPointer.get("toggleMiniMap")),
+                this.hotKeyTabName
+        );
     }
 
     private void addConfig () {
@@ -326,6 +337,37 @@ public class RTS_LunaIntegration {
                 ((Float)this.confPointer.get("UICommandVolume")).intValue(),
                 0,
                 10,
+                this.UITabName
+        );
+        /* Minimap refresh interval */
+        LunaSettings.SettingsCreator.addInt(
+                this.modID,
+                "RTSA_SettingsUI_miniMapRefreshMs",
+                "Minimap Refresh Interval",
+                "Refresh period of the minimap's frame data (ms); also the duration of one full sweep cycle. Lower values mean fresher map data.",
+                ((Float)this.confPointer.get("miniMapRefreshMs")).intValue(),
+                16,
+                2000,
+                this.UITabName
+        );
+        /* Minimap sweep duration */
+        LunaSettings.SettingsCreator.addInt(
+                this.modID,
+                "RTSA_SettingsUI_miniMapSweepMs",
+                "Sweep Duration",
+                "How long (ms) each sweep phase (ships / fighters) takes to finish scanning all units. Each cycle goes: sweep ships, hold, sweep fighters, hold.",
+                ((Float)this.confPointer.get("miniMapSweepMs")).intValue(),
+                16,
+                1000,
+                this.UITabName
+        );
+        /* Show minimap */
+        LunaSettings.SettingsCreator.addBoolean(
+                this.modID,
+                "RTSA_SettingsUI_showMiniMap",
+                "Show Minimap",
+                "True / False : whether to show the RTSAssist minimap. Initialized from this setting when combat starts; can also be toggled at any time with the hotkey.",
+                (boolean)this.confPointer.get("showMiniMap"),
                 this.UITabName
         );
         /* Enable RTS Ship testing tools */

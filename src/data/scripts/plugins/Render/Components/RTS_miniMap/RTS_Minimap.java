@@ -1,6 +1,6 @@
 /*
   **********************************************************************************************************
-  * RTSAssist version 0.2.04exp
+  * RTSAssist version 0.2.12exp
   * Copyright (C) 2025-2026, Raatle
 
   * This program is free software: you can redistribute it and/or modify
@@ -54,7 +54,9 @@ public interface RTS_Minimap extends RTS_BaseInterface {
         RTS_ParseInput inputManager = (RTS_ParseInput)root.getState(RTSAssist.stNames.parseInput);
         CAU_muStatState_CAU.amendedProps.clear();
         CAU_muStatState_CAU.amendedProps.putAll(props);
-        if (!(boolean)root.getState(RTS_ParseInput.stNames.isShiftDown)) {
+        /* An inert minimap must not intercept mouse input either. */
+        boolean disabled = props.get("inert") instanceof Boolean && (Boolean)props.get("inert");
+        if (!disabled && !(boolean)root.getState(RTS_ParseInput.stNames.isShiftDown)) {
             CAU_muStatState_CAU.amendedProps.putAll(Map.of(
                     "onDrag", leftClickHoldManager.getLeftClickHold(cameraRework),
                     "onRightClick", rightClickManager.getRightClick(inputManager),
@@ -200,6 +202,10 @@ public interface RTS_Minimap extends RTS_BaseInterface {
     static everyFrameUpdate everyFrame = new everyFrameUpdate() {
         @Override
         public void everyFrame(HashMap<String, Object> props, Map<String, Object> rawProps) {
+            if (rawProps != null && rawProps.get(RTS_Root.roNames.miniMapRefresh) instanceof Float)
+                CAU_muStatState_CAU.renderer.refreshMs = (Float)rawProps.get(RTS_Root.roNames.miniMapRefresh);
+            if (rawProps != null && rawProps.get(RTS_Root.roNames.miniMapSweep) instanceof Float)
+                CAU_muStatState_CAU.renderer.sweepMs = (Float)rawProps.get(RTS_Root.roNames.miniMapSweep);
             CAU_muStatState_CAU.renderer.render(
                     (RTS_Root.camera)rawProps.get(RTS_Root.roNames.camera),
                     (RTS_Root.shipList)rawProps.get(RTS_Root.roNames.shipList),

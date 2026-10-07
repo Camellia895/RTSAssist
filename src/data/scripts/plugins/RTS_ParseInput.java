@@ -1,6 +1,6 @@
 /*
   **********************************************************************************************************
-  * RTSAssist version 0.2.04exp
+  * RTSAssist version 0.2.10exp
   * Copyright (C) 2025-2026, Raatle
 
   * This program is free software: you can redistribute it and/or modify
@@ -140,6 +140,18 @@ public class RTS_ParseInput extends RTS_StatefulClasses {
     private boolean manageModes (InputEventAPI x) {
         if (x.isKeyDownEvent()) {
             HashMap<String, Object> hotKeys = (HashMap<String, Object>)this.getState(RTSAssist.stNames.hotKeys);
+            /* Show/hide the minimap. Deliberately handled outside the RTSMode gate so it works in both modes. */
+            if (hotKeys.get(RTSAssist.hoNames.toggleMiniMap) != null
+                    && Keyboard.getKeyName(x.getEventValue()).equals(hotKeys.get(RTSAssist.hoNames.toggleMiniMap))
+            ) {
+                Object miniMapState = this.getState(RTSAssist.stNames.miniMapEnabled);
+                this.setState(
+                        RTSAssist.stNames.miniMapEnabled,
+                        !(miniMapState instanceof Boolean && (Boolean)miniMapState)
+                );
+                x.consume();
+                return (false);
+            }
             if ((hotKeys.get(RTSAssist.hoNames.enable_RTSMode) == null && x.getEventValue() == 58)
                     || Keyboard.getKeyName(x.getEventValue()).equals(hotKeys.get(RTSAssist.hoNames.enable_RTSMode))
             ) {

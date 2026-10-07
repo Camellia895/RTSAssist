@@ -1,6 +1,6 @@
 /*
   **********************************************************************************************************
-  * RTSAssist version 0.2.04exp
+  * RTSAssist version 0.2.14exp
   * Copyright (C) 2025-2026, Raatle
 
   * This program is free software: you can redistribute it and/or modify
@@ -62,6 +62,8 @@ public class RTS_Root extends RTS_StatefulClasses implements RTS_Div, RTS_Minima
         public static String camera = RTS_StatefulClasses.getUniqueIdentifier();
         public static String shipList = RTS_StatefulClasses.getUniqueIdentifier();
         public static String marginalisedShipSprites = RTS_StatefulClasses.getUniqueIdentifier();
+        public static String miniMapRefresh = RTS_StatefulClasses.getUniqueIdentifier();
+        public static String miniMapSweep = RTS_StatefulClasses.getUniqueIdentifier();
     }
 
     public RTS_Root (Object state) {
@@ -105,6 +107,7 @@ public class RTS_Root extends RTS_StatefulClasses implements RTS_Div, RTS_Minima
 
 
     private Vector2f minimapPos = new Vector2f(30f, 30f);
+    private boolean minimapPosSaved = false;
     private Vector2f dragHold = new Vector2f();
 
     private RTS_Listener newShipsListener = new RTS_Listener() {
@@ -161,6 +164,12 @@ public class RTS_Root extends RTS_StatefulClasses implements RTS_Div, RTS_Minima
                 ((Integer)Display.getWidth()).floatValue(),
                 ((Integer)Display.getHeight()).floatValue()
         );
+        /* No user-saved position yet: anchor the minimap to the bottom right corner. */
+        if (!this.minimapPosSaved)
+            this.minimapPos.set(
+                    screenDim.getX() - (screenDim.getY() / 3f) - 30f,
+                    30f
+            );
         float miniY = ((Integer)Math.round(MathUtils.clamp(
                 this.minimapPos.getY(),
                 20f,
@@ -177,6 +186,13 @@ public class RTS_Root extends RTS_StatefulClasses implements RTS_Div, RTS_Minima
         this.buildShipLists();
         RTS_ShaderManager.clearProgram();
 
+        /* Hotkey/config toggle: an inert minimap neither draws nor intercepts mouse input. */
+        boolean miniMapEnabled = true;
+        Object miniMapState = this.getState(RTSAssist.stNames.miniMapEnabled);
+        if (miniMapState instanceof Boolean)
+            miniMapEnabled = (Boolean)miniMapState;
+        final boolean miniMapOn = miniMapEnabled;
+
         //--------------------------------------------------------------------------------------------------------------
 
         /* Body */
@@ -188,15 +204,18 @@ public class RTS_Root extends RTS_StatefulClasses implements RTS_Div, RTS_Minima
                         /* MiniMap */
                         div(
                                 props(
-                                        "debug", true,
                                         "height", this.screenDim.getY() / 3f,
                                         "width", this.screenDim.getY() / 3f,
                                         "bottom", miniY,
                                         "left", miniX,
                                         "onDrag", setMinimapPosition,
-                                        "onDragStart", (RTS_Prop.propEvent)(p, r, c) ->
-                                                this.dragHold.set(Mouse.getX(), Mouse.getY()),
+                                        "onDragStart", (RTS_Prop.propEvent)(p, r, c) -> {
+                                            if (miniMapOn)
+                                                this.dragHold.set(Mouse.getX(), Mouse.getY());
+                                        },
                                         "onHover", (RTS_Prop.propEvent)(p, r, c) -> {
+                                            if (!miniMapOn)
+                                                return;
                                             ((RTS_ParseInput)getState(RTSAssist.stNames.parseInput))
                                                     .queueInterrupt(RTS_ParseInput.interrupt.LMB);
                                             ((RTS_ParseInput)getState(RTSAssist.stNames.parseInput))
@@ -207,7 +226,10 @@ public class RTS_Root extends RTS_StatefulClasses implements RTS_Div, RTS_Minima
                                         props(
                                                 roNames.camera, camera,
                                                 roNames.shipList, listOfShips,
-                                                roNames.marginalisedShipSprites, this.marginedShipTextures
+                                                roNames.marginalisedShipSprites, this.marginedShipTextures,
+                                                roNames.miniMapRefresh, this.getMiniMapRefreshMs(),
+                                                roNames.miniMapSweep, this.getMiniMapSweepMs(),
+                                                "inert", !miniMapOn
                                         ),
                                         this
                                 )
@@ -228,6 +250,20 @@ public class RTS_Root extends RTS_StatefulClasses implements RTS_Div, RTS_Minima
 
     //------------------------------------------------------------------------------------------------------------------
 
+    private Float getMiniMapRefreshMs () {
+        Object value = this.getDeepState(Arrays.asList(RTSAssist.stNames.config, RTSAssist.coNames.miniMapRefreshMs));
+        if (value instanceof Float && (Float)value >= 16f)
+            return ((Float)value);
+        return (1010f);
+    }
+
+    private Float getMiniMapSweepMs () {
+        Object value = this.getDeepState(Arrays.asList(RTSAssist.stNames.config, RTSAssist.coNames.miniMapSweepMs));
+        if (value instanceof Float && (Float)value >= 16f)
+            return ((Float)value);
+        return (200f);
+    }
+
     private void loadMiniMapPosition () {
         float x; float y;
         RTS_CommonsControl commonsControl = (RTS_CommonsControl)RTS_Global.get(RTSAssistModPlugin.names.commonsControl);
@@ -244,6 +280,7 @@ public class RTS_Root extends RTS_StatefulClasses implements RTS_Div, RTS_Minima
             throw new RuntimeException(e);
         }
         this.minimapPos.set(x, y);
+        this.minimapPosSaved = true;
     }
 
     private void saveMiniMapPosition () {
@@ -276,7 +313,7 @@ public class RTS_Root extends RTS_StatefulClasses implements RTS_Div, RTS_Minima
     private void buildShipLists () {
         for (ShipAPI ship : Global.getCombatEngine().getShips()) {
             if (
-                    (ship.getName() != null && ship.getName().equals("Command Shuttle"))
+                    ship.isShuttlePod()
                             || ship.getHullSize() == null
                             || ship.getOriginalOwner() == 100
             )
@@ -288,7 +325,6 @@ public class RTS_Root extends RTS_StatefulClasses implements RTS_Div, RTS_Minima
                     this.listOfShips.friendlyFighters.add(ship);
                 else
                     this.listOfShips.enemyFighters.add(ship);
-                this.listOfShips.friendlyFighters.add(ship);
                 continue;
             }
             if (ship.getName() == null)
@@ -335,6 +371,9 @@ public class RTS_Root extends RTS_StatefulClasses implements RTS_Div, RTS_Minima
         @Override
         public void onTrigger (HashMap<String, Object> processedProps, Map<String, Object> rawProps, RTS_Node callingNode) {
             if (!(boolean)getState(RTS_ParseInput.stNames.isShiftDown))
+                return;
+            Object miniMapState = getState(RTSAssist.stNames.miniMapEnabled);
+            if (miniMapState instanceof Boolean && !(Boolean)miniMapState)
                 return;
             if (eventHold != null)
                 ((RTS_EventManager)getState(RTSAssist.stNames.eventManager)).deleteEvent(eventHold);
