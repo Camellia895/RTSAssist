@@ -93,6 +93,13 @@ public class RTSAssistModPlugin extends BaseModPlugin {
             } catch (JSONException ignored) {
             }
             put("miniMapSweepMs", miniMapSweepMs);
+            /* Falls back to true for config files predating this option. */
+            boolean showFogOfWar = true;
+            try {
+                showFogOfWar = (boolean)configFile.getBoolean("showFogOfWar");
+            } catch (JSONException ignored) {
+            }
+            put("showFogOfWar", showFogOfWar);
             if (configFile.getString("modID").isEmpty())
                 put("modID", "");
             else

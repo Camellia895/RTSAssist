@@ -477,6 +477,13 @@ public class RTS_ParseInput extends RTS_StatefulClasses {
     }
 
     public void update (float amount, List<InputEventAPI> events) {
+        /* While the console overlay is open its text field receives the same keys as the
+         * mod's hotkeys; drop every event so typing cannot trigger RTS actions. */
+        if (RTS_ConsoleGuard.isConsoleOpen()) {
+            this.setState(RTS_ParseInput.stNames.rightClickStore, null);
+            this.setState(RTS_ParseInput.stNames.leftClickStore, null);
+            return;
+        }
         if (!this.preLoop())
             return;
         for (InputEventAPI x: events) {

@@ -112,6 +112,7 @@ public class RTSAssist extends BaseEveryFrameCombatPlugin {
         public String miniMapEnabled = RTS_StatefulClasses.getUniqueIdentifier();
         public String miniMapRefreshMs = RTS_StatefulClasses.getUniqueIdentifier();
         public String miniMapSweepMs = RTS_StatefulClasses.getUniqueIdentifier();
+        public String fogOfWarEnabled = RTS_StatefulClasses.getUniqueIdentifier();
     }
     public static configIdentifiers coNames = new configIdentifiers();
     /**/
@@ -252,6 +253,7 @@ public class RTSAssist extends BaseEveryFrameCombatPlugin {
                 put(RTSAssist.coNames.miniMapEnabled, confPointer.get("showMiniMap"));
                 put(RTSAssist.coNames.miniMapRefreshMs, confPointer.get("miniMapRefreshMs"));
                 put(RTSAssist.coNames.miniMapSweepMs, confPointer.get("miniMapSweepMs"));
+                put(RTSAssist.coNames.fogOfWarEnabled, confPointer.get("showFogOfWar"));
                 put(RTSAssist.devNames.modID, confPointer.get("modID"));
                 put(RTSAssist.devNames.findAllShips, confPointer.get("findAllShips"));
             }
@@ -274,6 +276,7 @@ public class RTSAssist extends BaseEveryFrameCombatPlugin {
                 put(RTSAssist.coNames.miniMapEnabled, LunaSettings.getBoolean("RTSAssist", "RTSA_SettingsUI_showMiniMap"));
                 put(RTSAssist.coNames.miniMapRefreshMs, LunaSettings.getInt("RTSAssist", "RTSA_SettingsUI_miniMapRefreshMs").floatValue());
                 put(RTSAssist.coNames.miniMapSweepMs, LunaSettings.getInt("RTSAssist", "RTSA_SettingsUI_miniMapSweepMs").floatValue());
+                put(RTSAssist.coNames.fogOfWarEnabled, LunaSettings.getBoolean("RTSAssist", "RTSA_SettingsUI_showFogOfWar"));
                 put(RTSAssist.devNames.modID, LunaSettings.getString("RTSAssist","RTSA_SettingsDevTools_modID"));
                 put(RTSAssist.devNames.findAllShips, LunaSettings.getBoolean("RTSAssist", "RTSA_SettingsDevTools_findAllShips"));
             }

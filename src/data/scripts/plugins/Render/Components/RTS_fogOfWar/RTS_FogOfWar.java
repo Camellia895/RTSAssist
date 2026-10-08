@@ -58,6 +58,8 @@ public interface RTS_FogOfWar extends RTS_BaseInterface {
     static onRender render = new onRender() {
         @Override
         public void render (HashMap<String, Object> props, Map<String, Object> rawProps) {
+            if (props.get(RTS_P_Inert.ID()) instanceof Boolean && (Boolean)props.get(RTS_P_Inert.ID()))
+                return;
             CAU_muStatState_CAU.renderer.update(props, rawProps);
         }
     };
@@ -65,6 +67,8 @@ public interface RTS_FogOfWar extends RTS_BaseInterface {
     static everyFrameUpdate everyFrame = new everyFrameUpdate() {
         @Override
         public void everyFrame (HashMap<String, Object> props, Map<String, Object> rawProps) {
+            if (props.get(RTS_P_Inert.ID()) instanceof Boolean && (Boolean)props.get(RTS_P_Inert.ID()))
+                return;
             CAU_muStatState_CAU.renderer.render(
                     (RTS_Root.shipList)rawProps.get(RTS_Root.roNames.shipList)
             );
@@ -78,7 +82,8 @@ public interface RTS_FogOfWar extends RTS_BaseInterface {
                     new RTS_P_Height(),
                     new RTS_P_Width(),
                     new RTS_P_Top(),
-                    new RTS_P_Left()
+                    new RTS_P_Left(),
+                    new RTS_P_Inert()
             )));
         }
     };

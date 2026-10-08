@@ -370,6 +370,15 @@ public class RTS_LunaIntegration {
                 (boolean)this.confPointer.get("showMiniMap"),
                 this.UITabName
         );
+        /* Show fog of war */
+        LunaSettings.SettingsCreator.addBoolean(
+                this.modID,
+                "RTSA_SettingsUI_showFogOfWar",
+                "Show Fog Of War",
+                "True / False : whether to render the black fog of war covering areas of the battlefield your ships cannot see.",
+                (boolean)this.confPointer.get("showFogOfWar"),
+                this.UITabName
+        );
         /* Enable RTS Ship testing tools */
         LunaSettings.SettingsCreator.addBoolean(
                 this.modID,
