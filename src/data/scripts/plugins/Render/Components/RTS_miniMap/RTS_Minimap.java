@@ -26,7 +26,6 @@ import data.scripts.plugins.RTS_CameraRework;
 import data.scripts.plugins.RTS_ParseInput;
 import data.scripts.plugins.Render.RTS_drawManager.RTS_animator.RTS_Animator;
 import data.scripts.plugins.Render.RTS_drawManager.RTS_DrawManager;
-import data.scripts.plugins.Render.RTS_drawManager.RTS_FBO.RTS_BoundTexture;
 import data.scripts.plugins.Render.JXDOM.Props.*;
 import data.scripts.plugins.Render.JXDOM.RTS_BaseInterface;
 import data.scripts.plugins.Render.JXDOM.RTS_Node;
@@ -208,8 +207,7 @@ public interface RTS_Minimap extends RTS_BaseInterface {
                 CAU_muStatState_CAU.renderer.sweepMs = (Float)rawProps.get(RTS_Root.roNames.miniMapSweep);
             CAU_muStatState_CAU.renderer.render(
                     (RTS_Root.camera)rawProps.get(RTS_Root.roNames.camera),
-                    (RTS_Root.shipList)rawProps.get(RTS_Root.roNames.shipList),
-                    (HashMap<Integer, RTS_BoundTexture>)rawProps.get(RTS_Root.roNames.marginalisedShipSprites)
+                    (RTS_Root.shipList)rawProps.get(RTS_Root.roNames.shipList)
             );
         }
     };

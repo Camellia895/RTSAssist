@@ -32,8 +32,6 @@ import data.scripts.plugins.Render.Components.RTS_fogOfWar.RTS_FogOfWar;
 import data.scripts.plugins.Render.Components.RTS_miniMap.RTS_Minimap;
 import data.scripts.plugins.Render.RTS_drawManager.RTS_animator.RTS_Animator;
 import data.scripts.plugins.Render.RTS_drawManager.RTS_DrawManager;
-import data.scripts.plugins.Render.RTS_drawManager.RTS_FBO.RTS_BoundTexture;
-import data.scripts.plugins.Render.RTS_drawManager.RTS_FBO.RTS_FBOManager;
 import data.scripts.plugins.Render.RTS_drawManager.RTS_ShaderManager;
 import data.scripts.plugins.Render.JXDOM.Div.RTS_Div;
 import data.scripts.plugins.Render.JXDOM.Props.RTS_Prop;
@@ -61,7 +59,6 @@ public class RTS_Root extends RTS_StatefulClasses implements RTS_Div, RTS_Minima
     public static class roNames {
         public static String camera = RTS_StatefulClasses.getUniqueIdentifier();
         public static String shipList = RTS_StatefulClasses.getUniqueIdentifier();
-        public static String marginalisedShipSprites = RTS_StatefulClasses.getUniqueIdentifier();
         public static String miniMapRefresh = RTS_StatefulClasses.getUniqueIdentifier();
         public static String miniMapSweep = RTS_StatefulClasses.getUniqueIdentifier();
     }
@@ -73,10 +70,6 @@ public class RTS_Root extends RTS_StatefulClasses implements RTS_Div, RTS_Minima
         this.animator = (RTS_Animator)this.getState(RTS_RenderManager.stNames.animator);
         this.initMiniMap(this.drawManager, this.animator);
         this.initFogOfWar(this.drawManager);
-        for (Map.Entry<Integer, RTS_BoundTexture> entry : RTS_Root.marginedShipTextures.entrySet())
-            RTS_FBOManager.destroyTextureFBO(entry.getValue());
-        RTS_Root.marginedShipTextures.clear();
-        ((RTS_EventManager)this.getState(RTSAssist.stNames.eventManager)).addListener(this.newShipsListener);
         this.loadMiniMapPosition();
     }
 
@@ -98,7 +91,6 @@ public class RTS_Root extends RTS_StatefulClasses implements RTS_Div, RTS_Minima
         public List<ShipAPI> alliedFighters = new ArrayList<>();
     }
     private shipList listOfShips = new shipList();
-    private static HashMap<Integer, RTS_BoundTexture> marginedShipTextures = new HashMap<>();
     public static Vector2f screenDim = new Vector2f();
 
     private RTS_DrawManager drawManager;
@@ -110,52 +102,6 @@ public class RTS_Root extends RTS_StatefulClasses implements RTS_Div, RTS_Minima
     private boolean minimapPosSaved = false;
     private Vector2f dragHold = new Vector2f();
 
-    private RTS_Listener newShipsListener = new RTS_Listener() {
-        /* This listens fors for new ships appearing on the battlfield and creates a new sprite of that ship
-         *  However this process must wait for UI elements to disapear first otherwise sprite creation can fail???. */
-
-        String queuedShipSpritesEvent = null;
-        List<ShipAPI> queuedShipSprites = new ArrayList<>();
-
-        @Override
-        public String type() {
-            return (RTS_ShipLocAPI.evNames.newShipsDeployed);
-        }
-
-        @Override
-        public void run(HashMap<String, Object> e) {
-            List<ShipAPI> newShips = (List<ShipAPI>)e.get(RTS_ShipLocAPI.evNames.newShipsDeployed);
-            if (this.queuedShipSpritesEvent != null)
-                eventManager.deleteEvent(queuedShipSpritesEvent);
-            this.queuedShipSprites.addAll(newShips);
-            queuedShipSpritesEvent = eventManager.addEvent(queueShips);
-        }
-
-        @Override
-        public boolean removeOnCompletion() {
-            return (false);
-        }
-
-        private RTS_Event queueShips = new RTS_Event() {
-
-            @Override
-            public void run () {
-                buildMarginedShipSprites(queuedShipSprites);
-                queuedShipSprites.clear();
-                queuedShipSpritesEvent = null;
-            }
-
-            @Override
-            public boolean shouldExecute (Object state) {
-                CombatEngineAPI engine = Global.getCombatEngine();
-                return (
-                        !engine.isUIShowingDialog()
-                                && engine.getCombatUI() != null
-                                && !engine.getCombatUI().isShowingCommandUI()
-                );
-            }
-        };
-    };
 
     //------------------------------------------------------------------------------------------------------------------
 
@@ -233,7 +179,6 @@ public class RTS_Root extends RTS_StatefulClasses implements RTS_Div, RTS_Minima
                                         props(
                                                 roNames.camera, camera,
                                                 roNames.shipList, listOfShips,
-                                                roNames.marginalisedShipSprites, this.marginedShipTextures,
                                                 roNames.miniMapRefresh, this.getMiniMapRefreshMs(),
                                                 roNames.miniMapSweep, this.getMiniMapSweepMs(),
                                                 "inert", !miniMapOn
@@ -359,17 +304,6 @@ public class RTS_Root extends RTS_StatefulClasses implements RTS_Div, RTS_Minima
         this.listOfShips.enemyShips.clear();
         this.listOfShips.enemyFighters.clear();
         this.listOfShips.hulks.clear();
-    }
-
-    private void buildMarginedShipSprites (List<ShipAPI> shipList) {
-        for (ShipAPI ship : shipList) {
-            if (this.marginedShipTextures.containsKey(ship.getSpriteAPI().getTextureId()))
-                continue;
-            this.marginedShipTextures.put(
-                    ship.getSpriteAPI().getTextureId(),
-                    RTS_FBOManager.buildTextureFBO(ship.getSpriteAPI(), 100f)
-            );
-        }
     }
 
     private RTS_Prop.propEvent setMinimapPosition = new RTS_Prop.propEvent() {

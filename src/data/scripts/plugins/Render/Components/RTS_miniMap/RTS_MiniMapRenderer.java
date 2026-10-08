@@ -25,7 +25,6 @@ import com.fs.starfarer.api.combat.*;
 import data.scripts.plugins.Render.RTS_drawManager.*;
 import data.scripts.plugins.Render.RTS_drawManager.RTS_animator.RTS_AnimationController;
 import data.scripts.plugins.Render.RTS_drawManager.RTS_animator.RTS_Animator;
-import data.scripts.plugins.Render.RTS_drawManager.RTS_FBO.RTS_BoundTexture;
 import data.scripts.plugins.Render.JXDOM.Props.*;
 import data.scripts.plugins.Render.RTS_RenderManager;
 import data.scripts.plugins.Render.RTS_Root;
@@ -154,8 +153,7 @@ public class RTS_MiniMapRenderer {
 
     public void render(
             RTS_Root.camera camera,
-            RTS_Root.shipList listOfShips,
-            HashMap<Integer, RTS_BoundTexture> marginedShipSprites
+            RTS_Root.shipList listOfShips
     ) {
         if (disabled || !this.init)
             return;
