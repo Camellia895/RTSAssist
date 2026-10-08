@@ -2,6 +2,19 @@ Full Changelog: https://fractalsoftworks.com/forum/index.php?topic=32007
 
 RTSAssist 汉化修复线（本地补丁记录，非上游发布）
 
+Version 0.2.18exp 修复说明（2026-10-08）
+    修复：带拼装机甲（MechExpansionModule，mem_origin2_* 贴图）的战斗中，GraphicsLib
+          重载贴图缓存（TextureData Unloading → Preloading）窗口期内战斗内崩溃
+          （NPE: com.fs.starfarer.settings.OoOO.getTextureWidth，栈自
+          RTS_FBOManager.buildTextureFBO ← RTS_Root.buildMarginedShipSprites）。
+    根因：小地图打点模型重构（0.2.14exp）后，"为新船构建 sprite 缓存"整条管线已无
+          消费者（渲染器收参不读），但仍在每场战斗为新船构建 FBO 纹理；GraphicsLib
+          清缓存窗口期内船体贴图对象为 null，getTextureWidth() 直接 NPE。
+    改法：整段移除遗留的 sprite 构建管线（RTS_Root 的 newShipsListener、
+          marginedShipTextures 缓存、buildMarginedShipSprites；RTS_Minimap/渲染器的
+          透传参数），崩溃路径不复存在；RTS_FBOManager 工具方法保留未动。
+          顺带省去每场战斗的纹理构建开销。移除内部类后清理 jar 孤儿条目（763→761）。
+
 Version 0.2.17exp 更新说明（2026-10-08）
     新增：设置页新增「显示战争迷雾」开关（Luna 设置页条目 + Config.ini 的 showFogOfWar，
           默认开启），可一键关闭战场上的黑色战争迷雾遮罩；经组件 inert 门控实现，
