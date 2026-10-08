@@ -2,6 +2,15 @@ Full Changelog: https://fractalsoftworks.com/forum/index.php?topic=32007
 
 RTSAssist 汉化修复线（本地补丁记录，非上游发布）
 
+Version 0.2.17exp 更新说明（2026-10-08）
+    新增：设置页新增「显示战争迷雾」开关（Luna 设置页条目 + Config.ini 的 showFogOfWar，
+          默认开启），可一键关闭战场上的黑色战争迷雾遮罩；经组件 inert 门控实现，
+          关闭后既不更新也不绘制。
+    修复：打开控制台（Console Commands）输入指令时，RTSAssist 快捷键仍然触发，导致
+          绑定为快捷键的字母无法输入。现检测到控制台覆盖层开启时完全暂停 RTS 按键
+          解析（反射读取 ConsoleOverlayPanel/Companion 与 legacy overlay 实例状态，
+          兼容 v2 与 legacy 覆盖层；未安装控制台 mod 时零开销零影响）。
+
 Version 0.2.16exp 修复说明（2026-10-06）
     修复：旗舰未上场或阵亡后，切换到其他座舰时战斗内崩溃（NullPointerException: ShipAPI.getCaptain() is null）。
     根因：RTS_ModeManager.playerSwitchesToDifferentShip 遍历全场舰船查找玩家舰长时，getCaptain() 对

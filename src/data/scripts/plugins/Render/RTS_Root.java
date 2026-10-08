@@ -193,6 +193,13 @@ public class RTS_Root extends RTS_StatefulClasses implements RTS_Div, RTS_Minima
             miniMapEnabled = (Boolean)miniMapState;
         final boolean miniMapOn = miniMapEnabled;
 
+        /* Config-only toggle (no runtime hotkey): an inert fog of war neither updates nor draws. */
+        boolean fogOfWarEnabled = true;
+        Object fogOfWarState = this.getState(RTSAssist.coNames.fogOfWarEnabled);
+        if (fogOfWarState instanceof Boolean)
+            fogOfWarEnabled = (Boolean)fogOfWarState;
+        final boolean fogOfWarOn = fogOfWarEnabled;
+
         //--------------------------------------------------------------------------------------------------------------
 
         /* Body */
@@ -239,7 +246,8 @@ public class RTS_Root extends RTS_StatefulClasses implements RTS_Div, RTS_Minima
                                 null,
                                 fogOfWar(
                                         props(
-                                                roNames.shipList, listOfShips
+                                                roNames.shipList, listOfShips,
+                                                "inert", !fogOfWarOn
                                         ),
                                         this
                                 )

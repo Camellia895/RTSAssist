@@ -370,6 +370,15 @@ public class RTS_LunaIntegration {
                 (boolean)this.confPointer.get("showMiniMap"),
                 this.UITabName
         );
+        /* Show fog of war */
+        LunaSettings.SettingsCreator.addBoolean(
+                this.modID,
+                "RTSA_SettingsUI_showFogOfWar",
+                "显示战争迷雾",
+                "开启/关闭：是否渲染战场上的黑色战争迷雾（己方舰船视野之外的黑色遮罩）。",
+                (boolean)this.confPointer.get("showFogOfWar"),
+                this.UITabName
+        );
         /* Enable RTS Ship testing tools */
         LunaSettings.SettingsCreator.addBoolean(
                 this.modID,
