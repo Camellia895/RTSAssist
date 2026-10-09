@@ -24,6 +24,7 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.combat.CombatViewport;
 import data.scripts.plugins.Render.JXDOM.Props.RTS_P_Height;
+import data.scripts.plugins.Render.JXDOM.Props.RTS_P_Inert;
 import data.scripts.plugins.Render.JXDOM.Props.RTS_P_Left;
 import data.scripts.plugins.Render.JXDOM.Props.RTS_P_Top;
 import data.scripts.plugins.Render.JXDOM.Props.RTS_P_Width;
@@ -64,6 +65,10 @@ public class RTS_FogOfWarRenderer {
 
     private List<ShipAPI> shipsWithVision = new ArrayList<>();
 
+    /* The vanilla draw plugin is attached to the combat engine once and keeps rendering on its
+     * own, so the fog toggle has to be honoured inside its render pass, not at registration. */
+    private boolean disabled = false;
+
     private List<MapCell> cellList = new ArrayList<>();
     private class MapCell {
         Vector2f bottomLeft = new Vector2f();
@@ -75,13 +80,16 @@ public class RTS_FogOfWarRenderer {
 
     public static int drawID = RTS_DrawManager.getVanillaDrawID();
 
-    public void render (RTS_Root.shipList listOfShips) {
+    public void render (RTS_Root.shipList listOfShips, boolean enabled) {
+        this.disabled = !enabled;
         this.buildShipLists(listOfShips);
 //        this.drawManager.registerDrawCall(drawFogOfWar);
         this.drawManager.registerVanillaDrawCall(drawID, vanillaDraw);
     }
 
     public void update (HashMap<String, Object> props, Map<String, Object> rawProps) {
+        if (props.get(RTS_P_Inert.ID()) instanceof Boolean && (Boolean)props.get(RTS_P_Inert.ID()))
+            return;
         this.pos.set((float)props.get(RTS_P_Left.ID()), RTS_Root.screenDim.getY() - (float)props.get(RTS_P_Top.ID()));
         this.dim.set((float)props.get(RTS_P_Width.ID()), (float)props.get(RTS_P_Height.ID()));
         this.posRef.set(this.pos.getX(), this.pos.getY() - this.dim.getY());
@@ -168,6 +176,8 @@ public class RTS_FogOfWarRenderer {
 
         @Override
         public void render (CombatEngineLayers layer, ViewportAPI viewport) {
+            if (disabled)
+                return;
             drawManager.open();
             drawFogOfWar.call();
             RTS_ShaderManager.clearProgram();

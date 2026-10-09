@@ -2,6 +2,18 @@ Full Changelog: https://fractalsoftworks.com/forum/index.php?topic=32007
 
 RTSAssist 汉化修复线（本地补丁记录，非上游发布）
 
+Version 0.2.19exp 修复说明（2026-10-09）
+    修复：0.2.17exp 引入的「显示战争迷雾」开关不生效——关闭后黑色迷雾依旧渲染。
+    根因（两处）：
+    ① RTS_Root 读取开关用了根级 getState(coNames.fogOfWarEnabled)，而配置值实际存放在
+      stNames.config 嵌套层内，根级永远读到 null ⇒ 恒回退"开"；
+    ② 战争迷雾的 vanillaDraw 是一次性 addLayeredRenderingPlugin 挂载到战斗引擎的持久
+      渲染插件，组件侧跳过更新并不能阻止已挂载插件继续绘制。
+    改法：① 改用 getDeepState([config, coNames.fogOfWarEnabled])；② disabled 标志下沉到
+      RTS_FogOfWarRenderer，everyFrame 每帧传入开关状态，vanillaDraw.render 首行拦截。
+    顺带修复上游同款潜伏 bug：小地图 showMiniMap 配置/Luna 初始化同样用根级读取永不
+    生效（热键可用是因其写运行时状态），现改 getDeepState，配置关闭后入战不再显示。
+
 Version 0.2.18exp 修复说明（2026-10-08）
     修复：带拼装机甲（MechExpansionModule，mem_origin2_* 贴图）的战斗中，GraphicsLib
           重载贴图缓存（TextureData Unloading → Preloading）窗口期内战斗内崩溃

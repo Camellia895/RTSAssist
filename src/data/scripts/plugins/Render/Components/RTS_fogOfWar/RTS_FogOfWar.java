@@ -58,8 +58,8 @@ public interface RTS_FogOfWar extends RTS_BaseInterface {
     static onRender render = new onRender() {
         @Override
         public void render (HashMap<String, Object> props, Map<String, Object> rawProps) {
-            if (props.get(RTS_P_Inert.ID()) instanceof Boolean && (Boolean)props.get(RTS_P_Inert.ID()))
-                return;
+            /* update() itself no-ops on inert; the flag must flow through everyFrame regardless,
+             * because the vanilla draw plugin is engine-attached and has to be told to stand down. */
             CAU_muStatState_CAU.renderer.update(props, rawProps);
         }
     };
@@ -67,10 +67,10 @@ public interface RTS_FogOfWar extends RTS_BaseInterface {
     static everyFrameUpdate everyFrame = new everyFrameUpdate() {
         @Override
         public void everyFrame (HashMap<String, Object> props, Map<String, Object> rawProps) {
-            if (props.get(RTS_P_Inert.ID()) instanceof Boolean && (Boolean)props.get(RTS_P_Inert.ID()))
-                return;
+            boolean disabled = props.get(RTS_P_Inert.ID()) instanceof Boolean && (Boolean)props.get(RTS_P_Inert.ID());
             CAU_muStatState_CAU.renderer.render(
-                    (RTS_Root.shipList)rawProps.get(RTS_Root.roNames.shipList)
+                    (RTS_Root.shipList)rawProps.get(RTS_Root.roNames.shipList),
+                    !disabled
             );
         }
     };

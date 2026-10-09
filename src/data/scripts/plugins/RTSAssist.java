@@ -194,10 +194,11 @@ public class RTSAssist extends BaseEveryFrameCombatPlugin {
         this.setDeepState(Arrays.asList(RTSAssist.stNames.amount, RTSAssist.amNames.elapsedPlay), 0f);
         this.getHotkeys();
         this.getConfig();
-        /* Runtime toggle for the minimap; starts from config and is flipped by the hotkey. */
+        /* Runtime toggle for the minimap; starts from config and is flipped by the hotkey.
+         * Config values live in the nested config map, hence getDeepState. */
+        Object miniMapConf = this.getDeepState(Arrays.asList(RTSAssist.stNames.config, RTSAssist.coNames.miniMapEnabled));
         this.setState(RTSAssist.stNames.miniMapEnabled,
-                this.getState(RTSAssist.coNames.miniMapEnabled) == null
-                        || (boolean)this.getState(RTSAssist.coNames.miniMapEnabled));
+                !(miniMapConf instanceof Boolean) || (Boolean)miniMapConf);
         if (Global.getSettings().getModManager().isModEnabled("lunalib"))
             LunaSettings.addSettingsListener(new LunaSettingsListener() {
                 @Override

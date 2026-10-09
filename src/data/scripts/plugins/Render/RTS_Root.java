@@ -139,11 +139,10 @@ public class RTS_Root extends RTS_StatefulClasses implements RTS_Div, RTS_Minima
             miniMapEnabled = (Boolean)miniMapState;
         final boolean miniMapOn = miniMapEnabled;
 
-        /* Config-only toggle (no runtime hotkey): an inert fog of war neither updates nor draws. */
-        boolean fogOfWarEnabled = true;
-        Object fogOfWarState = this.getState(RTSAssist.coNames.fogOfWarEnabled);
-        if (fogOfWarState instanceof Boolean)
-            fogOfWarEnabled = (Boolean)fogOfWarState;
+        /* Config-only toggle (no runtime hotkey): an inert fog of war neither updates nor draws.
+         * Config values live in the nested config map, hence getDeepState. */
+        Object fogOfWarState = this.getDeepState(Arrays.asList(RTSAssist.stNames.config, RTSAssist.coNames.fogOfWarEnabled));
+        boolean fogOfWarEnabled = !(fogOfWarState instanceof Boolean) || (Boolean)fogOfWarState;
         final boolean fogOfWarOn = fogOfWarEnabled;
 
         //--------------------------------------------------------------------------------------------------------------
