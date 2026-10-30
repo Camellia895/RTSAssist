@@ -548,6 +548,44 @@ public class RTS_TaskManager extends RTS_StatefulClasses {
         ));
     }
 
+    /* Any alive non-fighter ship under (or near) the cursor — friends and enemies alike.
+       Used by the target-info lock. Mirrors getEnemies' tolerance handling. */
+    public ShipAPI getShipUnderCursor (Vector2f coOrd) {
+        float missedClickUIHelper = 25f * (((float)this.getDeepState(Arrays.asList(RTSAssist.stNames.config, RTSAssist.coNames.selectionTolerance)) - 1f) * 2f)
+                * ((float)this.getState(RTS_CameraRework.stNames.targetZoom) * 0.3f);
+        List<ShipAPI> lockableShips = new ArrayList<>();
+        for (ShipAPI ship : ((CombatEngineAPI)this.getState(RTSAssist.stNames.engine)).getShips()) {
+            if (ship.isFighter() || ship.isHulk())
+                continue;
+            lockableShips.add(ship);
+        }
+        ShipAPI hovered = null;
+        for (ShipAPI ship : lockableShips) {
+            ship.getExactBounds().update(ship.getLocation(), ship.getFacing());
+            if (CollisionUtils.isPointWithinBounds(coOrd, (CombatEntityAPI)ship)) {
+                hovered = ship;
+                break;
+            }
+        }
+        if (hovered == null) {
+            float shortestD = 400000000;
+            float dPointer;
+            for (ShipAPI ship : lockableShips) {
+                dPointer = ((Double)RTS_AssortedFunctions.getDistanceSquared(
+                        coOrd,
+                        CollisionUtils.getNearestPointOnBounds(coOrd, ship))
+                ).floatValue();
+                if (dPointer < Math.pow(missedClickUIHelper, 2)) {
+                    if (dPointer < shortestD) {
+                        shortestD = dPointer;
+                        hovered = ship;
+                    }
+                }
+            }
+        }
+        return (hovered);
+    }
+
     /* Target orders (orbit / keep distance): just inside the ship's longest direct-fire weapon
        range, so circling ships keep their guns on the target. */
     private float defaultOrbitRadius (ShipAPI ship, ShipAPI target) {

@@ -133,6 +133,7 @@ public class RTSAssist extends BaseEveryFrameCombatPlugin {
         public String orbitRadial = RTS_StatefulClasses.getUniqueIdentifier();
         public String orbitTangential = RTS_StatefulClasses.getUniqueIdentifier();
         public String keepDistance = RTS_StatefulClasses.getUniqueIdentifier();
+        public String lockTarget = RTS_StatefulClasses.getUniqueIdentifier();
         public String param1 = RTS_StatefulClasses.getUniqueIdentifier();
         public String param2 = RTS_StatefulClasses.getUniqueIdentifier();
         public String param3 = RTS_StatefulClasses.getUniqueIdentifier();
@@ -316,6 +317,7 @@ public class RTSAssist extends BaseEveryFrameCombatPlugin {
                 put(RTSAssist.hoNames.orbitRadial, hotPointer.get("orbitRadial"));
                 put(RTSAssist.hoNames.orbitTangential, hotPointer.get("orbitTangential"));
                 put(RTSAssist.hoNames.keepDistance, hotPointer.get("keepDistance"));
+                put(RTSAssist.hoNames.lockTarget, hotPointer.get("lockTarget"));
                 put(RTSAssist.hoNames.toggleMiniMap, hotPointer.get("toggleMiniMap"));
             }
             else {
@@ -340,6 +342,7 @@ public class RTSAssist extends BaseEveryFrameCombatPlugin {
                 put(RTSAssist.hoNames.orbitRadial, Keyboard.getKeyName(LunaSettings.getInt("RTSAssist", "RTSA_SettingsKeybind_orbitRadial")));
                 put(RTSAssist.hoNames.orbitTangential, Keyboard.getKeyName(LunaSettings.getInt("RTSAssist", "RTSA_SettingsKeybind_orbitTangential")));
                 put(RTSAssist.hoNames.keepDistance, Keyboard.getKeyName(LunaSettings.getInt("RTSAssist", "RTSA_SettingsKeybind_keepDistance")));
+                put(RTSAssist.hoNames.lockTarget, Keyboard.getKeyName(LunaSettings.getInt("RTSAssist", "RTSA_SettingsKeybind_lockTarget")));
                 put(RTSAssist.hoNames.toggleMiniMap, Keyboard.getKeyName(LunaSettings.getInt("RTSAssist", "RTSA_SettingsKeybind_toggleMiniMap")));
             }
             put(RTSAssist.hoNames.param1, hotPointer.get("param1"));

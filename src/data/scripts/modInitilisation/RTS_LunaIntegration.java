@@ -152,6 +152,15 @@ public class RTS_LunaIntegration {
                 Keyboard.getKeyIndex(this.hotPointer.get("keepDistance")),
                 this.hotKeyTabName
         );
+        /* Lock target (view ship info) */
+        LunaSettings.SettingsCreator.addKeybind(
+                this.modID,
+                "RTSA_SettingsKeybind_lockTarget",
+                "锁定查看舰船信息",
+                "锁定光标处舰船（敌我皆可）并展开其信息卡，再次按键或按向空处解除；任何选择操作也会解除锁定。",
+                Keyboard.getKeyIndex(this.hotPointer.get("lockTarget")),
+                this.hotKeyTabName
+        );
         /* Strafe Left */
         LunaSettings.SettingsCreator.addKeybind(
                 this.modID,

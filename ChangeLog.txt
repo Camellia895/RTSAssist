@@ -2,6 +2,16 @@ Full Changelog: https://fractalsoftworks.com/forum/index.php?topic=32007
 
 RTSAssist 汉化修复线（本地补丁记录，非上游发布）
 
+Version 0.2.21exp（2026-10-31，版本号已更新）
+    新增：锁定查看舰船信息（原版 R 锁定的 RTS 版）。RTS 模式下按锁定键（默认 L，可在
+          Hotkeys.ini / Luna 设置中修改）：
+          · 光标指向任意舰船（敌我皆可，不含战机/残骸）→ 锁定并展开其信息卡；
+          · 再次对同一舰船按键、按向空处、或进行任何选择操作 → 解除锁定。
+          实现复用单选信息展示机制（引擎玩家舰外部指派 + 舰长回填），不改变当前选择与
+          指挥状态；与非单选时隐藏信息卡的显示状态机互斥协调。
+    说明：锁定即"查看"，不影响选中圈与已下达命令；原版 R 在 RTS 模式下仍被协同移动
+          占用，故另设新键承载原版式锁定语义。
+
 Version 0.2.20exp（2026-10-31，版本号已更新）
     修复：与 AI 改修（AI Tweaks）2.2.10 同开时，战斗中报错
           "Ship [...] is being controlled by an AI that is assigned to something else"。
