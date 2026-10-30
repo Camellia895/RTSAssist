@@ -71,6 +71,9 @@ public class RTS_ParseInputKeyBinds extends RTS_StatefulClasses {
         this.keyEngine.addConditionSet(this.loadLayout());
         this.keyEngine.addConditionSet(this.moveTogether());
         this.keyEngine.addConditionSet(this.attackMove());
+        this.keyEngine.addConditionSet(this.orbitRadial());
+        this.keyEngine.addConditionSet(this.orbitTangential());
+        this.keyEngine.addConditionSet(this.keepDistance());
         this.keyEngine.addConditionSet(this.deleteAssignments());
         this.keyEngine.addConditionSet(this.vent());
         this.keyEngine.addConditionSet(this.useSystem());
@@ -604,6 +607,71 @@ public class RTS_ParseInputKeyBinds extends RTS_StatefulClasses {
             }
         });
         return (attackMove);
+    }
+
+    /* TARGET ORDERS: radial orbit / tangential orbit / keep distance. Issued at the enemy under
+       the cursor; the assignment then chases the target continuously (see RTS_ShipMoveToPosition). */
+    private RTS_StateEngine.conditionSet targetOrder (RTS_TaskManager.assType type) {
+        RTS_StateEngine.conditionSet targetOrder = new RTS_StateEngine.conditionSet();
+        targetOrder.setResult(new RTS_StateEngine.action() {
+            @Override
+            public Object run() {
+                if (getState(RTS_ParseInput.stNames.currentSelection) != null) {
+                    ShipAPI enemy = ((RTS_TaskManager)getState(RTSAssist.stNames.taskManager)).getEnemies(
+                            "primary",
+                            (Vector2f)getState(RTS_ParseInput.stNames.worldSpace),
+                            null
+                    );
+                    if (enemy != null) {
+                        HashMap<String, Object> queueInfo = new HashMap<>();
+                        queueInfo.put("assType", type);
+                        queueInfo.put("primaryEnemy", enemy);
+                        ((RTS_TaskManager)getState(RTSAssist.stNames.taskManager)).createAssignments(
+                                queueInfo,
+                                (List<ShipAPI>)getState(RTS_ParseInput.stNames.currentSelection),
+                                new Vector2f(enemy.getLocation()),
+                                null,
+                                false,
+                                true,
+                                false,
+                                false,
+                                true
+                        );
+                    }
+                }
+                x.consume();
+                return (null);
+            }
+        });
+        targetOrder.addCondition(new RTS_StateEngine.condition() {
+            @Override
+            public String identifier() {
+                return (RTS_ParseInputKeyBinds.kiNames.eventValue);
+            }
+
+            @Override
+            public Boolean check(Object var) {
+                String key = type == RTS_TaskManager.assType.orbitRadial
+                        ? RTSAssist.hoNames.orbitRadial
+                        : type == RTS_TaskManager.assType.orbitTangential
+                        ? RTSAssist.hoNames.orbitTangential
+                        : RTSAssist.hoNames.keepDistance;
+                return (x.isKeyDownEvent() && Keyboard.getKeyName((int)var).equals(hotKeys.get(key)));
+            }
+        });
+        return (targetOrder);
+    }
+
+    private RTS_StateEngine.conditionSet orbitRadial () {
+        return (this.targetOrder(RTS_TaskManager.assType.orbitRadial));
+    }
+
+    private RTS_StateEngine.conditionSet orbitTangential () {
+        return (this.targetOrder(RTS_TaskManager.assType.orbitTangential));
+    }
+
+    private RTS_StateEngine.conditionSet keepDistance () {
+        return (this.targetOrder(RTS_TaskManager.assType.keepDistance));
     }
 
     /* DELETE ASSIGNMENTS */

@@ -2,6 +2,24 @@ Full Changelog: https://fractalsoftworks.com/forum/index.php?topic=32007
 
 RTSAssist 汉化修复线（本地补丁记录，非上游发布）
 
+Version 0.2.20exp（2026-10-31，版本号已更新）
+    修复：与 AI 改修（AI Tweaks）2.2.10 同开时，战斗中报错
+          "Ship [...] is being controlled by an AI that is assigned to something else"。
+    根因：AI 改修把舰船 AI 替换为自己的 ExtendedShipAI（继承原版 BasicShipAI），且引擎每次重新分配
+          AI 都会生成新实例；RTSAssist 的 RTS_AIInjector 包装器缓存了旧 AI 实例，advance 时临时换上
+          旧 AI 执行，命中原版 BasicShipAI 的"AI 与舰船不匹配"保护。
+    改法：RTS_AIInjector 三处加固——包装器 advance 前优先采纳舰船当前实际装配的 AI（不再推进过期
+          副本）；retrieveAI 改用身份判定裁剪自身包装（替换原 getConfig 探测技巧，不再把包装器本身
+          当 AI 返回）；AI 列表耗尽时若舰上仍有现役 AI 则直接复用（不再无条件用全新原版 AI 覆盖）。
+          另加兜底：若仍与其他 mod 的重分配竞争落败，捕获原版保护异常、丢弃过期条目并自动重挂，
+          不再打断整场推进。
+    新增：三种目标相对操作（热键可在 Hotkeys.ini 或 Luna 设置中修改，默认 Z / T / O）——
+          · 径向环绕（Z）：环绕光标处敌舰，舰首始终朝向目标；
+          · 切向环绕（T）：环绕光标处敌舰，以舷侧朝向目标，适合征服者等侧舷舰；
+          · 保持距离（O）：与光标处敌舰保持固定距离（默认为最长武器射程的 85%），适合风筝与保持阵型。
+          环绕方向自动顺从舰船当前漂移方向；对同一目标再次下达同一环绕命令可反转方向。目标死亡后
+          命令自动解除；与其他命令一致，可用新命令覆盖，或用清除命令键（默认 X）取消。
+
 Version 0.2.19exp 补充修复（2026-10-22，版本号未动）
     修复：战斗中切换舰船（转移指挥）后，玩家自己设置的武器分组丢失/串台——
           选中武器组跳组、各组自动开火状态错乱。全程无报错无崩溃。

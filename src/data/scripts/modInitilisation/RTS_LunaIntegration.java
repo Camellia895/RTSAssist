@@ -125,6 +125,33 @@ public class RTS_LunaIntegration {
                 Keyboard.getKeyIndex(this.hotPointer.get("attackMove")),
                 this.hotKeyTabName
         );
+        /* Radial Orbit */
+        LunaSettings.SettingsCreator.addKeybind(
+                this.modID,
+                "RTSA_SettingsKeybind_orbitRadial",
+                "径向环绕",
+                "所选舰船环绕光标处敌舰，舰首始终朝向目标。再次对同一目标下达同一命令可反转环绕方向。",
+                Keyboard.getKeyIndex(this.hotPointer.get("orbitRadial")),
+                this.hotKeyTabName
+        );
+        /* Tangential Orbit */
+        LunaSettings.SettingsCreator.addKeybind(
+                this.modID,
+                "RTSA_SettingsKeybind_orbitTangential",
+                "切向环绕",
+                "所选舰船环绕光标处敌舰，以舷侧朝向目标，适合征服者等侧舷舰。再次对同一目标下达同一命令可反转环绕方向。",
+                Keyboard.getKeyIndex(this.hotPointer.get("orbitTangential")),
+                this.hotKeyTabName
+        );
+        /* Keep Distance */
+        LunaSettings.SettingsCreator.addKeybind(
+                this.modID,
+                "RTSA_SettingsKeybind_keepDistance",
+                "保持距离",
+                "所选舰船与光标处敌舰保持固定距离（默认为最长武器射程的 85%），适合风筝与保持阵型。",
+                Keyboard.getKeyIndex(this.hotPointer.get("keepDistance")),
+                this.hotKeyTabName
+        );
         /* Strafe Left */
         LunaSettings.SettingsCreator.addKeybind(
                 this.modID,
